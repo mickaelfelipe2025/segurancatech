@@ -11,17 +11,9 @@
 
   <style>
     :root{
-      --bg:#f4f6f8;
-      --card:#ffffff;
-      --nav:#122c66;
-      --header:#0a1f44;
-      --text:#0b1220;
-      --muted:#475569;
-      --shadow:0 10px 22px rgba(2,6,23,.10);
-      --radius:14px;
-      --line:#e6edf7;
-      --chip:#e9f1ff;
-      --chipText:#0a1f44;
+      --bg:#f4f6f8; --card:#ffffff; --nav:#122c66; --header:#0a1f44;
+      --text:#0b1220; --muted:#475569; --shadow:0 10px 22px rgba(2,6,23,.10);
+      --radius:14px; --line:#e6edf7; --chip:#e9f1ff; --chipText:#0a1f44;
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
@@ -30,54 +22,36 @@
     header p{margin:0;opacity:.9}
 
     nav{
-      background:var(--nav);
-      padding:10px 12px;
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      position:sticky;
-      top:0;
-      z-index:999;
+      background:var(--nav); padding:10px 12px; display:flex; justify-content:center; gap:10px;
+      flex-wrap:wrap; align-items:center; position:sticky; top:0; z-index:999;
     }
     nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}
     nav a:hover{background:rgba(255,255,255,.10)}
 
     .dropdown{position:relative}
     .dropbtn{
-      background:transparent;color:#fff;border:0;font-weight:800;
-      padding:10px 12px;border-radius:10px;cursor:pointer;
-      display:flex;align-items:center;gap:8px;font-size:16px;
+      background:transparent;color:#fff;border:0;font-weight:800;padding:10px 12px;border-radius:10px;
+      cursor:pointer;display:flex;align-items:center;gap:8px;font-size:16px;
     }
     .dropbtn:hover{background:rgba(255,255,255,.10)}
     .dropdown-content{
-      display:none;position:absolute;top:48px;left:0;min-width:270px;background:#fff;
-      border-radius:14px;box-shadow:0 18px 40px rgba(2,6,23,.20);overflow:hidden;z-index:1000;
+      display:none;position:absolute;top:48px;left:0;min-width:270px;background:#fff;border-radius:14px;
+      box-shadow:0 18px 40px rgba(2,6,23,.20);overflow:hidden;z-index:1000;
     }
     .dropdown-content a{
-      color:#0b1220;padding:12px 14px;display:block;text-decoration:none;font-weight:800;
-      border-bottom:1px solid #eef2f7;
+      color:#0b1220;padding:12px 14px;display:block;text-decoration:none;font-weight:800;border-bottom:1px solid #eef2f7;
     }
     .dropdown-content a:last-child{border-bottom:none}
     .dropdown-content a:hover{background:#f6f8fb}
     .dropdown-content small{display:block;font-weight:650;color:#64748b;margin-top:2px}
 
     .container{max-width:980px;margin:0 auto;padding:22px 14px}
-    .card{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px;
-      border:1px solid rgba(0,0,0,0);
-    }
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
 
     .meta{margin-top:8px;color:#64748b;font-weight:800;font-size:13px;display:flex;gap:10px;flex-wrap:wrap}
     .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 12px;border-radius:999px;
-      background:var(--chip);color:var(--chipText);
-      font-weight:900;width:fit-content;margin-top:12px;
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+      background:var(--chip);color:var(--chipText);font-weight:900;width:fit-content;margin-top:12px;
     }
 
     h2{margin:0 0 8px}
@@ -85,39 +59,40 @@
     p,li{margin:0;color:var(--muted);line-height:1.75}
     p{margin-top:10px}
 
-    .callout{
-      margin:14px 0;padding:12px 14px;border-radius:12px;
-      background:#e9f1ff;color:#0a1f44;font-weight:900;
-    }
-    .warn{
-      background:#fff7ed;color:#7c2d12;font-weight:900;
-      border:1px solid #fed7aa;
-    }
+    .callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+    .warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
 
-    .video{
-      margin-top:14px;
+    .toc{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .toc a{
+      text-decoration:none;font-weight:900;color:#0a1f44;background:#f6f8fb;border:1px solid #eef2f7;
+      border-radius:999px;padding:8px 10px;display:inline-block;
+    }
+    .toc a:hover{background:#eef2f7}
+
+    /* Imagens */
+    figure{margin:14px 0}
+    .img{
+      width:100%;
       border-radius:16px;
       overflow:hidden;
-      box-shadow:0 14px 30px rgba(2,6,23,.14);
       border:1px solid rgba(230,237,247,.9);
-      background:#000;
+      box-shadow:0 14px 30px rgba(2,6,23,.12);
+      background:#fff;
+      display:block;
+    }
+    figcaption{margin-top:8px;color:#64748b;font-weight:800;font-size:13px}
+
+    /* Vídeo */
+    .video{
+      margin-top:14px;border-radius:16px;overflow:hidden;box-shadow:0 14px 30px rgba(2,6,23,.14);
+      border:1px solid rgba(230,237,247,.9);background:#000;
     }
     .video iframe{width:100%;height:520px;border:0;display:block}
     @media (max-width: 860px){ .video iframe{height:260px} }
 
-    .toc{
-      display:flex;gap:10px;flex-wrap:wrap;margin-top:12px
-    }
-    .toc a{
-      text-decoration:none;font-weight:900;color:#0a1f44;background:#f6f8fb;
-      border:1px solid #eef2f7;border-radius:999px;padding:8px 10px;display:inline-block;
-    }
-    .toc a:hover{background:#eef2f7}
-
     .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
     .btn{
-      display:inline-block;padding:10px 12px;border-radius:12px;
-      border:1px solid var(--line);background:#fff;
+      display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;
       font-weight:900;color:#0a1f44;text-decoration:none;
     }
     .btn:hover{background:#f6f8fb}
@@ -125,50 +100,29 @@
     .btn-primary:hover{filter:brightness(1.05)}
 
     /* Rodapé */
-    footer{
-      margin-top:18px;
-      background:linear-gradient(180deg, #0a1f44 0%, #071a3a 100%);
-      color:#eaf0ff;
-      padding:26px 14px;
-    }
+    footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
     .footer-wrap{max-width:980px;margin:0 auto}
     .footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
-    .foot-card{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:16px;padding:16px;
-    }
+    .foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
     .foot-card h3,.foot-card h4{margin:0 0 8px}
     .foot-card p{margin:0;color:rgba(234,240,255,.85);line-height:1.6}
     .links{display:grid;gap:10px}
     .links a{
-      color:#fff;text-decoration:none;font-weight:900;
-      padding:10px 12px;border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
+      color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
       background:rgba(255,255,255,.04);display:block;
     }
     .links a:hover{background:rgba(255,255,255,.08)}
     .footnote{
-      max-width:980px;margin:14px auto 0;text-align:center;
-      color:rgba(234,240,255,.75);font-size:13px;
-      padding-top:14px;border-top:1px solid rgba(255,255,255,.12);
+      max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);
     }
     .footnote a{color:#fff;font-weight:900;text-decoration:none}
     .footnote a:hover{text-decoration:underline}
 
-    /* Bloco de transcrição */
+    /* Transcrição */
     pre.transcript{
-      margin-top:12px;
-      padding:14px;
-      background:#0b1220;
-      color:#eaf0ff;
-      border-radius:14px;
-      overflow:auto;
-      line-height:1.6;
+      margin-top:12px;padding:14px;background:#0b1220;color:#eaf0ff;border-radius:14px;overflow:auto;line-height:1.6;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:13px;
-      border:1px solid rgba(255,255,255,.08);
-      white-space:pre-wrap;
+      font-size:13px;border:1px solid rgba(255,255,255,.08);white-space:pre-wrap;
     }
   </style>
 </head>
@@ -204,92 +158,117 @@
 <div class="container">
   <article class="card">
     <h2>O que é ASN? (Explicação + Vídeo + Guia Prático)</h2>
+
     <div class="meta">
       <span>🕒 Leitura: 8–12 min</span>
       <span>📅 <span id="dateBR"></span></span>
       <span>🏷️ Categoria: IP e Rede</span>
     </div>
 
-    <div class="pill">✅ Conteúdo + vídeo + checklist (ótimo para AdSense e SEO)</div>
+    <div class="pill">✅ Conteúdo com imagens + vídeo + transcrição (SEO forte)</div>
+
+    <!-- IMAGEM 1: CAPA -->
+    <figure>
+      <img class="img" src="../assets/img/asn-capa.png" alt="Ilustração sobre ASN e roteamento BGP com nós de rede conectados" loading="lazy">
+      <figcaption>Imagem ilustrativa: ASN e roteamento (visão geral para entender “quem anuncia” blocos de IP).</figcaption>
+    </figure>
 
     <div class="toc" aria-label="Sumário">
-      <a href="#resumo">Resumo rápido</a>
+      <a href="#resumo">Resumo</a>
+      <a href="#ipxasn">IP vs ASN</a>
       <a href="#video">Vídeo</a>
-      <a href="#guia">Guia prático</a>
+      <a href="#fluxo">Fluxo de investigação</a>
+      <a href="#checklist">Checklist</a>
       <a href="#faq">FAQ</a>
       <a href="#transcricao">Transcrição</a>
     </div>
 
-    <h3 id="resumo">Resumo rápido (sem enrolação)</h3>
+    <h3 id="resumo">Resumo rápido</h3>
     <p>
       <strong>ASN</strong> (Autonomous System Number) é um número que identifica uma rede/autonomia na internet.
-      Na prática, ele ajuda a entender <strong>“quem anuncia”</strong> um conjunto de IPs (por exemplo: um provedor, uma empresa, um datacenter).
+      Na prática, ele ajuda a entender <strong>quem anuncia</strong> um conjunto de IPs (um provedor, empresa, datacenter, etc.).
     </p>
     <p>
-      Isso vira ouro quando você está investigando: <strong>IP suspeito</strong>, acessos estranhos, tentativas de login,
-      spam, fraude ou golpes que usam infraestrutura em nuvem.
+      Isso é muito útil para investigar <strong>IP suspeito</strong>, tentativas de login, spam, bots e golpes que usam infraestrutura de nuvem.
     </p>
 
     <div class="callout warn">
-      Importante: “IP perigoso” não é só o número. O que pesa é o conjunto: ASN/ISP, histórico de abuso, comportamento e contexto.
+      “IP perigoso” não é só o número. O que pesa é: ASN/ISP, histórico, comportamento e contexto.
     </div>
 
-    <h3 id="video">Vídeo no meio do artigo (assista aqui)</h3>
+    <h3 id="ipxasn">IP vs ASN (entenda de uma vez)</h3>
 
-    <!-- ✅ VÍDEO EMBUTIDO ENTRE PARÁGRAFOS -->
+    <!-- IMAGEM 2: IP vs ASN -->
+    <figure>
+      <img class="img" src="../assets/img/ip-vs-asn.png" alt="Infográfico comparando IP e ASN de forma simples" loading="lazy">
+      <figcaption>IP é o endereço. ASN é a “identidade” da rede que anuncia e roteia blocos de IP.</figcaption>
+    </figure>
+
+    <p>
+      Pense assim: <strong>IP</strong> é como “o número da casa”. Já o <strong>ASN</strong> é como “o bairro/condomínio responsável”
+      por aquela faixa de endereços na internet — é o que aparece quando você quer entender a origem.
+    </p>
+
+    <h3 id="video">Vídeo no meio do artigo</h3>
+
     <div class="video">
       <iframe
         src="https://www.youtube.com/embed/WpwDgNGwo5g?rel=0&modestbranding=1"
         title="O que é ASN? (vídeo)"
         loading="lazy"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
+        allowfullscreen></iframe>
     </div>
 
     <p>
-      Se você está começando em redes/segurança, a dica é: sempre que um IP aparecer em algum alerta,
-      tente responder 3 perguntas: <strong>de onde veio</strong>, <strong>quem anuncia</strong> e <strong>qual o histórico</strong>.
-      O ASN ajuda diretamente nisso.
+      Dica prática: se você está investigando algo suspeito, use o ASN para responder:
+      <strong>“isso veio de uma rede residencial, de um provedor local ou de um datacenter/cloud?”</strong>
+      Essa diferença muda tudo na análise.
     </p>
 
-    <h3 id="guia">Guia prático: como usar ASN na vida real</h3>
-    <p><strong>Quando o ASN é útil:</strong></p>
+    <h3 id="fluxo">Fluxo prático de investigação (IP → ASN → decisão)</h3>
+
+    <!-- IMAGEM 3: Fluxo -->
+    <figure>
+      <img class="img" src="../assets/img/fluxo-investigacao-ip.png" alt="Fluxograma de investigação de IP usando ASN e contexto" loading="lazy">
+      <figcaption>Fluxo recomendado: origem (ASN) + comportamento + contexto → ação (bloqueio/rate-limit/2FA).</figcaption>
+    </figure>
+
+    <p>
+      Um jeito profissional de investigar é olhar o “filme”, não só a “foto”:
+      de onde veio (ASN), como se comportou (padrão de bot), e qual o impacto (tentativa de login, spam, fraude).
+    </p>
+
+    <h3 id="checklist">Checklist rápido (para não cair em erro)</h3>
+
+    <!-- IMAGEM 4: Checklist -->
+    <figure>
+      <img class="img" src="../assets/img/checklist-investigacao.png" alt="Ilustração de checklist de investigação e segurança digital" loading="lazy">
+      <figcaption>Checklist visual para usar junto com o checklist abaixo.</figcaption>
+    </figure>
+
     <ul>
-      <li>Investigar tentativas de login repetidas no seu site/sistema.</li>
-      <li>Analisar IP de golpe (WhatsApp, e-mail, “suporte falso”, etc.).</li>
-      <li>Entender se o IP é de <strong>datacenter/cloud</strong> (muito usado por bots) ou residencial.</li>
-      <li>Auditar sua infraestrutura (se você tem provedor/servidor e anuncia blocos).</li>
+      <li>O ASN é de qual organização (ISP/Datacenter)?</li>
+      <li>O evento tem padrão de bot (muitas tentativas em segundos)?</li>
+      <li>Há tentativa de várias senhas/logins?</li>
+      <li>Rate-limit e bloqueio temporário estão ativos?</li>
+      <li>Usuários têm 2FA habilitado?</li>
     </ul>
 
     <div class="callout">
-      Dica de ouro: IP de datacenter não significa “culpado”, mas é um sinal comum de automação/bots. Avalie o comportamento.
+      Se você quer ir além: registre as decisões (“bloqueei por 30 min”, “apliquei rate-limit”, “exigi 2FA”), isso vira processo.
     </div>
 
-    <p><strong>Checklist rápido ao investigar um IP:</strong></p>
-    <ul>
-      <li>O ASN é de qual organização (ISP/Datacenter)?</li>
-      <li>O IP é fixo ou pode ser dinâmico?</li>
-      <li>O acesso tem padrão de bot (muitas tentativas em segundos)?</li>
-      <li>Há tentativa de várias senhas/logins?</li>
-      <li>Bloqueio temporário e rate-limit estão ativos?</li>
-    </ul>
-
     <h3 id="faq">FAQ rápido</h3>
-    <p><strong>ASN e IP são a mesma coisa?</strong> Não. IP é o endereço. ASN é “a identidade” da rede que anuncia/roteia blocos de IP.</p>
-    <p><strong>Por que isso aparece em ferramentas de IP?</strong> Porque ajuda a entender origem/operadora/infra de rede do endereço.</p>
-    <p><strong>ASN serve só pra provedor?</strong> Não. Serve muito pra investigação e para segurança (SIEM, logs, antifraude, etc.).</p>
+    <p><strong>ASN e IP são a mesma coisa?</strong> Não. IP é o endereço. ASN é a rede/entidade que anuncia/roteia blocos de IP.</p>
+    <p><strong>ASN serve só pra provedor?</strong> Não. Serve muito para investigação, logs, antifraude e análise de comportamento.</p>
 
-    <h3 id="transcricao">Transcrição do vídeo (para leitura e SEO)</h3>
+    <h3 id="transcricao">Transcrição do vídeo</h3>
     <p>
-      Abaixo você cola a transcrição do YouTube. Isso melhora muito o SEO, acessibilidade e aumenta as chances do AdSense aprovar.
-      Para pegar a transcrição, use o menu “Mostrar transcrição” do próprio YouTube. :contentReference[oaicite:3]{index=3}
+      Cole aqui a transcrição do YouTube. Isso aumenta muito SEO e acessibilidade.
     </p>
 
-    <!-- ✅ COLE A TRANSCRIÇÃO AQUI -->
-    <pre class="transcript">[COLE A TRANSCRIÇÃO COMPLETA DO VÍDEO AQUI]
-
-Dica: você pode colar sem timestamps ou com timestamps. Se vier com timestamps, tudo bem.</pre>
+    <pre class="transcript">[COLE A TRANSCRIÇÃO COMPLETA DO VÍDEO AQUI]</pre>
 
     <div class="actions">
       <a class="btn btn-primary" href="../artigos.html">Voltar para Artigos</a>
@@ -305,7 +284,7 @@ Dica: você pode colar sem timestamps ou com timestamps. Se vier com timestamps,
         <h3>Segurança Tech</h3>
         <p>
           Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.
-          Use com responsabilidade e sempre valide informações importantes por fontes oficiais.
+          Use com responsabilidade e valide informações importantes por fontes oficiais.
         </p>
       </div>
 
@@ -328,28 +307,25 @@ Dica: você pode colar sem timestamps ou com timestamps. Se vier com timestamps,
 </footer>
 
 <script>
-  // Ano
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Data BR (hoje)
   const now = new Date();
   const dd = String(now.getDate()).padStart(2,"0");
   const mm = String(now.getMonth()+1).padStart(2,"0");
   const yyyy = now.getFullYear();
   document.getElementById("dateBR").textContent = `${dd}/${mm}/${yyyy}`;
 
-  // Dropdown
   const btn = document.getElementById("toolsBtn");
   const menu = document.getElementById("toolsMenu");
-  function closeMenu(){ menu.style.display = "none"; btn.setAttribute("aria-expanded", "false"); }
+  function closeMenu(){ menu.style.display="none"; btn.setAttribute("aria-expanded","false"); }
   function toggleMenu(){
     const open = menu.style.display === "block";
     menu.style.display = open ? "none" : "block";
     btn.setAttribute("aria-expanded", String(!open));
   }
-  btn.addEventListener("click", (e) => { e.stopPropagation(); toggleMenu(); });
-  document.addEventListener("click", () => closeMenu());
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
+  btn.addEventListener("click",(e)=>{ e.stopPropagation(); toggleMenu(); });
+  document.addEventListener("click",()=>closeMenu());
+  document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeMenu(); });
 </script>
 </body>
 </html>
