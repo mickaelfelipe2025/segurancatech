@@ -1,120 +1,198 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Blog — SegurançaTech</title>
-  <meta name="description" content="Artigos práticos sobre phishing, links falsos, IP suspeito, ASN e golpes no WhatsApp." />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/blog.html" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Segurança Tech</title>
   <style>
     :root{
-      --bg:#0b1220; --card:#0f1b33; --muted:#9fb0c7; --text:#e9f1ff;
-      --accent:#22c55e; --accent2:#f59e0b; --line:rgba(255,255,255,.08);
-      --shadow: 0 12px 30px rgba(0,0,0,.35);
-      --radius: 18px; --max: 1100px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --nav:#122c66;
+      --header:#0a1f44;
+      --text:#0b1220;
+      --muted:#475569;
+      --shadow:0 10px 22px rgba(2,6,23,.10);
+      --radius:14px;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:var(--font);color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 20% 0%, rgba(34,197,94,.25), transparent 60%),
-        radial-gradient(900px 600px at 100% 10%, rgba(245,158,11,.18), transparent 55%),
-        linear-gradient(180deg, #070b14, var(--bg));
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+    header h1{margin:0 0 6px;font-size:28px}
+    header p{margin:0;opacity:.9}
+    nav{
+      background:var(--nav);
+      padding:10px 12px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:999;
     }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:var(--max);margin:0 auto;padding:22px 18px}
-    header{
-      position:sticky; top:0; z-index:10;
-      backdrop-filter: blur(10px);
-      background:rgba(7,11,20,.65);
-      border-bottom:1px solid var(--line);
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:10px 12px;
+      border-radius:10px;
+      display:inline-block;
     }
-    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:900}
-    .dot{width:12px;height:12px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 0 0 4px rgba(34,197,94,.12);}
-    nav{display:flex;gap:10px;flex-wrap:wrap}
-    .link{padding:10px 12px;border-radius:999px;color:var(--muted);font-weight:700;border:1px solid transparent}
-    .link:hover{border-color:var(--line);color:var(--text)}
-    h1{margin:18px 0 6px;font-size:clamp(26px, 2.6vw, 38px)}
-    p.lead{margin:0 0 18px;color:var(--muted);line-height:1.7}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    nav a:hover{background:rgba(255,255,255,.10)}
+    .container{max-width:980px;margin:0 auto;padding:22px 14px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--line);
+      background:var(--card);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      padding:16px;
+      padding:18px;
+      grid-column:span 12;
     }
-    .kicker{color:var(--muted); font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.4px}
-    .card h2{margin:8px 0 8px;font-size:16px}
-    .card p{margin:0;color:var(--muted);line-height:1.55;font-size:14px}
-    .meta{margin-top:12px;display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px}
-    footer{margin-top:26px;padding:18px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
-    @media(max-width:900px){.grid{grid-template-columns:1fr}}
+    .card h2{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted);line-height:1.55}
+
+    /* Dropdown */
+    .dropdown{position:relative}
+    .dropbtn{
+      background:transparent;
+      color:#fff;
+      border:0;
+      font-weight:800;
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:16px;
+    }
+    .dropbtn:hover{background:rgba(255,255,255,.10)}
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:48px;
+      left:0;
+      min-width:240px;
+      background:#fff;
+      border-radius:14px;
+      box-shadow:0 18px 40px rgba(2,6,23,.20);
+      overflow:hidden;
+      z-index:1000;
+    }
+    .dropdown-content a{
+      color:#0b1220;
+      padding:12px 14px;
+      display:block;
+      text-decoration:none;
+      font-weight:700;
+      border-bottom:1px solid #eef2f7;
+    }
+    .dropdown-content a:last-child{border-bottom:none}
+    .dropdown-content a:hover{background:#f6f8fb}
+    .dropdown-content small{
+      display:block;
+      font-weight:600;
+      color:#64748b;
+      margin-top:2px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#e9f1ff;
+      color:#0a1f44;
+      font-weight:800;
+      margin-top:10px;
+      width:fit-content;
+    }
+    footer{padding:22px 14px;color:#64748b;text-align:center}
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="wrap top">
-      <a class="brand" href="./index.html"><span class="dot"></span>SegurançaTech</a>
-      <nav>
-        <a class="link" href="./index.html">Início</a>
-        <a class="link" href="./ferramentas.html">Ferramentas</a>
-        <a class="link" href="./politica-de-privacidade.html">Privacidade</a>
-        <a class="link" href="./termos-de-uso.html">Termos</a>
-      </nav>
+<header>
+  <h1>Segurança Tech</h1>
+  <p>Ferramentas e conteúdo para te proteger de golpes e ameaças digitais</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="sobre.html">Sobre</a>
+
+  <div class="dropdown">
+    <button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">
+      Ferramentas <span aria-hidden="true">▼</span>
+    </button>
+    <div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+      <a href="tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+      <a href="tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
+      <a href="tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+      <a href="tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+      <a href="tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+      <a href="tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
     </div>
-  </header>
+  </div>
 
-  <main class="wrap">
-    <h1>Blog</h1>
-    <p class="lead">Artigos diretos e práticos para você se proteger de golpes. Comece pelos essenciais abaixo.</p>
+  <a href="sobre.html#contato">Contato</a>
+</nav>
 
-    <section class="grid" aria-label="Lista de artigos">
-      <a class="card" href="./blog/o-que-e-phishing.html">
-        <div class="kicker">Guia essencial</div>
-        <h2>O que é phishing (e como não cair)</h2>
-        <p>Entenda o golpe mais comum e veja sinais claros antes de clicar.</p>
-        <div class="meta"><span>Leitura: 5–7 min</span><span>Atualizado</span></div>
-      </a>
-
-      <a class="card" href="./blog/como-identificar-link-falso.html">
-        <div class="kicker">Checklist</div>
-        <h2>Como identificar link falso</h2>
-        <p>Domínio, URL, encurtadores, clonagem e sinais que entregam a fraude.</p>
-        <div class="meta"><span>Leitura: 6–8 min</span><span>Atualizado</span></div>
-      </a>
-
-      <a class="card" href="./blog/como-saber-se-um-ip-e-perigoso.html">
-        <div class="kicker">Investigação</div>
-        <h2>Como saber se um IP é perigoso</h2>
-        <p>O que olhar em reputação, geolocalização e histórico de abuso.</p>
-        <div class="meta"><span>Leitura: 7–10 min</span><span>Atualizado</span></div>
-      </a>
-
-      <a class="card" href="./blog/o-que-e-asn.html">
-        <div class="kicker">Internet</div>
-        <h2>O que é ASN (e por que isso importa)</h2>
-        <p>Uma explicação simples do “CPF da rede” e como ele aparece na prática.</p>
-        <div class="meta"><span>Leitura: 6–9 min</span><span>Atualizado</span></div>
-      </a>
-
-      <a class="card" href="./blog/golpes-no-whatsapp.html">
-        <div class="kicker">WhatsApp</div>
-        <h2>Golpes no WhatsApp: os mais comuns</h2>
-        <p>Clonagem, falso suporte, “Pix errado” e como se proteger em 2 passos.</p>
-        <div class="meta"><span>Leitura: 8–12 min</span><span>Atualizado</span></div>
-      </a>
+<div class="container">
+  <div class="grid">
+    <section class="card">
+      <h2>Bem-vindo</h2>
+      <p>
+        Aqui você encontra ferramentas simples e úteis para segurança digital: verificação de links, consulta de IP/ASN,
+        informações técnicas do dispositivo e previsão do tempo.
+      </p>
+      <div class="pill">✅ Estrutura pronta para AdSense (com páginas úteis e navegação clara)</div>
     </section>
 
-    <footer>
-      © <span id="y"></span> SegurançaTech • <a href="./index.html">Início</a>
-    </footer>
-  </main>
+    <section class="card">
+      <h2>Como vamos crescer isso</h2>
+      <p>
+        O caminho certo é: publicar conteúdo (artigos) + disponibilizar ferramentas com explicação abaixo.
+        Isso aumenta valor percebido e ajuda na aprovação do AdSense.
+      </p>
+    </section>
+  </div>
+</div>
 
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+<footer>
+  © <span id="year"></span> Segurança Tech — Educação e Ferramentas de Segurança Digital
+</footer>
+
+<script>
+  // Ano
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Dropdown por clique + fechar ao clicar fora/ESC
+  const btn = document.getElementById("toolsBtn");
+  const menu = document.getElementById("toolsMenu");
+
+  function closeMenu(){
+    menu.style.display = "none";
+    btn.setAttribute("aria-expanded", "false");
+  }
+  function toggleMenu(){
+    const open = menu.style.display === "block";
+    menu.style.display = open ? "none" : "block";
+    btn.setAttribute("aria-expanded", String(!open));
+  }
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  document.addEventListener("click", () => closeMenu());
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+</script>
 </body>
 </html>
