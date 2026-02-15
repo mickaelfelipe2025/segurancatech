@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Segurança Tech</title>
 
-  <meta name="description" content="Ferramentas e conteúdo para te proteger de golpes e ameaças digitais. Verificação de links, IP/ASN, guias práticos e segurança no WhatsApp." />
+  <meta name="description" content="Ferramentas e conteúdo para te proteger de golpes e ameaças digitais. Verificação de links, IP/ASN, guias e segurança no WhatsApp." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/" />
 
@@ -19,12 +19,25 @@
       --muted:#475569;
       --shadow:0 10px 22px rgba(2,6,23,.10);
       --radius:14px;
+      --line:#e6edf7;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-    header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:var(--bg);
+      color:var(--text)
+    }
+
+    header{
+      background:var(--header);
+      color:#fff;
+      padding:26px 16px;
+      text-align:center
+    }
     header h1{margin:0 0 6px;font-size:28px}
     header p{margin:0;opacity:.9}
+
     nav{
       background:var(--nav);
       padding:10px 12px;
@@ -46,17 +59,6 @@
       display:inline-block;
     }
     nav a:hover{background:rgba(255,255,255,.10)}
-    .container{max-width:980px;margin:0 auto;padding:22px 14px}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-    .card{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px;
-      grid-column:span 12;
-    }
-    .card h2{margin:0 0 8px}
-    .card p{margin:0;color:var(--muted);line-height:1.55}
 
     /* Dropdown */
     .dropdown{position:relative}
@@ -79,7 +81,7 @@
       position:absolute;
       top:48px;
       left:0;
-      min-width:240px;
+      min-width:270px;
       background:#fff;
       border-radius:14px;
       box-shadow:0 18px 40px rgba(2,6,23,.20);
@@ -91,17 +93,31 @@
       padding:12px 14px;
       display:block;
       text-decoration:none;
-      font-weight:700;
+      font-weight:800;
       border-bottom:1px solid #eef2f7;
     }
     .dropdown-content a:last-child{border-bottom:none}
     .dropdown-content a:hover{background:#f6f8fb}
     .dropdown-content small{
       display:block;
-      font-weight:600;
+      font-weight:650;
       color:#64748b;
       margin-top:2px;
     }
+
+    .container{max-width:980px;margin:0 auto;padding:22px 14px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      grid-column:span 12;
+      border:1px solid rgba(230,237,247,.0);
+    }
+    .card h2{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted);line-height:1.6}
 
     .pill{
       display:inline-flex;
@@ -111,8 +127,8 @@
       border-radius:999px;
       background:#e9f1ff;
       color:#0a1f44;
-      font-weight:800;
-      margin-top:10px;
+      font-weight:900;
+      margin-top:12px;
       width:fit-content;
     }
 
@@ -121,9 +137,9 @@
       display:inline-block;
       padding:10px 12px;
       border-radius:12px;
-      border:1px solid #e6edf7;
+      border:1px solid var(--line);
       background:#ffffff;
-      font-weight:800;
+      font-weight:900;
       color:#0a1f44;
       text-decoration:none;
     }
@@ -144,9 +160,61 @@
       .mini{grid-column:span 12}
     }
 
-    footer{padding:22px 14px;color:#64748b;text-align:center}
-    footer a{color:#0a1f44;font-weight:800;text-decoration:none}
-    footer a:hover{text-decoration:underline}
+    /* Rodapé “lindo” */
+    footer{
+      margin-top:18px;
+      background:linear-gradient(180deg, #0a1f44 0%, #071a3a 100%);
+      color:#eaf0ff;
+      padding:26px 14px;
+    }
+    .footer-wrap{max-width:980px;margin:0 auto}
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      align-items:start;
+    }
+    .footer-brand{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      padding:16px;
+    }
+    .footer-brand h3{margin:0 0 6px;font-size:18px}
+    .footer-brand p{margin:0;color:rgba(234,240,255,.85);line-height:1.6}
+    .footer-links{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      padding:16px;
+    }
+    .footer-links h4{margin:0 0 10px;font-size:14px;letter-spacing:.3px;text-transform:uppercase;opacity:.9}
+    .links{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    .links a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:900;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      display:block;
+    }
+    .links a:hover{background:rgba(255,255,255,.08)}
+    .footnote{
+      max-width:980px;margin:14px auto 0;
+      color:rgba(234,240,255,.75);
+      font-size:13px;
+      text-align:center;
+      padding-top:14px;
+      border-top:1px solid rgba(255,255,255,.12);
+    }
+    .footnote a{color:#fff;font-weight:900;text-decoration:none}
+    .footnote a:hover{text-decoration:underline}
   </style>
 </head>
 
@@ -165,16 +233,19 @@
       Ferramentas <span aria-hidden="true">▼</span>
     </button>
     <div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+      <a href="tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
       <a href="tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
       <a href="tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
       <a href="tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
-      <a href="tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
-      <a href="tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
       <a href="tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+      <a href="tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
     </div>
   </div>
 
-  <a href="blog.html">Blog</a>
+  <!-- Aba nova -->
+  <a href="artigos.html">Artigos</a>
+
+  <!-- Mantive seu padrão de contato no sobre -->
   <a href="sobre.html#contato">Contato</a>
 </nav>
 
@@ -184,36 +255,37 @@
       <h2>Bem-vindo</h2>
       <p>
         Aqui você encontra ferramentas simples e úteis para segurança digital: verificação de links, consulta de IP/ASN,
-        informações técnicas do dispositivo e previsão do tempo. Também publicamos artigos práticos para te ajudar a não cair em golpe.
+        informações técnicas do dispositivo e previsão do tempo. E na aba <strong>Artigos</strong>, você vai publicar conteúdos
+        para o site crescer e ajudar na aprovação do AdSense.
       </p>
 
       <div class="actions">
-        <a class="btn btn-primary" href="blog.html">Ler artigos do Blog</a>
-        <a class="btn" href="ferramentas.html">Ver todas as ferramentas</a>
+        <a class="btn btn-primary" href="ferramentas.html">Abrir Ferramentas</a>
+        <a class="btn" href="artigos.html">Ver Artigos</a>
       </div>
 
-      <div class="pill">✅ Estrutura pronta para AdSense (com páginas úteis, conteúdo e navegação clara)</div>
+      <div class="pill">✅ Estrutura organizada: Ferramentas + Artigos + Páginas essenciais</div>
     </section>
 
     <section class="card">
-      <h2>Como vamos crescer isso</h2>
+      <h2>Por que isso ajuda no AdSense</h2>
       <p>
-        O caminho certo é: publicar conteúdo (artigos) + disponibilizar ferramentas com explicação abaixo.
-        Isso aumenta valor percebido, melhora SEO e ajuda na aprovação do AdSense.
+        O Google gosta de sites com navegação clara, páginas essenciais (Sobre/Privacidade/Termos)
+        e conteúdo útil recorrente. O seu projeto fica com “cara de site de verdade”.
       </p>
 
       <div class="mini-grid">
         <div class="card mini">
-          <h3>📚 Conteúdo original</h3>
-          <p>Artigos claros sobre golpes e segurança digital, feitos do zero.</p>
+          <h3>📌 Ferramentas úteis</h3>
+          <p>Valor imediato para o visitante (e aumenta o tempo no site).</p>
         </div>
         <div class="card mini">
-          <h3>🔎 Google indexa rápido</h3>
-          <p>Com sitemap e estrutura organizada, o Search Console “vê” o site mais rápido.</p>
+          <h3>📰 Artigos recorrentes</h3>
+          <p>Você posta e o site vai crescendo organicamente (SEO).</p>
         </div>
         <div class="card mini">
           <h3>✅ Confiança</h3>
-          <p>Páginas essenciais + navegação consistente = mais credibilidade (e melhor análise do AdSense).</p>
+          <p>Sobre + Privacidade + Termos = credibilidade e conformidade.</p>
         </div>
       </div>
     </section>
@@ -221,14 +293,39 @@
 </div>
 
 <footer>
-  © <span id="year"></span> Segurança Tech — Educação e Ferramentas de Segurança Digital •
-  <a href="politica-de-privacidade.html">Privacidade</a> •
-  <a href="termos-de-uso.html">Termos</a>
+  <div class="footer-wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Segurança Tech</h3>
+        <p>
+          Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.
+          Use com responsabilidade e sempre valide informações importantes por fontes oficiais.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Links importantes</h4>
+        <div class="links">
+          <a href="sobre.html">Sobre</a>
+          <a href="politica-de-privacidade.html">Política de Privacidade</a>
+          <a href="termos-de-uso.html">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footnote">
+      © <span id="year"></span> Segurança Tech •
+      <a href="ferramentas.html">Ferramentas</a> •
+      <a href="artigos.html">Artigos</a>
+    </div>
+  </div>
 </footer>
 
 <script>
+  // Ano
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  // Dropdown por clique + fechar ao clicar fora/ESC
   const btn = document.getElementById("toolsBtn");
   const menu = document.getElementById("toolsMenu");
 
