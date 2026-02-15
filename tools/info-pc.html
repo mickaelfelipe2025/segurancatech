@@ -1,1 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Info Técnica do Meu PC - Segurança Tech</title>
+  <style>
+    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
+    nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+    nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.10)}
+    .container{max-width:980px;margin:0 auto;padding:22px 14px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    button{padding:12px 14px;border:0;border-radius:12px;background:#122c66;color:#fff;font-weight:800;cursor:pointer}
+    button:hover{filter:brightness(1.05)}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    td{padding:10px;border-bottom:1px solid #eef2f7}
+    td:first-child{font-weight:900;width:280px}
+    .muted{color:var(--muted);line-height:1.6}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Informações Técnicas do Meu PC</h1>
+  <p>Dados do navegador e do dispositivo (sem instalar nada)</p>
+</header>
 
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="../sobre.html">Sobre</a>
+  <a href="../index.html">Ferramentas</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <button id="btn">Carregar informações</button>
+    <p class="muted">
+      Isso mostra informações que o navegador expõe (ex.: user-agent, resolução, idioma). Não acessa arquivos do seu PC.
+    </p>
+    <div id="out"></div>
+  </div>
+</div>
+
+<script>
+  const out = document.getElementById("out");
+  document.getElementById("btn").addEventListener("click", () => {
+    const n = navigator;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "—";
+    const mem = n.deviceMemory ? (n.deviceMemory + " GB (aprox.)") : "—";
+    const cores = n.hardwareConcurrency || "—";
+    const online = (n.onLine === true) ? "Online" : ((n.onLine === false) ? "Offline" : "—");
+
+    const data = [
+      ["Sistema/Plataforma", n.platform || "—"],
+      ["Navegador (User-Agent)", n.userAgent || "—"],
+      ["Idiomas", (n.languages && n.languages.join(", ")) || n.language || "—"],
+      ["Fuso horário", tz],
+      ["Núcleos (aprox.)", String(cores)],
+      ["Memória (aprox.)", mem],
+      ["Resolução da tela", `${screen.width} x ${screen.height}`],
+      ["Área útil (viewport)", `${window.innerWidth} x ${window.innerHeight}`],
+      ["Status de rede", online],
+      ["Cookies habilitados", n.cookieEnabled ? "Sim" : "Não"]
+    ];
+
+    out.innerHTML = `
+      <table>
+        ${data.map(([k,v]) => `<tr><td>${k}</td><td class="muted">${escapeHtml(v)}</td></tr>`).join("")}
+      </table>
+    `;
+  });
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, s => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[s]));
+  }
+</script>
+</body>
+</html>
