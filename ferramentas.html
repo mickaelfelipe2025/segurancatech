@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ferramentas - Segurança Tech</title>
+  <style>
+    :root{
+      --bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;
+      --text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+    header h1{margin:0 0 6px;font-size:28px}
+    header p{margin:0;opacity:.9}
+    nav{
+      background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;
+      flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999
+    }
+    nav a{color:#fff;text-decoration:none;font-weight:800;padding:10px 12px;border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.10)}
+
+    /* Dropdown */
+    .dropdown{position:relative}
+    .dropbtn{
+      background:transparent;color:#fff;border:0;font-weight:900;padding:10px 12px;border-radius:10px;
+      cursor:pointer;display:flex;align-items:center;gap:8px;font-size:16px
+    }
+    .dropbtn:hover{background:rgba(255,255,255,.10)}
+    .dropdown-content{
+      display:none;position:absolute;top:48px;left:0;min-width:260px;background:#fff;border-radius:16px;
+      box-shadow:0 18px 40px rgba(2,6,23,.20);overflow:hidden;z-index:1000
+    }
+    .dropdown-content a{
+      color:#0b1220;padding:12px 14px;display:block;text-decoration:none;font-weight:800;border-bottom:1px solid #eef2f7
+    }
+    .dropdown-content a:last-child{border-bottom:none}
+    .dropdown-content a:hover{background:#f6f8fb}
+    .dropdown-content small{display:block;font-weight:650;color:#64748b;margin-top:2px}
+
+    .container{max-width:1050px;margin:0 auto;padding:22px 14px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .card{
+      grid-column:span 12;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+      padding:18px;display:flex;flex-direction:column;gap:10px
+    }
+    @media(min-width:760px){ .card{grid-column:span 6} }
+    @media(min-width:1020px){ .card{grid-column:span 4} }
+
+    .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:900;
+      background:#e9f1ff;color:#0a1f44;width:fit-content;font-size:13px}
+    .title{font-size:18px;margin:0}
+    .desc{margin:0;color:var(--muted);line-height:1.55}
+    .actions{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px;border-radius:12px;
+      background:#122c66;color:#fff;text-decoration:none;font-weight:900
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn.secondary{background:#0a1f44}
+    .topnote{
+      background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:14px
+    }
+    .topnote p{margin:0;color:var(--muted);line-height:1.6}
+    footer{padding:22px 14px;color:#64748b;text-align:center}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Ferramentas</h1>
+  <p>Lista completa de ferramentas disponíveis no Segurança Tech</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="sobre.html">Sobre</a>
+
+  <div class="dropdown">
+    <button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">
+      Ferramentas <span aria-hidden="true">▼</span>
+    </button>
+    <div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+      <a href="tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+      <a href="tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo</small></a>
+      <a href="tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+      <a href="tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+      <a href="tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+      <a href="tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+    </div>
+  </div>
+
+  <a href="politica-de-privacidade.html">Privacidade</a>
+  <a href="termos-de-uso.html">Termos</a>
+</nav>
+
+<div class="container">
+  <div class="topnote">
+    <p>
+      As ferramentas abaixo são gratuitas e focadas em utilidade prática. Algumas usam APIs públicas para consulta de IP/ASN e clima.
+      Localizações são aproximadas. Use com responsabilidade.
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <article class="card">
+      <div class="tag">🔎 Segurança</div>
+      <h2 class="title">Identificador de Links Falsos</h2>
+      <p class="desc">Analisa sinais comuns de phishing e fornece checklist rápido para você evitar golpes.</p>
+      <div class="actions">
+        <a class="btn" href="tools/links-falsos.html">Abrir ferramenta</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="tag">🌐 Rede</div>
+      <h2 class="title">Meu ASN</h2>
+      <p class="desc">Mostra o ASN (quando disponível), organização e dados básicos da sua conexão.</p>
+      <div class="actions">
+        <a class="btn" href="tools/meu-asn.html">Abrir ferramenta</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="tag">📌 Rede</div>
+      <h2 class="title">Meu IP</h2>
+      <p class="desc">Exibe seu IP público e informações de rede aproximadas (cidade/ISP/ASN).</p>
+      <div class="actions">
+        <a class="btn" href="tools/meu-ip.html">Abrir ferramenta</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="tag">🛰️ Consulta</div>
+      <h2 class="title">Rastreio de IP</h2>
+      <p class="desc">Consulta dados básicos de um IP informado. Localização é aproximada.</p>
+      <div class="actions">
+        <a class="btn" href="tools/rastreio-ip.html">Abrir ferramenta</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="tag">🖥️ Sistema</div>
+      <h2 class="title">Informações Técnicas do Meu PC</h2>
+      <p class="desc">Mostra informações que o navegador disponibiliza: resolução, idioma, user-agent e mais.</p>
+      <div class="actions">
+        <a class="btn" href="tools/info-pc.html">Abrir ferramenta</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="tag">☁️ Utilidade</div>
+      <h2 class="title">Previsão do Tempo</h2>
+      <p class="desc">Consulta clima atual e próximos dias por localização do navegador ou coordenadas.</p>
+      <div class="actions">
+        <a class="btn" href="tools/previsao-tempo.html">Abrir ferramenta</a>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<footer>
+  © <span id="year"></span> Segurança Tech
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const btn = document.getElementById("toolsBtn");
+  const menu = document.getElementById("toolsMenu");
+
+  function closeMenu(){
+    menu.style.display = "none";
+    btn.setAttribute("aria-expanded", "false");
+  }
+  function toggleMenu(){
+    const open = menu.style.display === "block";
+    menu.style.display = open ? "none" : "block";
+    btn.setAttribute("aria-expanded", String(!open));
+  }
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  document.addEventListener("click", () => closeMenu());
+  document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeMenu(); });
+</script>
+</body>
+</html>
