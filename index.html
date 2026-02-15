@@ -1,79 +1,198 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Segurança Tech</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Segurança Tech</title>
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --nav:#122c66;
+      --header:#0a1f44;
+      --text:#0b1220;
+      --muted:#475569;
+      --shadow:0 10px 22px rgba(2,6,23,.10);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+    header h1{margin:0 0 6px;font-size:28px}
+    header p{margin:0;opacity:.9}
+    nav{
+      background:var(--nav);
+      padding:10px 12px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:999;
+    }
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:10px 12px;
+      border-radius:10px;
+      display:inline-block;
+    }
+    nav a:hover{background:rgba(255,255,255,.10)}
+    .container{max-width:980px;margin:0 auto;padding:22px 14px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      grid-column:span 12;
+    }
+    .card h2{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted);line-height:1.55}
 
-<style>
-body {
-    margin:0;
-    font-family:Arial;
-    background:#f4f6f8;
-}
+    /* Dropdown */
+    .dropdown{position:relative}
+    .dropbtn{
+      background:transparent;
+      color:#fff;
+      border:0;
+      font-weight:800;
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:16px;
+    }
+    .dropbtn:hover{background:rgba(255,255,255,.10)}
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:48px;
+      left:0;
+      min-width:240px;
+      background:#fff;
+      border-radius:14px;
+      box-shadow:0 18px 40px rgba(2,6,23,.20);
+      overflow:hidden;
+      z-index:1000;
+    }
+    .dropdown-content a{
+      color:#0b1220;
+      padding:12px 14px;
+      display:block;
+      text-decoration:none;
+      font-weight:700;
+      border-bottom:1px solid #eef2f7;
+    }
+    .dropdown-content a:last-child{border-bottom:none}
+    .dropdown-content a:hover{background:#f6f8fb}
+    .dropdown-content small{
+      display:block;
+      font-weight:600;
+      color:#64748b;
+      margin-top:2px;
+    }
 
-header {
-    background:#0a1f44;
-    color:white;
-    padding:20px;
-    text-align:center;
-}
-
-nav {
-    background:#122c66;
-    padding:10px;
-    text-align:center;
-}
-
-nav a {
-    color:white;
-    margin:15px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.container {
-    padding:40px;
-}
-
-.card {
-    background:white;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:8px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-</style>
-
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#e9f1ff;
+      color:#0a1f44;
+      font-weight:800;
+      margin-top:10px;
+      width:fit-content;
+    }
+    footer{padding:22px 14px;color:#64748b;text-align:center}
+  </style>
 </head>
 
 <body>
-
 <header>
-<h1>Segurança Tech</h1>
-<p>Protegendo você contra golpes e ameaças digitais</p>
+  <h1>Segurança Tech</h1>
+  <p>Ferramentas e conteúdo para te proteger de golpes e ameaças digitais</p>
 </header>
 
 <nav>
-<a href="index.html">Home</a>
-<a href="sobre.html">Sobre</a>
-<a href="tools/verificador-link.html">Verificador de Link</a>
+  <a href="index.html">Home</a>
+  <a href="sobre.html">Sobre</a>
+
+  <div class="dropdown">
+    <button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">
+      Ferramentas <span aria-hidden="true">▼</span>
+    </button>
+    <div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+      <a href="tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+      <a href="tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
+      <a href="tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+      <a href="tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+      <a href="tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+      <a href="tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+    </div>
+  </div>
+
+  <a href="sobre.html#contato">Contato</a>
 </nav>
 
 <div class="container">
+  <div class="grid">
+    <section class="card">
+      <h2>Bem-vindo</h2>
+      <p>
+        Aqui você encontra ferramentas simples e úteis para segurança digital: verificação de links, consulta de IP/ASN,
+        informações técnicas do dispositivo e previsão do tempo.
+      </p>
+      <div class="pill">✅ Estrutura pronta para AdSense (com páginas úteis e navegação clara)</div>
+    </section>
 
-<div class="card">
-<h2>Bem-vindo ao Segurança Tech</h2>
-<p>O Segurança Tech é um portal dedicado à proteção digital, prevenção contra golpes online e análise de ameaças na internet.</p>
+    <section class="card">
+      <h2>Como vamos crescer isso</h2>
+      <p>
+        O caminho certo é: publicar conteúdo (artigos) + disponibilizar ferramentas com explicação abaixo.
+        Isso aumenta valor percebido e ajuda na aprovação do AdSense.
+      </p>
+    </section>
+  </div>
 </div>
 
-<div class="card">
-<h2>Por que verificar links antes de clicar?</h2>
-<p>Links maliciosos são a principal porta de entrada para ataques de phishing, roubo de dados e invasões de contas.</p>
-<p>Em breve disponibilizaremos ferramentas gratuitas para verificação de segurança de links, rastreamento de IP e análise de ASN.</p>
-</div>
+<footer>
+  © <span id="year"></span> Segurança Tech — Educação e Ferramentas de Segurança Digital
+</footer>
 
-</div>
+<script>
+  // Ano
+  document.getElementById("year").textContent = new Date().getFullYear();
 
+  // Dropdown por clique + fechar ao clicar fora/ESC
+  const btn = document.getElementById("toolsBtn");
+  const menu = document.getElementById("toolsMenu");
+
+  function closeMenu(){
+    menu.style.display = "none";
+    btn.setAttribute("aria-expanded", "false");
+  }
+  function toggleMenu(){
+    const open = menu.style.display === "block";
+    menu.style.display = open ? "none" : "block";
+    btn.setAttribute("aria-expanded", String(!open));
+  }
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  document.addEventListener("click", () => closeMenu());
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+</script>
 </body>
 </html>
