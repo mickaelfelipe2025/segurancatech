@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meu ASN - Segurança Tech</title>
+  <style>
+    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
+    nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+    nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.10)}
+    .container{max-width:980px;margin:0 auto;padding:22px 14px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    button{padding:12px 14px;border:0;border-radius:12px;background:#122c66;color:#fff;font-weight:800;cursor:pointer}
+    button:hover{filter:brightness(1.05)}
+    .muted{color:var(--muted);line-height:1.6}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Meu ASN</h1>
+  <p>Consulta seu ASN (quando disponível) e organização</p>
+</header>
 
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="../sobre.html">Sobre</a>
+  <a href="../index.html">Ferramentas</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <button id="btn">Consultar ASN</button>
+    <p class="muted">Observação: o ASN pode não aparecer em todas as consultas dependendo do provedor e da API pública.</p>
+    <div id="out" class="muted" style="margin-top:10px"></div>
+  </div>
+</div>
+
+<script>
+  const out = document.getElementById("out");
+  document.getElementById("btn").addEventListener("click", async () => {
+    out.textContent = "Consultando...";
+    try{
+      const r = await fetch("https://ipapi.co/json/");
+      if(!r.ok) throw new Error("Falha na consulta");
+      const d = await r.json();
+
+      out.innerHTML = `
+        <p><strong>IP:</strong> ${d.ip || "—"}</p>
+        <p><strong>ASN:</strong> ${d.asn || "—"}</p>
+        <p><strong>Organização/ISP:</strong> ${d.org || "—"}</p>
+        <p><strong>Roteamento (aprox.):</strong> ${(d.network || "—")}</p>
+        <p><strong>Cidade/UF:</strong> ${(d.city||"—")} / ${(d.region||"—")}</p>
+      `;
+    }catch(e){
+      out.innerHTML = `<p style="color:#b42318"><strong>Erro:</strong> não foi possível consultar agora. Tente novamente.</p>`;
+    }
+  });
+</script>
+</body>
+</html>
