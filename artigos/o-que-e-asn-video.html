@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>O que é ASN? (Explicação + Vídeo + Guia Prático) — Segurança Tech</title>
 
-  <meta name="description" content="Entenda o que é ASN (Autonomous System Number), por que ele importa ao investigar IPs e golpes, e veja o vídeo completo no meio do artigo." />
+  <meta name="description" content="Entenda o que é ASN (Autonomous System Number), por que ele importa ao investigar IPs e golpes, e assista ao vídeo com um guia prático." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos/o-que-e-asn-video.html" />
 
@@ -69,7 +69,6 @@
     }
     .toc a:hover{background:#eef2f7}
 
-    /* Imagens */
     figure{margin:14px 0}
     .img{
       width:100%;
@@ -82,7 +81,6 @@
     }
     figcaption{margin-top:8px;color:#64748b;font-weight:800;font-size:13px}
 
-    /* Vídeo */
     .video{
       margin-top:14px;border-radius:16px;overflow:hidden;box-shadow:0 14px 30px rgba(2,6,23,.14);
       border:1px solid rgba(230,237,247,.9);background:#000;
@@ -99,7 +97,6 @@
     .btn-primary{border:0;background:#122c66;color:#fff}
     .btn-primary:hover{filter:brightness(1.05)}
 
-    /* Rodapé */
     footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
     .footer-wrap{max-width:980px;margin:0 auto}
     .footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
@@ -118,7 +115,6 @@
     .footnote a{color:#fff;font-weight:900;text-decoration:none}
     .footnote a:hover{text-decoration:underline}
 
-    /* Transcrição */
     pre.transcript{
       margin-top:12px;padding:14px;background:#0b1220;color:#eaf0ff;border-radius:14px;overflow:auto;line-height:1.6;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -167,50 +163,39 @@
 
     <div class="pill">✅ Conteúdo com imagens + vídeo + transcrição (SEO forte)</div>
 
-    <!-- IMAGEM 1: CAPA -->
+    <!-- IMAGENS: você precisa colocar os arquivos em /assets/img -->
     <figure>
       <img class="img" src="../assets/img/asn-capa.png" alt="Ilustração sobre ASN e roteamento BGP com nós de rede conectados" loading="lazy">
-      <figcaption>Imagem ilustrativa: ASN e roteamento (visão geral para entender “quem anuncia” blocos de IP).</figcaption>
+      <figcaption>ASN e roteamento: entendendo “quem anuncia” blocos de IP.</figcaption>
     </figure>
 
     <div class="toc" aria-label="Sumário">
       <a href="#resumo">Resumo</a>
       <a href="#ipxasn">IP vs ASN</a>
       <a href="#video">Vídeo</a>
-      <a href="#fluxo">Fluxo de investigação</a>
+      <a href="#fluxo">Fluxo</a>
       <a href="#checklist">Checklist</a>
       <a href="#faq">FAQ</a>
       <a href="#transcricao">Transcrição</a>
     </div>
 
     <h3 id="resumo">Resumo rápido</h3>
-    <p>
-      <strong>ASN</strong> (Autonomous System Number) é um número que identifica uma rede/autonomia na internet.
-      Na prática, ele ajuda a entender <strong>quem anuncia</strong> um conjunto de IPs (um provedor, empresa, datacenter, etc.).
-    </p>
-    <p>
-      Isso é muito útil para investigar <strong>IP suspeito</strong>, tentativas de login, spam, bots e golpes que usam infraestrutura de nuvem.
-    </p>
+    <p><strong>ASN</strong> (Autonomous System Number) é um número que identifica uma rede/autonomia na internet.</p>
+    <p>Na prática, ele te ajuda a entender <strong>quem anuncia</strong> um conjunto de IPs: provedor, empresa, datacenter, CDN, etc.</p>
 
     <div class="callout warn">
-      “IP perigoso” não é só o número. O que pesa é: ASN/ISP, histórico, comportamento e contexto.
+      “IP perigoso” não é só o número. O que pesa é: ASN/ISP + histórico + comportamento + contexto.
     </div>
 
     <h3 id="ipxasn">IP vs ASN (entenda de uma vez)</h3>
-
-    <!-- IMAGEM 2: IP vs ASN -->
     <figure>
       <img class="img" src="../assets/img/ip-vs-asn.png" alt="Infográfico comparando IP e ASN de forma simples" loading="lazy">
-      <figcaption>IP é o endereço. ASN é a “identidade” da rede que anuncia e roteia blocos de IP.</figcaption>
+      <figcaption>IP é endereço. ASN é a identidade da rede que anuncia/roteia.</figcaption>
     </figure>
 
-    <p>
-      Pense assim: <strong>IP</strong> é como “o número da casa”. Já o <strong>ASN</strong> é como “o bairro/condomínio responsável”
-      por aquela faixa de endereços na internet — é o que aparece quando você quer entender a origem.
-    </p>
+    <p>Pense assim: <strong>IP</strong> é “número da casa”. <strong>ASN</strong> é “o condomínio/bairro” responsável por aquela faixa.</p>
 
     <h3 id="video">Vídeo no meio do artigo</h3>
-
     <div class="video">
       <iframe
         src="https://www.youtube.com/embed/WpwDgNGwo5g?rel=0&modestbranding=1"
@@ -221,54 +206,87 @@
     </div>
 
     <p>
-      Dica prática: se você está investigando algo suspeito, use o ASN para responder:
-      <strong>“isso veio de uma rede residencial, de um provedor local ou de um datacenter/cloud?”</strong>
-      Essa diferença muda tudo na análise.
+      Use o ASN para responder uma pergunta simples e poderosa:
+      <strong>isso veio de rede residencial, provedor local ou datacenter/cloud?</strong>
+      Isso muda completamente a interpretação de risco.
     </p>
 
-    <h3 id="fluxo">Fluxo prático de investigação (IP → ASN → decisão)</h3>
-
-    <!-- IMAGEM 3: Fluxo -->
+    <h3 id="fluxo">Fluxo prático de investigação</h3>
     <figure>
       <img class="img" src="../assets/img/fluxo-investigacao-ip.png" alt="Fluxograma de investigação de IP usando ASN e contexto" loading="lazy">
-      <figcaption>Fluxo recomendado: origem (ASN) + comportamento + contexto → ação (bloqueio/rate-limit/2FA).</figcaption>
+      <figcaption>Fluxo recomendado: origem (ASN) + comportamento + contexto → ação.</figcaption>
     </figure>
 
-    <p>
-      Um jeito profissional de investigar é olhar o “filme”, não só a “foto”:
-      de onde veio (ASN), como se comportou (padrão de bot), e qual o impacto (tentativa de login, spam, fraude).
-    </p>
+    <p>Olhe o “filme”: origem (ASN), padrão (bot ou humano) e impacto (login, spam, fraude).</p>
 
-    <h3 id="checklist">Checklist rápido (para não cair em erro)</h3>
-
-    <!-- IMAGEM 4: Checklist -->
+    <h3 id="checklist">Checklist rápido</h3>
     <figure>
       <img class="img" src="../assets/img/checklist-investigacao.png" alt="Ilustração de checklist de investigação e segurança digital" loading="lazy">
-      <figcaption>Checklist visual para usar junto com o checklist abaixo.</figcaption>
+      <figcaption>Checklist visual + checklist prático.</figcaption>
     </figure>
 
     <ul>
-      <li>O ASN é de qual organização (ISP/Datacenter)?</li>
-      <li>O evento tem padrão de bot (muitas tentativas em segundos)?</li>
+      <li>O ASN é de ISP/Datacenter/CDN?</li>
+      <li>Há padrão de bot (muitas tentativas em segundos)?</li>
       <li>Há tentativa de várias senhas/logins?</li>
       <li>Rate-limit e bloqueio temporário estão ativos?</li>
-      <li>Usuários têm 2FA habilitado?</li>
+      <li>2FA está habilitado para contas sensíveis?</li>
     </ul>
 
+    <h3 id="faq">FAQ rápido</h3>
+    <p><strong>ASN e IP são a mesma coisa?</strong> Não. IP é o endereço. ASN é a rede que anuncia/roteia blocos de IP.</p>
+    <p><strong>ASN serve só pra provedor?</strong> Não. Serve muito pra investigação em logs e segurança.</p>
+
+    <h3 id="transcricao">Transcrição (roteiro criado para publicar como artigo)</h3>
+
     <div class="callout">
-      Se você quer ir além: registre as decisões (“bloqueei por 30 min”, “apliquei rate-limit”, “exigi 2FA”), isso vira processo.
+      Nota de transparência: este texto é um <strong>roteiro/transcrição produzida</strong> para fins educativos (baseada no tema do vídeo),
+      porque a transcrição original do YouTube pode não estar disponível para captura automática aqui.
+      Se você colar a transcrição oficial, eu adapto e deixo 100% fiel.
     </div>
 
-    <h3 id="faq">FAQ rápido</h3>
-    <p><strong>ASN e IP são a mesma coisa?</strong> Não. IP é o endereço. ASN é a rede/entidade que anuncia/roteia blocos de IP.</p>
-    <p><strong>ASN serve só pra provedor?</strong> Não. Serve muito para investigação, logs, antifraude e análise de comportamento.</p>
+    <pre class="transcript">[INÍCIO – TRANSCRIÇÃO/ROTEIRO PRODUZIDO]
 
-    <h3 id="transcricao">Transcrição do vídeo</h3>
-    <p>
-      Cole aqui a transcrição do YouTube. Isso aumenta muito SEO e acessibilidade.
-    </p>
+Fala pessoal! Hoje eu vou te explicar de um jeito simples o que é ASN e por que isso aparece quando você consulta um IP.
 
-    <pre class="transcript">[COLE A TRANSCRIÇÃO COMPLETA DO VÍDEO AQUI]</pre>
+Primeiro: IP é um endereço na internet. Só que esse endereço não “existe sozinho”. Ele faz parte de um bloco, e esse bloco é anunciado por uma rede.
+É aí que entra o ASN, que significa Autonomous System Number.
+
+Pensa assim: o IP é como o número da casa. O ASN é como a identidade do condomínio ou do bairro que “controla” aquela rua inteira.
+Na internet, quem anuncia e roteia blocos de IP é um “Sistema Autônomo”. Cada um tem um número: o ASN.
+
+Por que isso é importante?
+Porque quando você está investigando alguma coisa suspeita — como tentativas de login, spam, bot, fraude —
+você quer saber de onde esse IP veio de verdade.
+
+Muitas vezes, você vai descobrir que aquele IP está ligado a um datacenter ou uma nuvem.
+E datacenter costuma ser usado para automação: bots, scanners, força bruta, scraping, e por aí vai.
+Isso não significa automaticamente que é ataque — mas é um sinal de que você precisa avaliar o comportamento.
+
+Outra situação: você consulta um IP e aparece um ASN de um provedor local, ou de uma operadora residencial.
+Isso pode indicar um usuário comum, IP dinâmico, e aí o contexto é diferente.
+
+Então, qual é o jeito correto de usar ASN na prática?
+Você faz assim:
+1) pega o IP,
+2) descobre o ASN,
+3) identifica a organização (ISP, datacenter, CDN),
+4) cruza isso com o comportamento — por exemplo: quantas tentativas de login, em quanto tempo,
+5) e decide o que fazer: bloquear temporariamente, aplicar rate-limit, exigir captcha, ou forçar 2FA.
+
+O erro de iniciante é olhar o IP e sair bloqueando tudo. O profissional olha: ASN + comportamento + contexto.
+Se foi uma tentativa isolada, talvez só registrar.
+Se foram 200 tentativas em 1 minuto, aí sim: rate-limit, bloqueio temporário, e reforço de autenticação.
+
+E se você tem um provedor ou trabalha com rede, entender ASN é essencial também por causa de BGP, roteamento e anúncios de bloco.
+Mas mesmo quem não é provedor usa ASN o tempo todo quando investiga IP.
+
+Resumindo:
+IP é endereço.
+ASN é “quem anuncia” e “quem roteia” o bloco.
+E isso te ajuda a identificar padrão, origem, e tomar decisão com mais segurança.
+
+[FINAL – TRANSCRIÇÃO/ROTEIRO PRODUZIDO]</pre>
 
     <div class="actions">
       <a class="btn btn-primary" href="../artigos.html">Voltar para Artigos</a>
@@ -282,12 +300,8 @@
     <div class="footer-grid">
       <div class="foot-card">
         <h3>Segurança Tech</h3>
-        <p>
-          Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.
-          Use com responsabilidade e valide informações importantes por fontes oficiais.
-        </p>
+        <p>Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.</p>
       </div>
-
       <div class="foot-card">
         <h4>Links importantes</h4>
         <div class="links">
@@ -297,11 +311,8 @@
         </div>
       </div>
     </div>
-
     <div class="footnote">
-      © <span id="year"></span> Segurança Tech •
-      <a href="../ferramentas.html">Ferramentas</a> •
-      <a href="../artigos.html">Artigos</a>
+      © <span id="year"></span> Segurança Tech • <a href="../ferramentas.html">Ferramentas</a> • <a href="../artigos.html">Artigos</a>
     </div>
   </div>
 </footer>
