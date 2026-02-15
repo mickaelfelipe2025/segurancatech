@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verificador de Link</title>
 
+<style>
+body {font-family:Arial; padding:40px; background:#f4f6f8;}
+input {padding:10px; width:80%;}
+button {padding:10px;}
+.resultado {margin-top:20px;}
+</style>
+
+</head>
+
+<body>
+
+<h1>Verificador de Links Maliciosos</h1>
+
+<input type="text" id="url" placeholder="Cole o link aqui">
+<button onclick="verificar()">Verificar</button>
+
+<div class="resultado" id="resultado"></div>
+
+<h2>Por que verificar links?</h2>
+<p>Links maliciosos podem levar ao roubo de senhas, invasão de contas e instalação de vírus no seu dispositivo.</p>
+<p>Verificar links antes de acessá-los ajuda a prevenir ataques de phishing e golpes online.</p>
+
+<script>
+function verificar(){
+let url = document.getElementById("url").value;
+
+if(url.includes("http")){
+document.getElementById("resultado").innerHTML =
+"<p style='color:green'>Link parece válido.</p>";
+}
+else{
+document.getElementById("resultado").innerHTML =
+"<p style='color:red'>Link suspeito.</p>";
+}
+}
+</script>
+
+</body>
+</html>
