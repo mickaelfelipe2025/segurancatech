@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artigos — Segurança Tech</title>
+
+  <meta name="description" content="Artigos práticos para você se proteger de golpes: phishing, links falsos, IP/ASN e segurança no WhatsApp." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos.html" />
+
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --nav:#122c66;
+      --header:#0a1f44;
+      --text:#0b1220;
+      --muted:#475569;
+      --shadow:0 10px 22px rgba(2,6,23,.10);
+      --radius:14px;
+      --line:#e6edf7;
+      --chip:#e9f1ff;
+      --chipText:#0a1f44;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    header{
+      background:var(--header);
+      color:#fff;
+      padding:26px 16px;
+      text-align:center;
+    }
+    header h1{margin:0 0 6px;font-size:28px}
+    header p{margin:0;opacity:.9}
+
+    nav{
+      background:var(--nav);
+      padding:10px 12px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:999;
+    }
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:10px 12px;
+      border-radius:10px;
+      display:inline-block;
+    }
+    nav a:hover{background:rgba(255,255,255,.10)}
+
+    /* Dropdown */
+    .dropdown{position:relative}
+    .dropbtn{
+      background:transparent;
+      color:#fff;
+      border:0;
+      font-weight:800;
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:16px;
+    }
+    .dropbtn:hover{background:rgba(255,255,255,.10)}
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:48px;
+      left:0;
+      min-width:270px;
+      background:#fff;
+      border-radius:14px;
+      box-shadow:0 18px 40px rgba(2,6,23,.20);
+      overflow:hidden;
+      z-index:1000;
+    }
+    .dropdown-content a{
+      color:#0b1220;
+      padding:12px 14px;
+      display:block;
+      text-decoration:none;
+      font-weight:800;
+      border-bottom:1px solid #eef2f7;
+    }
+    .dropdown-content a:last-child{border-bottom:none}
+    .dropdown-content a:hover{background:#f6f8fb}
+    .dropdown-content small{
+      display:block;
+      font-weight:650;
+      color:#64748b;
+      margin-top:2px;
+    }
+
+    .container{max-width:980px;margin:0 auto;padding:22px 14px}
+
+    .hero{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    .hero h2{margin:0 0 6px}
+    .hero p{margin:0;color:var(--muted);line-height:1.6}
+
+    /* Barra de controles */
+    .controls{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1.4fr .8fr .8fr;
+      gap:12px;
+      align-items:end;
+    }
+    .field label{
+      display:block;
+      font-weight:900;
+      color:#0a1f44;
+      font-size:13px;
+      margin:0 0 6px;
+    }
+    .input, .select{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      outline:none;
+      background:#fff;
+      font-weight:700;
+      color:var(--text);
+    }
+    .input:focus, .select:focus{
+      border-color:#c7d7ff;
+      box-shadow:0 0 0 4px rgba(18,44,102,.10);
+    }
+
+    .stats{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--chip);
+      color:var(--chipText);
+      font-weight:900;
+      width:fit-content;
+    }
+    .muted{color:#64748b;font-weight:800}
+
+    /* Grid de artigos */
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:14px;
+    }
+    .card{
+      grid-column:span 6;
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+      border:1px solid rgba(0,0,0,0);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow:0 14px 28px rgba(2,6,23,.14);
+    }
+    .kicker{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-bottom:8px;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#f6f8fb;
+      border:1px solid #eef2f7;
+      color:#0a1f44;
+      font-weight:900;
+      font-size:12px;
+    }
+    .card h3{margin:0 0 8px;font-size:18px}
+    .card p{margin:0;color:var(--muted);line-height:1.55}
+    .meta{
+      margin-top:10px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      color:#64748b;
+      font-weight:800;
+      font-size:13px;
+    }
+    .actions{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .btn{
+      display:inline-block;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-weight:900;
+      color:#0a1f44;
+      text-decoration:none;
+      cursor:pointer;
+    }
+    .btn:hover{background:#f6f8fb}
+    .btn-primary{
+      border:0;
+      background:#122c66;
+      color:#fff;
+    }
+    .btn-primary:hover{filter:brightness(1.05)}
+
+    .empty{
+      grid-column:span 12;
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      border:1px dashed #d7e3ff;
+    }
+    .empty h3{margin:0 0 8px}
+    .empty p{margin:0;color:var(--muted);line-height:1.6}
+
+    @media (max-width: 860px){
+      .controls{grid-template-columns:1fr}
+      .card{grid-column:span 12}
+    }
+
+    /* Rodapé “lindo” */
+    footer{
+      margin-top:18px;
+      background:linear-gradient(180deg, #0a1f44 0%, #071a3a 100%);
+      color:#eaf0ff;
+      padding:26px 14px;
+    }
+    .footer-wrap{max-width:980px;margin:0 auto}
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      align-items:start;
+    }
+    .foot-card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      padding:16px;
+    }
+    .foot-card h3,.foot-card h4{margin:0 0 8px}
+    .foot-card p{margin:0;color:rgba(234,240,255,.85);line-height:1.6}
+    .links{display:grid;gap:10px}
+    .links a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:900;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      display:block;
+    }
+    .links a:hover{background:rgba(255,255,255,.08)}
+    .footnote{
+      max-width:980px;margin:14px auto 0;
+      color:rgba(234,240,255,.75);
+      font-size:13px;
+      text-align:center;
+      padding-top:14px;
+      border-top:1px solid rgba(255,255,255,.12);
+    }
+    .footnote a{color:#fff;font-weight:900;text-decoration:none}
+    .footnote a:hover{text-decoration:underline}
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Artigos</h1>
+  <p>Conteúdo prático para você se proteger de golpes e ameaças digitais</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="sobre.html">Sobre</a>
+
+  <div class="dropdown">
+    <button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">
+      Ferramentas <span aria-hidden="true">▼</span>
+    </button>
+    <div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+      <a href="tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+      <a href="tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+      <a href="tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
+      <a href="tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+      <a href="tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+      <a href="tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+    </div>
+  </div>
+
+  <a href="artigos.html">Artigos</a>
+  <a href="sobre.html#contato">Contato</a>
+</nav>
+
+<div class="container">
+  <section class="hero">
+    <h2>Biblioteca de artigos</h2>
+    <p>
+      Aqui você organiza seus posts em cards. Use a busca e os filtros para achar rápido.
+      Conforme você publicar mais, isso vira um “hub” forte pro Google e pro AdSense.
+    </p>
+
+    <div class="controls">
+      <div class="field">
+        <label for="q">Buscar</label>
+        <input class="input" id="q" type="search" placeholder="Ex.: phishing, WhatsApp, link falso, IP..." autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label for="cat">Categoria</label>
+        <select class="select" id="cat">
+          <option value="all">Todas</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="sort">Ordenar</label>
+        <select class="select" id="sort">
+          <option value="new">Mais recentes</option>
+          <option value="az">A–Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="pill">📚 <span id="countTotal">0</span> artigos</div>
+      <div class="pill">🔎 <span id="countShown">0</span> exibidos</div>
+      <span class="muted">Dica: para adicionar um artigo novo, edite a lista no final do arquivo.</span>
+    </div>
+  </section>
+
+  <section class="grid" id="grid"></section>
+</div>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-grid">
+      <div class="foot-card">
+        <h3>Segurança Tech</h3>
+        <p>
+          Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.
+          Use com responsabilidade e sempre valide informações importantes por fontes oficiais.
+        </p>
+      </div>
+
+      <div class="foot-card">
+        <h4>Links importantes</h4>
+        <div class="links">
+          <a href="sobre.html">Sobre</a>
+          <a href="politica-de-privacidade.html">Política de Privacidade</a>
+          <a href="termos-de-uso.html">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footnote">
+      © <span id="year"></span> Segurança Tech •
+      <a href="ferramentas.html">Ferramentas</a> •
+      <a href="artigos.html">Artigos</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Ano
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Dropdown por clique + fechar ao clicar fora/ESC
+  const btn = document.getElementById("toolsBtn");
+  const menu = document.getElementById("toolsMenu");
+  function closeMenu(){ menu.style.display = "none"; btn.setAttribute("aria-expanded", "false"); }
+  function toggleMenu(){
+    const open = menu.style.display === "block";
+    menu.style.display = open ? "none" : "block";
+    btn.setAttribute("aria-expanded", String(!open));
+  }
+  btn.addEventListener("click", (e) => { e.stopPropagation(); toggleMenu(); });
+  document.addEventListener("click", () => closeMenu());
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
+
+  // =========================
+  // ✅ LISTA DE ARTIGOS (edite aqui)
+  // =========================
+  const ARTIGOS = [
+    {
+      title: "O que é phishing (e como não cair)",
+      desc: "Entenda o golpe mais comum e aprenda a reconhecer sinais antes de clicar.",
+      category: "Golpes",
+      tags: ["phishing", "contas", "senhas"],
+      minutes: "5–7 min",
+      dateISO: "2026-02-15",
+      url: "artigos/o-que-e-phishing.html"
+    },
+    {
+      title: "Como identificar link falso",
+      desc: "Checklist prático: domínio, URL, subdomínios e encurtadores.",
+      category: "Links",
+      tags: ["links", "url", "golpe"],
+      minutes: "6–8 min",
+      dateISO: "2026-02-15",
+      url: "artigos/como-identificar-link-falso.html"
+    },
+    {
+      title: "Como saber se um IP é perigoso",
+      desc: "Reputação, origem (ASN) e contexto real — sem paranoia.",
+      category: "IP e Rede",
+      tags: ["ip", "reputação", "abuso"],
+      minutes: "7–10 min",
+      dateISO: "2026-02-15",
+      url: "artigos/como-saber-se-um-ip-e-perigoso.html"
+    },
+    {
+      title: "O que é ASN (e por que isso importa)",
+      desc: "O “CPF da rede”: entenda como isso aparece ao investigar IPs.",
+      category: "IP e Rede",
+      tags: ["asn", "bgp", "provedor"],
+      minutes: "6–9 min",
+      dateISO: "2026-02-15",
+      url: "artigos/o-que-e-asn.html"
+    },
+    {
+      title: "Golpes no WhatsApp: os mais comuns",
+      desc: "Clonagem, falso suporte, Pix e como se proteger em 2 passos.",
+      category: "WhatsApp",
+      tags: ["whatsapp", "clonagem", "pix"],
+      minutes: "8–12 min",
+      dateISO: "2026-02-15",
+      url: "artigos/golpes-no-whatsapp.html"
+    },
+    {
+      title: "Como ativar verificação em duas etapas no WhatsApp",
+      desc: "Passo a passo simples para ativar o PIN e blindar sua conta.",
+      category: "WhatsApp",
+      tags: ["2fa", "pin", "segurança"],
+      minutes: "4–6 min",
+      dateISO: "2026-02-15",
+      url: "artigos/como-ativar-verificacao-em-duas-etapas-no-whatsapp.html"
+    },
+    {
+      title: "Engenharia social: como os golpistas te manipulam",
+      desc: "As técnicas mentais usadas em golpes e como se defender.",
+      category: "Golpes",
+      tags: ["engenharia social", "manipulação", "urgência"],
+      minutes: "7–10 min",
+      dateISO: "2026-02-15",
+      url: "artigos/engenharia-social-como-os-golpistas-te-manipulam.html"
+    }
+  ];
+
+  // Util
+  const $ = (id) => document.getElementById(id);
+  const grid = $("grid");
+  const q = $("q");
+  const cat = $("cat");
+  const sort = $("sort");
+  const countTotal = $("countTotal");
+  const countShown = $("countShown");
+
+  function formatBR(iso){
+    const [y,m,d] = iso.split("-").map(Number);
+    const dd = String(d).padStart(2,"0");
+    const mm = String(m).padStart(2,"0");
+    return `${dd}/${mm}/${y}`;
+  }
+
+  function buildCategories(){
+    const cats = Array.from(new Set(ARTIGOS.map(a => a.category))).sort((a,b)=>a.localeCompare(b,"pt-BR"));
+    cats.forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      cat.appendChild(opt);
+    });
+  }
+
+  function render(){
+    const term = q.value.trim().toLowerCase();
+    const selectedCat = cat.value;
+    const mode = sort.value;
+
+    let list = ARTIGOS.slice();
+
+    // filtro categoria
+    if(selectedCat !== "all"){
+      list = list.filter(a => a.category === selectedCat);
+    }
+
+    // busca
+    if(term){
+      list = list.filter(a => {
+        const hay = `${a.title} ${a.desc} ${a.category} ${(a.tags||[]).join(" ")}`.toLowerCase();
+        return hay.includes(term);
+      });
+    }
+
+    // ordenação
+    if(mode === "new"){
+      list.sort((a,b)=> (b.dateISO.localeCompare(a.dateISO)) || a.title.localeCompare(b.title,"pt-BR"));
+    }else{
+      list.sort((a,b)=> a.title.localeCompare(b.title,"pt-BR"));
+    }
+
+    // stats
+    countTotal.textContent = String(ARTIGOS.length);
+    countShown.textContent = String(list.length);
+
+    // render cards
+    grid.innerHTML = "";
+
+    if(list.length === 0){
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.innerHTML = `
+        <h3>Nenhum artigo encontrado</h3>
+        <p>Tente mudar a busca, trocar a categoria ou ajustar a ordenação.</p>
+      `;
+      grid.appendChild(empty);
+      return;
+    }
+
+    list.forEach(a => {
+      const el = document.createElement("article");
+      el.className = "card";
+      el.innerHTML = `
+        <div class="kicker">
+          <span class="tag">${a.category}</span>
+          ${(a.tags||[]).slice(0,2).map(t=>`<span class="tag">#${t}</span>`).join("")}
+        </div>
+        <h3>${a.title}</h3>
+        <p>${a.desc}</p>
+        <div class="meta">
+          <span>🕒 ${a.minutes}</span>
+          <span>📅 ${formatBR(a.dateISO)}</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="${a.url}">Ler artigo</a>
+          <button class="btn" type="button" data-copy="${a.url}">Copiar link</button>
+        </div>
+      `;
+      grid.appendChild(el);
+    });
+
+    // Copiar link
+    grid.querySelectorAll("button[data-copy]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const path = btn.getAttribute("data-copy");
+        const full = `https://mickaelfelipe2025.github.io/segurancatech/${path}`;
+        try{
+          await navigator.clipboard.writeText(full);
+          btn.textContent = "✅ Link copiado";
+          setTimeout(()=> btn.textContent = "Copiar link", 1400);
+        }catch(e){
+          // fallback simples
+          prompt("Copie o link:", full);
+        }
+      });
+    });
+  }
+
+  buildCategories();
+  render();
+
+  q.addEventListener("input", render);
+  cat.addEventListener("change", render);
+  sort.addEventListener("change", render);
+</script>
+</body>
+</html>
