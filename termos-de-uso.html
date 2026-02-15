@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Termos de Uso - Segurança Tech</title>
+  <style>
+    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:16px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+    nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+    nav a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.10)}
+    .container{max-width:980px;margin:0 auto;padding:22px 14px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    h2{margin:16px 0 8px}
+    p,li{color:var(--muted);line-height:1.7}
+    ul{margin:8px 0 0;padding-left:18px}
+    footer{padding:22px 14px;color:#64748b;text-align:center}
+    .small{font-size:13px}
+    code{background:#eef2f7;padding:2px 6px;border-radius:8px}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Termos de Uso</h1>
+  <p>Condições para uso do site e das ferramentas</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="ferramentas.html">Ferramentas</a>
+  <a href="politica-de-privacidade.html">Privacidade</a>
+  <a href="sobre.html#contato">Contato</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <p class="small"><strong>Última atualização:</strong> 15/02/2026</p>
+
+    <h2>1) Aceitação</h2>
+    <p>
+      Ao acessar o <strong>Segurança Tech</strong> (<code>segurancatech.com.br</code>), você concorda com estes Termos de Uso e com a nossa
+      <a href="politica-de-privacidade.html">Política de Privacidade</a>.
+    </p>
+
+    <h2>2) Finalidade do site</h2>
+    <p>
+      O site oferece conteúdo educativo e ferramentas de apoio. As informações exibidas podem ser aproximadas e dependem de serviços de terceiros.
+    </p>
+
+    <h2>3) Uso adequado</h2>
+    <p>Você concorda em não usar o site para:</p>
+    <ul>
+      <li>Práticas ilegais, invasões, fraudes, tentativa de acesso não autorizado ou qualquer atividade maliciosa.</li>
+      <li>Coleta abusiva de dados de terceiros ou violação de privacidade.</li>
+      <li>Interferir no funcionamento do site (ex.: automação agressiva, ataques de negação de serviço).</li>
+    </ul>
+
+    <h2>4) Limitação de responsabilidade</h2>
+    <p>
+      O Segurança Tech não garante que as ferramentas identifiquem todos os riscos. Você é responsável por suas decisões.
+      Não nos responsabilizamos por perdas, danos ou problemas decorrentes do uso do site.
+    </p>
+
+    <h2>5) Conteúdo e propriedade intelectual</h2>
+    <p>
+      O layout, textos e materiais do site podem estar protegidos por direitos autorais. Você pode compartilhar links e trechos curtos com crédito,
+      mas não copiar integralmente sem autorização.
+    </p>
+
+    <h2>6) Alterações e encerramento</h2>
+    <p>
+      Podemos atualizar o site, as ferramentas e estes termos a qualquer momento. O uso contínuo após alterações significa aceitação.
+    </p>
+
+    <h2>7) Contato</h2>
+    <p>
+      Para dúvidas, utilize a seção <a href="sobre.html#contato">Contato</a>.
+    </p>
+  </div>
+</div>
+
+<footer>
+  © <span id="year"></span> Segurança Tech
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
