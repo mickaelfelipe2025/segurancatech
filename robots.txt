@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mickaelfelipe2025.github.io/segurancatech/sitemap.xml
