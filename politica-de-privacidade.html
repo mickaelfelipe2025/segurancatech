@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Política de Privacidade - Segurança Tech</title>
+  <style>
+    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:16px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+    nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+    nav a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.10)}
+    .container{max-width:980px;margin:0 auto;padding:22px 14px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    h2{margin:16px 0 8px}
+    p,li{color:var(--muted);line-height:1.7}
+    ul{margin:8px 0 0;padding-left:18px}
+    .muted{color:var(--muted)}
+    footer{padding:22px 14px;color:#64748b;text-align:center}
+    .small{font-size:13px}
+    code{background:#eef2f7;padding:2px 6px;border-radius:8px}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Política de Privacidade</h1>
+  <p>Como coletamos, usamos e protegemos informações</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="ferramentas.html">Ferramentas</a>
+  <a href="termos-de-uso.html">Termos</a>
+  <a href="sobre.html#contato">Contato</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <p class="muted small"><strong>Última atualização:</strong> 15/02/2026</p>
+
+    <h2>1) Quem somos</h2>
+    <p>
+      O <strong>Segurança Tech</strong> (<code>segurancatech.com.br</code>) é um site com conteúdo educativo e ferramentas gratuitas
+      relacionadas a segurança digital, redes e utilidades online.
+    </p>
+
+    <h2>2) Informações que podemos coletar</h2>
+    <p>Dependendo da página acessada, podemos coletar:</p>
+    <ul>
+      <li><strong>Dados técnicos do navegador/dispositivo</strong>: tipo de navegador, idioma, resolução, user-agent, fuso horário e informações similares.</li>
+      <li><strong>IP público</strong> (por meio de serviços/APIs de terceiros) para exibir informações de rede e localização aproximada.</li>
+      <li><strong>Dados informados pelo usuário</strong>: por exemplo, um IP digitado em “Rastreio de IP” ou um link colado no “Identificador de links falsos”.</li>
+      <li><strong>Cookies</strong>: podem ser usados por serviços de terceiros (ex.: plataformas de anúncios e medição).</li>
+    </ul>
+
+    <h2>3) Como usamos essas informações</h2>
+    <ul>
+      <li>Para <strong>operar as ferramentas</strong> e mostrar resultados (ex.: consulta de IP/ASN/clima).</li>
+      <li>Para <strong>melhorar o site</strong>, corrigir erros e entender uso geral (estatísticas agregadas).</li>
+      <li>Para <strong>exibir anúncios</strong>, quando habilitado, por meio de parceiros como o Google AdSense.</li>
+    </ul>
+
+    <h2>4) Serviços de terceiros</h2>
+    <p>
+      Algumas ferramentas utilizam <strong>APIs públicas</strong> para retornar dados (ex.: consulta de IP/ASN e previsão do tempo).
+      Esses serviços podem registrar informações necessárias para a operação (ex.: IP da requisição).
+    </p>
+
+    <h2>5) Google AdSense e publicidade</h2>
+    <p>
+      Quando anúncios estiverem ativos, o Google e seus parceiros podem usar cookies/identificadores para exibir anúncios
+      personalizados ou não, medir desempenho e limitar repetição.
+    </p>
+    <p class="muted small">
+      Você pode gerenciar preferências de anúncios na sua Conta Google. Também é possível desativar anúncios personalizados nas configurações do Google.
+    </p>
+
+    <h2>6) Segurança</h2>
+    <p>
+      Adotamos medidas razoáveis para proteger informações. Ainda assim, nenhum método de transmissão/armazenamento é 100% seguro.
+    </p>
+
+    <h2>7) Retenção de dados</h2>
+    <p>
+      Em geral, não armazenamos dados pessoais inseridos nas ferramentas. Logs técnicos podem existir em serviços de terceiros
+      (ex.: provedores de API e infraestrutura) conforme as políticas deles.
+    </p>
+
+    <h2>8) Seus direitos</h2>
+    <p>
+      Você pode solicitar informações sobre o tratamento de dados e/ou pedir remoção de informações quando aplicável.
+      Entre em contato pela página <a href="sobre.html#contato">Contato</a>.
+    </p>
+
+    <h2>9) Alterações nesta política</h2>
+    <p>
+      Podemos atualizar esta política periodicamente. A data de “última atualização” será ajustada nesta página.
+    </p>
+  </div>
+</div>
+
+<footer>
+  © <span id="year"></span> Segurança Tech
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
