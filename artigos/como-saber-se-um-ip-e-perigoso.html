@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Como saber se um IP é perigoso — Segurança Tech</title>
-<meta name="description" content="Aprenda a avaliar se um IP é perigoso: reputação, abuso, origem (ASN) e contexto real."/>
+<meta name="description" content="Aprenda a identificar se um IP é perigoso: sinais de abuso, ferramentas (AbuseIPDB/VirusTotal/WHOIS), checklist rápido e o que fazer se você estiver em risco."/>
 <meta name="robots" content="index,follow"/>
 <link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos/como-saber-se-um-ip-e-perigoso.html"/>
 <style>
@@ -47,35 +47,103 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 </div></div>
 <a href="../artigos.html">Artigos</a><a href="../sobre.html#contato">Contato</a>
 </nav>
+
 <div class="container"><article class="card">
 <h2>Como saber se um IP é perigoso</h2>
-<div class="meta">Leitura: 7–10 min • Atualizado: 15/02/2026</div>
+<div class="meta">Leitura: 7–9 min • Atualizado: 16/02/2026</div>
 
-<p>Um IP “perigoso” normalmente é um endereço associado a <strong>spam</strong>, <strong>tentativas de invasão</strong> ou <strong>fraude</strong>. Mas cuidado: IP pode ser dinâmico e pode “herdar” reputação ruim.</p>
+<div class="callout warn">Importante: “ver seu IP” não significa que alguém te invadiu. O perigo está no <strong>comportamento</strong> desse IP (abuso/ataques) ou no seu dispositivo estar comprometido.</div>
 
-<div class="callout">O que define risco é: <strong>contexto + comportamento + histórico</strong>. Só “ser de outro país” não prova nada.</div>
+<h3>Vídeo (no topo): IP “na tela” é perigoso?</h3>
 
-<h3>O que olhar de verdade</h3>
+<!-- Player + botão de fallback -->
+<div class="actions" style="margin-top:10px">
+  <a class="btn btn-primary" href="#" id="playWithSound">Tocar vídeo com som</a>
+  <a class="btn" href="../tools/rastreio-ip.html">Consultar um IP agora</a>
+</div>
+
+<div class="callout">Se o vídeo não iniciar sozinho com som, é normal: navegadores costumam bloquear autoplay com áudio. Use o botão “Tocar vídeo com som”.</div>
+
+<div id="ytWrap">
+  <div id="ytPlayer" style="border-radius:12px; overflow:hidden"></div>
+</div>
+
+<hr style="margin:18px 0;border:none;border-top:1px solid #e6edf7"/>
+
+<h3>O que é um IP (bem direto)</h3>
+<p>IP é um endereço usado para identificar um dispositivo/rota na internet. Pode ser:</p>
 <ul>
-<li><strong>Contexto:</strong> apareceu onde? login no seu site? e-mail? mensagem?</li>
-<li><strong>Comportamento:</strong> muitas tentativas seguidas? horários estranhos? padrões repetidos?</li>
-<li><strong>Origem (ASN/ISP):</strong> é datacenter/cloud ou rede residencial?</li>
-<li><strong>Histórico:</strong> aparece em listas de abuso/spam? (quando disponível)</li>
+<li><strong>IP público:</strong> o endereço que seu provedor mostra para a internet (geralmente muda com o tempo).</li>
+<li><strong>IP privado:</strong> o endereço dentro da sua rede (ex.: 192.168.0.10). Esse não “aparece” pra internet.</li>
 </ul>
 
-<h3>Sinais comuns de ataque</h3>
+<h3>Quando um IP é “perigoso” de verdade?</h3>
+<p>Um IP vira um problema quando está associado a:</p>
 <ul>
-<li>Muitas tentativas de login em pouco tempo (força bruta).</li>
-<li>Varredura de portas (scan) em sequência.</li>
-<li>Vários endpoints acessados rapidamente (enumeração).</li>
+<li><strong>Varredura</strong> (tentando achar portas abertas)</li>
+<li><strong>Brute force</strong> (tentativas de senha em massa)</li>
+<li><strong>Spam</strong> (envio de e-mails/mensagens)</li>
+<li><strong>Botnets</strong> (rede de dispositivos infectados)</li>
+<li><strong>Hospedagem maliciosa</strong> (phishing/malware)</li>
 </ul>
 
-<div class="callout warn">Se for seu site/servidor: ative 2FA, limite tentativas (rate-limit), e use bloqueio temporário.</div>
+<div class="callout">Tradução: o IP “perigoso” costuma ser um IP que <strong>ataca</strong> ou <strong>hospeda golpe</strong> — não um IP “misterioso” qualquer.</div>
+
+<h3>Ilustração rápida: 3 cenários comuns</h3>
+<ul>
+<li><strong>Cenário A (normal):</strong> você viu o seu IP em um site “Qual é meu IP”. ✅ normal</li>
+<li><strong>Cenário B (suspeito):</strong> você recebeu um link dizendo “seu IP foi rastreado”. ⚠️ geralmente é golpe/ameaça</li>
+<li><strong>Cenário C (perigo real):</strong> logs mostram tentativas repetidas de acesso vindo do mesmo IP, ou ferramentas marcam como abuso. 🚫 agir</li>
+</ul>
+
+<h3>Checklist prático: como avaliar um IP em 60 segundos</h3>
+<ul>
+<li>O IP aparece como <strong>“abusive/malicious”</strong> em bases públicas?</li>
+<li>Tem <strong>muitas denúncias recentes</strong> (últimos dias/semanas)?</li>
+<li>O país/ASN/empresa do IP faz sentido para o contexto?</li>
+<li>O IP está tentando acessar portas típicas (22/23/3389/445 etc.)?</li>
+<li>O comportamento é repetitivo (várias tentativas por minuto/hora)?</li>
+</ul>
+
+<div class="callout">Dica: um IP pode ser “suspeito” e ainda assim ser apenas uma empresa/serviço comum. O que manda é a combinação: <strong>volume + repetição + denúncias + tipo de tentativa</strong>.</div>
+
+<h3>Ferramentas confiáveis para checar IP</h3>
+<ul>
+<li><strong>AbuseIPDB</strong>: reputação e denúncias por abuso</li>
+<li><strong>VirusTotal</strong>: checa IP/domínio/URL e associações</li>
+<li><strong>WHOIS/RDAP</strong>: mostra a organização/ASN e bloco do IP</li>
+<li><strong>Shodan</strong> (avançado): o que esse IP expõe na internet</li>
+</ul>
+
+<div class="callout">Você pode começar pelo seu próprio site: <strong>Ferramentas → Rastreio de IP</strong>. Ele já te coloca no caminho certo.</div>
+
+<h3>O que fazer se você achar um IP suspeito tentando te acessar</h3>
+<ul>
+<li>Se for roteador/ONU/câmera: <strong>troque a senha</strong> e desative acesso remoto desnecessário</li>
+<li>Ative <strong>2FA</strong> nas contas (WhatsApp, e-mail, redes sociais)</li>
+<li>Atualize firmware do roteador e dispositivos</li>
+<li>Se tiver logs: bloqueie temporariamente no firewall/roteador (se souber o que está fazendo)</li>
+<li>Se for empresa/provedor: considere <strong>rate-limit</strong>, regras e monitoração</li>
+</ul>
+
+<div class="callout warn">Atenção: bloquear IP por impulso pode causar efeito colateral (serviços legítimos). Prefira confirmar com reputação + contexto + repetição.</div>
+
+<h3>Se você suspeita que o seu IP “está comprometido”</h3>
+<p>Às vezes o problema não é “alguém te atacando”, e sim um dispositivo na sua rede infectado se comunicando com botnet. Existem ferramentas que ajudam a checar esse tipo de comportamento. :contentReference[oaicite:1]{index=1}</p>
+
+<ul>
+<li>Reinicie o roteador e observe se o problema volta</li>
+<li>Verifique dispositivos desconhecidos conectados no Wi-Fi</li>
+<li>Faça varredura de malware no PC/celular</li>
+<li>Se necessário: troque a senha do Wi-Fi e do painel do roteador</li>
+</ul>
 
 <div class="actions">
 <a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
-<a class="btn" href="./o-que-e-asn.html">Próximo: ASN</a>
+<a class="btn" href="./como-identificar-link-falso.html">Voltar: Link falso</a>
+<a class="btn" href="../tools/rastreio-ip.html">Ferramenta: Rastreio de IP</a>
 </div>
+
 </article></div>
 
 <footer><div class="footer-wrap"><div class="footer-grid">
@@ -94,5 +162,46 @@ function toggleMenu(){const open=menu.style.display==="block";menu.style.display
 btn.addEventListener("click",(e)=>{e.stopPropagation();toggleMenu()});
 document.addEventListener("click",()=>closeMenu());
 document.addEventListener("keydown",(e)=>{if(e.key==="Escape")closeMenu()});
+
+/* === YouTube no topo: tentar autoplay com som + fallback com botão === */
+let player;
+function onYouTubeIframeAPIReady(){
+  player = new YT.Player('ytPlayer', {
+    width: '100%',
+    height: '400',
+    videoId: '3ZMgQyls-7Y',
+    playerVars: {
+      autoplay: 1,
+      mute: 0,
+      rel: 0,
+      playsinline: 1
+    },
+    events: {
+      onReady: (e) => {
+        try{
+          e.target.unMute();
+          e.target.setVolume(100);
+          e.target.playVideo();
+        }catch(err){}
+      }
+    }
+  });
+}
+(function loadYT(){
+  const tag=document.createElement('script');
+  tag.src="https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+})();
+
+document.getElementById("playWithSound").addEventListener("click",(ev)=>{
+  ev.preventDefault();
+  if(player){
+    try{
+      player.unMute();
+      player.setVolume(100);
+      player.playVideo();
+    }catch(err){}
+  }
+});
 </script>
 </body></html>
