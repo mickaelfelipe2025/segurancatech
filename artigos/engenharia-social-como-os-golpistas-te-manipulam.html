@@ -1,1 +1,212 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Engenharia social: como os golpistas te manipulam — Segurança Tech</title>
+<meta name="description" content="Entenda engenharia social e como golpistas manipulam você: urgência, autoridade, medo, escassez e prova social. Veja exemplos reais e um checklist prático para não cair."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos/engenharia-social-como-os-golpistas-te-manipulam.html"/>
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}header h1{margin:0 0 6px;font-size:28px}header p{margin:0;opacity:.9}
+nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}nav a:hover{background:rgba(255,255,255,.10)}
+.dropdown{position:relative}.dropbtn{background:transparent;color:#fff;border:0;font-weight:800;padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:16px}
+.dropbtn:hover{background:rgba(255,255,255,.10)}
+.dropdown-content{display:none;position:absolute;top:48px;left:0;min-width:270px;background:#fff;border-radius:14px;box-shadow:0 18px 40px rgba(2,6,23,.20);overflow:hidden;z-index:1000}
+.dropdown-content a{color:#0b1220;padding:12px 14px;display:block;text-decoration:none;font-weight:800;border-bottom:1px solid #eef2f7}
+.dropdown-content a:last-child{border-bottom:none}.dropdown-content a:hover{background:#f6f8fb}
+.dropdown-content small{display:block;font-weight:650;color:#64748b;margin-top:2px}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;color:#0a1f44;text-decoration:none}
+.btn:hover{background:#f6f8fb}.btn-primary{border:0;background:#122c66;color:#fff}.btn-primary:hover{filter:brightness(1.05)}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.foot-card h3,.foot-card h4{margin:0 0 8px}.foot-card p{margin:0;color:rgba(234,240,255,.85);line-height:1.6}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.links a:hover{background:rgba(255,255,255,.08)}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+.footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+</style></head><body>
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+<nav>
+<a href="../index.html">Home</a><a href="../sobre.html">Sobre</a>
+<div class="dropdown"><button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">Ferramentas <span aria-hidden="true">▼</span></button>
+<div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+<a href="../tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+<a href="../tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+<a href="../tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
+<a href="../tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+<a href="../tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+<a href="../tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+</div></div>
+<a href="../artigos.html">Artigos</a><a href="../sobre.html#contato">Contato</a>
+</nav>
 
+<div class="container"><article class="card">
+<h2>Engenharia social: como os golpistas te manipulam</h2>
+<div class="meta">Leitura: 7–9 min • Atualizado: 16/02/2026</div>
+
+<p>Engenharia social é a “arte” de manipular pessoas para conseguir informações, dinheiro ou acesso. Em vez de invadir sistemas, o golpista tenta <strong>invadir você</strong>: sua atenção, emoção e decisão.</p>
+
+<div class="callout warn">Regra de ouro: golpe bom não parece golpe. Parece urgência, oportunidade e “procedimento padrão”.</div>
+
+<h3>Vídeo (no topo): como a manipulação funciona</h3>
+
+<div class="actions" style="margin-top:10px">
+  <a class="btn btn-primary" href="#" id="playWithSound">Tocar vídeo com som</a>
+  <a class="btn" href="./como-identificar-link-falso.html">Ler também: Link falso</a>
+</div>
+
+<div class="callout">Se o vídeo não iniciar sozinho com som, é normal: alguns navegadores bloqueiam autoplay com áudio. Use “Tocar vídeo com som”.</div>
+
+<div id="ytWrap">
+  <div id="ytPlayer" style="border-radius:12px; overflow:hidden"></div>
+</div>
+
+<hr style="margin:18px 0;border:none;border-top:1px solid #e6edf7"/>
+
+<h3>O que o golpista explora (ilustração mental em 3 passos)</h3>
+<ul>
+<li><strong>1) Gatilho emocional:</strong> medo, pressa, curiosidade, vantagem.</li>
+<li><strong>2) Pressão:</strong> “é agora”, “última chance”, “se não fizer vai perder”.</li>
+<li><strong>3) Ação guiada:</strong> clicar, informar código, transferir, instalar app, “confirmar dados”.</li>
+</ul>
+
+<div class="callout">Engenharia social é sobre controle do seu “modo automático”. O golpista quer que você aja sem checar.</div>
+
+<h3>Os 7 gatilhos mais usados (com exemplos reais)</h3>
+
+<ul>
+<li><strong>Urgência:</strong> “Seu WhatsApp será bloqueado em 30 minutos.”</li>
+<li><strong>Autoridade:</strong> “Aqui é do banco / suporte / polícia / Receita.”</li>
+<li><strong>Medo:</strong> “Encontramos compras suspeitas, confirme agora.”</li>
+<li><strong>Escassez:</strong> “Últimas vagas / último lote / oferta acaba hoje.”</li>
+<li><strong>Prova social:</strong> “Todo mundo já fez, é seguro.”</li>
+<li><strong>Reciprocidade:</strong> “Te ajudo agora, mas preciso do seu código.”</li>
+<li><strong>Compromisso:</strong> “Só confirme rapidinho o que você já começou.”</li>
+</ul>
+
+<div class="callout warn">Se existe pressa, existe risco. Segurança de verdade dá tempo de conferir.</div>
+
+<h3>Onde isso acontece mais (e por quê)</h3>
+<ul>
+<li><strong>WhatsApp:</strong> conversa rápida, confiança e pressão. Perfeito para golpe.</li>
+<li><strong>SMS/E-mail:</strong> links disfarçados e “alertas” falsos.</li>
+<li><strong>Instagram/Facebook:</strong> “verificação”, “copyright”, “sua conta será removida”.</li>
+<li><strong>Ligações:</strong> voz passa credibilidade — e acelera decisões.</li>
+</ul>
+
+<h3>Ilustração: frases típicas de golpe (decore e desconfie)</h3>
+<ul>
+<li>“Vou te enviar um código, me diga pra confirmar.”</li>
+<li>“É só um procedimento, rapidinho.”</li>
+<li>“Não conte pra ninguém, é sigiloso.”</li>
+<li>“Clica nesse link e confirma agora.”</li>
+<li>“Seu cadastro está irregular, resolva em 10 minutos.”</li>
+</ul>
+
+<div class="callout">Quando alguém te impede de verificar (“não desligue”, “não chame ninguém”), isso é um sinal gigante de manipulação.</div>
+
+<h3>Como se defender (checklist prático de 30 segundos)</h3>
+<ul>
+<li><strong>Pare.</strong> Respire e saia do modo pressa.</li>
+<li><strong>Confirme pelo canal oficial:</strong> abra o app/site digitando você mesmo.</li>
+<li><strong>Não compartilhe códigos:</strong> SMS, token, autenticação, “código de 6 dígitos”.</li>
+<li><strong>Desconfie de links:</strong> principalmente encurtados ou com domínio estranho.</li>
+<li><strong>Peça prova:</strong> nome, protocolo, e ligue de volta no número oficial.</li>
+</ul>
+
+<div class="callout warn">Códigos de verificação são chaves. Quem tem o código, entra.</div>
+
+<h3>O que fazer se você caiu (sem pânico, mas rápido)</h3>
+<ul>
+<li>Troque senhas imediatamente (e ative <strong>2FA</strong>).</li>
+<li>Revogue sessões/dispositivos logados (quando o serviço permitir).</li>
+<li>Se foi WhatsApp: ative a verificação em duas etapas e tente recuperar a conta.</li>
+<li>Se foi banco: contate o banco no canal oficial e registre contestação.</li>
+<li>Avise contatos: golpes costumam se espalhar se passando por você.</li>
+</ul>
+
+<div class="callout">Quanto mais rápido você age, menor o prejuízo. O golpe vive de atraso e vergonha.</div>
+
+<h3>Mini-regra pra vida</h3>
+<ul>
+<li>Se pediram <strong>código</strong> → é golpe.</li>
+<li>Se pediram <strong>pressa</strong> → é golpe.</li>
+<li>Se pediram <strong>segredo</strong> → é golpe.</li>
+<li>Se pediram <strong>clicar agora</strong> → é golpe.</li>
+</ul>
+
+<div class="actions">
+<a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
+<a class="btn" href="./como-identificar-link-falso.html">Próximo: Link falso</a>
+<a class="btn" href="../tools/links-falsos.html">Ferramenta: Identificador de links</a>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes e riscos comuns na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech • <a href="../ferramentas.html">Ferramentas</a> • <a href="../artigos.html">Artigos</a></div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+const btn=document.getElementById("toolsBtn"),menu=document.getElementById("toolsMenu");
+function closeMenu(){menu.style.display="none";btn.setAttribute("aria-expanded","false")}
+function toggleMenu(){const open=menu.style.display==="block";menu.style.display=open?"none":"block";btn.setAttribute("aria-expanded",String(!open))}
+btn.addEventListener("click",(e)=>{e.stopPropagation();toggleMenu()});
+document.addEventListener("click",()=>closeMenu());
+document.addEventListener("keydown",(e)=>{if(e.key==="Escape")closeMenu()});
+
+/* === YouTube no topo: tentar autoplay com som + fallback com botão === */
+let player;
+function onYouTubeIframeAPIReady(){
+  player = new YT.Player('ytPlayer', {
+    width: '100%',
+    height: '400',
+    videoId: 'hc-WwLG71Zw',
+    playerVars: {
+      autoplay: 1,
+      mute: 0,
+      rel: 0,
+      playsinline: 1
+    },
+    events: {
+      onReady: (e) => {
+        try{
+          e.target.unMute();
+          e.target.setVolume(100);
+          e.target.playVideo();
+        }catch(err){}
+      }
+    }
+  });
+}
+(function loadYT(){
+  const tag=document.createElement('script');
+  tag.src="https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+})();
+
+document.getElementById("playWithSound").addEventListener("click",(ev)=>{
+  ev.preventDefault();
+  if(player){
+    try{
+      player.unMute();
+      player.setVolume(100);
+      player.playVideo();
+    }catch(err){}
+  }
+});
+</script>
+</body></html>
