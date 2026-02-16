@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Como ativar verificação em duas etapas no WhatsApp — Segurança Tech</title>
+  <meta name="description" content="Aprenda a ativar a verificação em duas etapas (PIN) no WhatsApp com checklist, imagens e vídeo no meio do artigo." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos/whatsapp-2fa.html" />
+
+  <style>
+    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;--chip:#e9f1ff;--chipText:#0a1f44;}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+    header h1{margin:0 0 6px;font-size:28px} header p{margin:0;opacity:.9}
+    nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+    nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}
+    nav a:hover{background:rgba(255,255,255,.10)}
+    .dropdown{position:relative}
+    .dropbtn{background:transparent;color:#fff;border:0;font-weight:800;padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:16px}
+    .dropbtn:hover{background:rgba(255,255,255,.10)}
+    .dropdown-content{display:none;position:absolute;top:48px;left:0;min-width:270px;background:#fff;border-radius:14px;box-shadow:0 18px 40px rgba(2,6,23,.20);overflow:hidden;z-index:1000}
+    .dropdown-content a{color:#0b1220;padding:12px 14px;display:block;text-decoration:none;font-weight:800;border-bottom:1px solid #eef2f7}
+    .dropdown-content a:last-child{border-bottom:none}
+    .dropdown-content a:hover{background:#f6f8fb}
+    .dropdown-content small{display:block;font-weight:650;color:#64748b;margin-top:2px}
+    .container{max-width:980px;margin:0 auto;padding:22px 14px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    .meta{margin-top:8px;color:#64748b;font-weight:800;font-size:13px;display:flex;gap:10px;flex-wrap:wrap}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--chip);color:var(--chipText);font-weight:900;width:fit-content;margin-top:12px}
+    h2{margin:0 0 8px} h3{margin:18px 0 8px}
+    p,li{margin:0;color:var(--muted);line-height:1.75} p{margin-top:10px}
+    .callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+    .warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+    .toc{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .toc a{text-decoration:none;font-weight:900;color:#0a1f44;background:#f6f8fb;border:1px solid #eef2f7;border-radius:999px;padding:8px 10px;display:inline-block}
+    .toc a:hover{background:#eef2f7}
+    figure{margin:14px 0}
+    .img{width:100%;border-radius:16px;overflow:hidden;border:1px solid rgba(230,237,247,.9);box-shadow:0 14px 30px rgba(2,6,23,.12);background:#fff;display:block}
+    figcaption{margin-top:8px;color:#64748b;font-weight:800;font-size:13px}
+    .video{margin-top:14px;border-radius:16px;overflow:hidden;box-shadow:0 14px 30px rgba(2,6,23,.14);border:1px solid rgba(230,237,247,.9);background:#000}
+    .video iframe{width:100%;height:520px;border:0;display:block}
+    @media (max-width:860px){.video iframe{height:260px}}
+    pre.transcript{margin-top:12px;padding:14px;background:#0b1220;color:#eaf0ff;border-radius:14px;overflow:auto;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:13px;border:1px solid rgba(255,255,255,.08);white-space:pre-wrap}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .btn{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;color:#0a1f44;text-decoration:none}
+    .btn:hover{background:#f6f8fb}
+    .btn-primary{border:0;background:#122c66;color:#fff}
+    footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+    .footer-wrap{max-width:980px;margin:0 auto}
+    .footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+    .foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+    .links{display:grid;gap:10px}
+    .links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+    .footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+    .footnote a{color:#fff;font-weight:900;text-decoration:none}
+  </style>
+</head>
+<body>
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="../sobre.html">Sobre</a>
+  <div class="dropdown">
+    <button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">Ferramentas <span aria-hidden="true">▼</span></button>
+    <div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+      <a href="../tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+      <a href="../tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+      <a href="../tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
+      <a href="../tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+      <a href="../tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+      <a href="../tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+    </div>
+  </div>
+  <a href="../artigos.html">Artigos</a>
+  <a href="../sobre.html#contato">Contato</a>
+</nav>
+
+<div class="container">
+  <article class="card">
+    <h2>Como ativar verificação em duas etapas no WhatsApp</h2>
+    <div class="meta"><span>🕒 Leitura: 6–9 min</span><span>📅 <span id="dateBR"></span></span><span>🏷️ Categoria: WhatsApp</span></div>
+    <div class="pill">✅ Imagens + vídeo + transcrição (SEO forte)</div>
+
+    <figure>
+      <img class="img" src="../assets/img/whatsapp-2fa-capa.png" alt="Ilustração sobre segurança no WhatsApp com verificação em duas etapas" loading="lazy">
+      <figcaption>Ativar o PIN (2 etapas) é uma das melhores proteções contra clonagem.</figcaption>
+    </figure>
+
+    <div class="toc">
+      <a href="#passo">Passo a passo</a>
+      <a href="#video">Vídeo</a>
+      <a href="#checklist">Checklist</a>
+      <a href="#transcricao">Transcrição</a>
+    </div>
+
+    <h3 id="passo">Passo a passo (bem direto)</h3>
+    <p>1) Abra o WhatsApp → <strong>Configurações</strong>.</p>
+    <p>2) Vá em <strong>Conta</strong> → <strong>Verificação em duas etapas</strong>.</p>
+    <p>3) Toque em <strong>Ativar</strong> e crie um <strong>PIN de 6 dígitos</strong> (não use datas óbvias).</p>
+    <p>4) Adicione um <strong>e-mail de recuperação</strong> (isso salva sua conta se esquecer o PIN).</p>
+
+    <figure>
+      <img class="img" src="../assets/img/whatsapp-2fa-fluxo.png" alt="Fluxo de ativação da verificação em duas etapas no WhatsApp" loading="lazy">
+      <figcaption>Fluxo resumido do caminho no app.</figcaption>
+    </figure>
+
+    <div class="callout warn">Nunca passe código/PIN pra ninguém. Suporte oficial não pede isso.</div>
+
+    <h3 id="video">Vídeo (opcional)</h3>
+    <div class="video">
+      <!-- Substitua SUBSTITUA_ID pelo ID do YouTube quando você tiver o link -->
+      <iframe src="https://www.youtube.com/embed/SUBSTITUA_ID?rel=0&modestbranding=1"
+        title="Como ativar verificação em duas etapas no WhatsApp" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+
+    <h3 id="checklist">Checklist rápido</h3>
+    <figure>
+      <img class="img" src="../assets/img/whatsapp-2fa-checklist.png" alt="Checklist visual de segurança do WhatsApp" loading="lazy">
+      <figcaption>Faça isso hoje e evite dor de cabeça.</figcaption>
+    </figure>
+
+    <ul>
+      <li>PIN ativado (6 dígitos, difícil).</li>
+      <li>E-mail de recuperação configurado.</li>
+      <li>Desconfie de “suporte” pedindo código.</li>
+      <li>Bloqueie tentativas e avise família.</li>
+    </ul>
+
+    <h3 id="transcricao">Transcrição criada (roteiro educacional)</h3>
+    <pre class="transcript">Fala pessoal! Hoje eu vou te mostrar como ativar a verificação em duas etapas no WhatsApp.
+
+Isso aqui é simples, mas é uma das proteções mais eficientes contra clonagem e golpes.
+O que ela faz? Ela cria um PIN que o WhatsApp vai pedir periodicamente — e principalmente em momentos críticos de recuperação.
+
+Você vai em Configurações, depois Conta, e entra em Verificação em duas etapas.
+Clica em ativar e cria um PIN de 6 dígitos. Não usa data de aniversário, não usa “123456”, nem coisas óbvias.
+
+Depois disso, o passo mais importante: coloca um e-mail de recuperação.
+Porque se você esquecer o PIN, esse e-mail é a sua saída. Sem e-mail, você pode ficar travado.
+
+E lembra: golpista vive tentando pegar código e PIN. Suporte de verdade não pede isso.
+Se alguém te chamar dizendo que é suporte e pedindo código: é golpe.
+
+Ativa isso hoje, e você já fica muito mais protegido.</pre>
+  </article>
+</div>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-grid">
+      <div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes e riscos comuns na internet.</p></div>
+      <div class="foot-card"><h4>Links importantes</h4><div class="links">
+        <a href="../sobre.html">Sobre</a>
+        <a href="../politica-de-privacidade.html">Política de Privacidade</a>
+        <a href="../termos-de-uso.html">Termos de Uso</a>
+      </div></div>
+    </div>
+    <div class="footnote">© <span id="year"></span> Segurança Tech • <a href="../ferramentas.html">Ferramentas</a> • <a href="../artigos.html">Artigos</a></div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const n=new Date(); document.getElementById("dateBR").textContent = String(n.getDate()).padStart(2,"0")+"/"+String(n.getMonth()+1).padStart(2,"0")+"/"+n.getFullYear();
+  const btn=document.getElementById("toolsBtn"),menu=document.getElementById("toolsMenu");
+  function closeMenu(){menu.style.display="none";btn.setAttribute("aria-expanded","false")}
+  function toggleMenu(){const open=menu.style.display==="block";menu.style.display=open?"none":"block";btn.setAttribute("aria-expanded",String(!open))}
+  btn.addEventListener("click",(e)=>{e.stopPropagation();toggleMenu()});
+  document.addEventListener("click",()=>closeMenu());
+  document.addEventListener("keydown",(e)=>{if(e.key==="Escape")closeMenu()});
+</script>
+</body></html>
