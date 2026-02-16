@@ -1,107 +1,168 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Como identificar link falso — Segurança Tech</title>
+<meta name="description" content="Aprenda a identificar link falso em 20 segundos: domínio real, subdomínio enganador, encurtadores, HTTPS e sinais clássicos de golpe."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos/como-identificar-link-falso.html"/>
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}header h1{margin:0 0 6px;font-size:28px}header p{margin:0;opacity:.9}
+nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}nav a:hover{background:rgba(255,255,255,.10)}
+.dropdown{position:relative}.dropbtn{background:transparent;color:#fff;border:0;font-weight:800;padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:16px}
+.dropbtn:hover{background:rgba(255,255,255,.10)}
+.dropdown-content{display:none;position:absolute;top:48px;left:0;min-width:270px;background:#fff;border-radius:14px;box-shadow:0 18px 40px rgba(2,6,23,.20);overflow:hidden;z-index:1000}
+.dropdown-content a{color:#0b1220;padding:12px 14px;display:block;text-decoration:none;font-weight:800;border-bottom:1px solid #eef2f7}
+.dropdown-content a:last-child{border-bottom:none}.dropdown-content a:hover{background:#f6f8fb}
+.dropdown-content small{display:block;font-weight:650;color:#64748b;margin-top:2px}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;color:#0a1f44;text-decoration:none}
+.btn:hover{background:#f6f8fb}.btn-primary{border:0;background:#122c66;color:#fff}.btn-primary:hover{filter:brightness(1.05)}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.foot-card h3,.foot-card h4{margin:0 0 8px}.foot-card p{margin:0;color:rgba(234,240,255,.85);line-height:1.6}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.links a:hover{background:rgba(255,255,255,.08)}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+.footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+</style></head><body>
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+<nav>
+<a href="../index.html">Home</a><a href="../sobre.html">Sobre</a>
+<div class="dropdown"><button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">Ferramentas <span aria-hidden="true">▼</span></button>
+<div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+<a href="../tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+<a href="../tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+<a href="../tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
+<a href="../tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+<a href="../tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+<a href="../tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+</div></div>
+<a href="../artigos.html">Artigos</a><a href="../sobre.html#contato">Contato</a>
+</nav>
+
+<div class="container"><article class="card">
 <h2>Como identificar link falso</h2>
 <div class="meta">Leitura: 6–8 min • Atualizado: 16/02/2026</div>
 
-<p>Todos os dias, milhares de pessoas caem em golpes simplesmente por clicar em um link falso. E o pior: muitos desses links parecem extremamente confiáveis.</p>
+<p>Link falso é uma URL criada para te enganar. Ele pode abrir uma página clonada (igualzinha à original) ou um site malicioso que tenta roubar seus dados.</p>
+<div class="callout warn">Golpista não te vence no “texto”. Ele te vence no endereço.</div>
 
-<p>Golpistas utilizam técnicas de engenharia social para criar páginas idênticas às originais de bancos, redes sociais, lojas online e até serviços do governo.</p>
-
-<div class="callout warn">A maioria dos golpes começa com um simples clique em um link malicioso.</div>
-
-<h3>O que é um link falso?</h3>
-
-<p>Um link falso é um endereço da internet criado para te enganar. Ele pode levar você para:</p>
+<h3>Antes de tudo: encontre o domínio real</h3>
+<p>O <strong>domínio</strong> é o “nome do site” (a parte que manda). Ele vem logo antes da primeira barra <strong>/</strong>.</p>
 
 <ul>
-<li>Páginas clonadas de bancos</li>
-<li>Sites falsos de promoções</li>
-<li>Páginas de login idênticas ao WhatsApp, Instagram ou Facebook</li>
-<li>Formulários que roubam seus dados pessoais</li>
+<li>Em <strong>https://www.exemplo.com/login</strong> o domínio é <strong>exemplo.com</strong>.</li>
+<li>Em <strong>https://seguranca.exemplo.com/login</strong> o domínio continua sendo <strong>exemplo.com</strong>.</li>
 </ul>
 
-<h3>Ilustração: Link verdadeiro vs Link falso</h3>
+<div class="callout">Regra de ouro: se o domínio não for o oficial, é golpe — mesmo que o resto pareça perfeito.</div>
 
-<svg viewBox="0 0 600 160" width="100%" style="background:#fff;border-radius:12px;padding:10px">
-<rect x="10" y="20" width="580" height="40" fill="#e6edf7" rx="8"/>
-<text x="20" y="45" font-size="14" fill="#0b1220">https://www.banco.com/login</text>
-
-<rect x="10" y="90" width="580" height="40" fill="#ffe4e6" rx="8"/>
-<text x="20" y="115" font-size="14" fill="#7c2d12">https://www.banco.seguro-login.site</text>
-</svg>
-
-<p>No exemplo acima, o primeiro link é verdadeiro. Já o segundo parece confiável, mas o domínio real é <strong>seguro-login.site</strong>.</p>
-
-<h3>1) Sempre observe o domínio</h3>
-
-<p>O domínio é o nome principal do site. Ele sempre fica antes da primeira barra (/).</p>
-
+<h3>Ilustração 1: como “quebrar” um link em 3 partes</h3>
 <ul>
-<li><strong>https://www.instagram.com/login</strong> → domínio real: instagram.com</li>
-<li><strong>https://instagram.seguro-login.site</strong> → domínio real: seguro-login.site</li>
+<li><strong>Protocolo:</strong> https://</li>
+<li><strong>Domínio:</strong> exemplo.com</li>
+<li><strong>Caminho:</strong> /login</li>
 </ul>
 
-<div class="callout">Golpistas tentam esconder o domínio verdadeiro usando palavras confiáveis antes dele.</div>
-
-<h3>Ilustração: Subdomínio enganador</h3>
-
-<svg viewBox="0 0 600 140" width="100%" style="background:#fff;border-radius:12px;padding:10px">
-<rect x="10" y="40" width="580" height="40" fill="#fff7ed" rx="8"/>
-<text x="20" y="65" font-size="14" fill="#7c2d12">https://banco.com.seguranca-verificacao.site</text>
-</svg>
-
-<p>Mesmo contendo "banco.com", esse site não pertence ao banco.</p>
-
-<h3>2) Cuidado com links encurtados</h3>
-
-<p>Links encurtados escondem o destino real. Exemplos:</p>
-
+<h3>1) Domínio parecido (letras trocadas) é clássico</h3>
+<p>Golpes usam pequenas trocas que passam batido no olho, principalmente no celular:</p>
 <ul>
-<li>bit.ly</li>
-<li>tinyurl</li>
-<li>cutt.ly</li>
+<li>Letra trocada: <strong>micros0ft.com</strong> (zero no lugar de “o”)</li>
+<li>Letra a mais: <strong>instagraam.com</strong></li>
+<li>Variação do nome: <strong>banco-seguro.com</strong> (não é o domínio oficial)</li>
 </ul>
 
-<p>Evite clicar nesses links quando forem enviados por desconhecidos.</p>
+<div class="callout warn">Se você tiver que “pensar demais” pra acreditar no link, não clique.</div>
 
-<hr style="margin:20px 0;border:none;border-top:1px solid #e6edf7"/>
+<h3>2) Cuidado com subdomínio enganador</h3>
+<p>Golpistas colocam o nome do site verdadeiro antes do domínio falso pra confundir:</p>
+<div class="callout">Exemplo: <strong>banco.com.seguranca-login.site</strong></div>
+<p>Aqui, o domínio real é <strong>seguranca-login.site</strong> (o que vem no final).</p>
 
-<h3>Vídeo explicativo</h3>
+<h3>Ilustração 2: o “final” do link é o que manda</h3>
+<ul>
+<li><strong>parece:</strong> banco.com</li>
+<li><strong>real:</strong> seguranca-login.site</li>
+</ul>
 
+<h3>3) HTTPS ajuda, mas não garante</h3>
+<p>O cadeado (HTTPS) significa que a conexão é criptografada, mas <strong>site falso também pode ter cadeado</strong>. Então use o HTTPS como “bônus”, não como prova.</p>
+
+<div class="callout warn">Cadeado ≠ site verdadeiro. Domínio oficial ≠ golpe.</div>
+
+<h3>4) Encurtadores: melhor evitar</h3>
+<p>Links como <strong>bit.ly</strong>, <strong>tinyurl</strong> e similares escondem o destino real. Se chegou por WhatsApp, e-mail ou SMS, desconfie.</p>
+<ul>
+<li>Preferível: digitar o site oficial no navegador.</li>
+<li>Se for de banco/conta: abra o app oficial (não clique).</li>
+</ul>
+
+<h3>Ilustração 3: “método seguro” em 10 segundos</h3>
+<ul>
+<li>Recebeu um link? <strong>Não clique.</strong></li>
+<li>Abra o navegador e digite o site oficial <strong>ou</strong> abra o app oficial.</li>
+<li>Se for promoção/suporte: confirme pelos canais oficiais.</li>
+</ul>
+
+<div class="callout">Agora, veja um exemplo prático com vídeo e compare com o checklist abaixo.</div>
+
+<h3>Vídeo: maneiras de identificar links falsos</h3>
 <iframe width="100%" height="400"
 src="https://www.youtube.com/embed/gG8BQmWBCNA?autoplay=1&mute=1&rel=0"
 title="Como identificar links falsos"
 frameborder="0"
 allow="autoplay; encrypted-media"
 allowfullscreen
-style="border-radius:12px">
-</iframe>
+style="border-radius:12px"></iframe>
 
-<hr style="margin:20px 0;border:none;border-top:1px solid #e6edf7"/>
+<div class="callout warn">Se o vídeo não iniciar sozinho em alguns celulares, é normal: alguns navegadores bloqueiam autoplay. Por isso usamos <strong>mute=1</strong>, que é o padrão permitido.</div>
 
-<h3>3) Mensagens com urgência são suspeitas</h3>
-
-<p>Golpistas usam medo e urgência para fazer você agir sem pensar:</p>
-
+<h3>Checklist de 20 segundos (use antes de clicar)</h3>
 <ul>
-<li>"Sua conta será bloqueada!"</li>
-<li>"Última chance para evitar multa!"</li>
-<li>"Clique agora ou perderá acesso!"</li>
+<li>Chegou do nada? <strong>(alerta)</strong></li>
+<li>Tem urgência/ameaça? <strong>(alerta)</strong></li>
+<li>Promete prêmio/promoção boa demais? <strong>(alerta)</strong></li>
+<li>O domínio é o oficial (exato)?</li>
+<li>Estão pedindo senha, código, token ou “confirmação”? <strong>(🚫 golpe)</strong></li>
 </ul>
 
-<div class="callout warn">Empresas reais não pedem senha, código ou token por link.</div>
-
-<h3>Checklist rápido (20 segundos)</h3>
-
+<h3>O que fazer se você já clicou</h3>
 <ul>
-<li>Recebeu o link do nada?</li>
-<li>Existe senso de urgência?</li>
-<li>O domínio é oficial?</li>
-<li>Estão pedindo senha ou código?</li>
-<li>O link está encurtado?</li>
+<li><strong>Não digite</strong> senha/código.</li>
+<li>Feche a página e <strong>limpe o histórico</strong> (opcional, mas recomendado).</li>
+<li>Se colocou senha: <strong>troque imediatamente</strong> e ative <strong>2FA</strong>.</li>
+<li>Se foi banco: <strong>entre no app oficial</strong> e verifique acessos/transações.</li>
 </ul>
-
-<p>Se você respondeu "sim" para qualquer um desses itens, não clique.</p>
 
 <div class="actions">
 <a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
 <a class="btn" href="./como-saber-se-um-ip-e-perigoso.html">Próximo: IP perigoso</a>
 </div>
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes e riscos comuns na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech • <a href="../ferramentas.html">Ferramentas</a> • <a href="../artigos.html">Artigos</a></div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+const btn=document.getElementById("toolsBtn"),menu=document.getElementById("toolsMenu");
+function closeMenu(){menu.style.display="none";btn.setAttribute("aria-expanded","false")}
+function toggleMenu(){const open=menu.style.display==="block";menu.style.display=open?"none":"block";btn.setAttribute("aria-expanded",String(!open))}
+btn.addEventListener("click",(e)=>{e.stopPropagation();toggleMenu()});
+document.addEventListener("click",()=>closeMenu());
+document.addEventListener("keydown",(e)=>{if(e.key==="Escape")closeMenu()});
+</script>
+</body></html>
