@@ -163,6 +163,12 @@
 
     <div class="pill">✅ Conteúdo com imagens + vídeo + transcrição (SEO forte)</div>
 
+    <!-- ✅ Complemento: “o que você vai aprender” -->
+    <div class="callout">
+      Neste artigo você vai entender <strong>o que é ASN</strong>, por que isso aparece em consultas de IP, e como usar ASN na prática para
+      diferenciar <strong>rede residencial</strong>, <strong>provedor</strong>, <strong>datacenter</strong> e <strong>CDN</strong> — o que muda totalmente a interpretação de risco.
+    </div>
+
     <!-- IMAGENS: você precisa colocar os arquivos em /assets/img -->
     <figure>
       <img class="img" src="../assets/img/asn-capa.png.jpg" alt="Ilustração sobre ASN e roteamento BGP com nós de rede conectados" loading="lazy">
@@ -172,8 +178,10 @@
     <div class="toc" aria-label="Sumário">
       <a href="#resumo">Resumo</a>
       <a href="#ipxasn">IP vs ASN</a>
+      <a href="#bgp">BGP em 30s</a>
       <a href="#video">Vídeo</a>
       <a href="#fluxo">Fluxo</a>
+      <a href="#leitura">Como ler um ASN</a>
       <a href="#checklist">Checklist</a>
       <a href="#faq">FAQ</a>
       <a href="#transcricao">Transcrição</a>
@@ -187,6 +195,12 @@
       “IP perigoso” não é só o número. O que pesa é: ASN/ISP + histórico + comportamento + contexto.
     </div>
 
+    <!-- ✅ Complemento: onde isso ajuda em golpes -->
+    <div class="callout">
+      <strong>Onde o ASN te salva:</strong> quando você recebe um link suspeito, vê tentativas de login ou acessos estranhos,
+      o ASN ajuda a responder rápido: isso parece vindo de <strong>usuário comum</strong> (ISP) ou de <strong>infra de automação</strong> (datacenter/cloud)?
+    </div>
+
     <h3 id="ipxasn">IP vs ASN (entenda de uma vez)</h3>
     <figure>
       <img class="img" src="../assets/img/ip-vs-asn.png.jpg" alt="Infográfico comparando IP e ASN de forma simples" loading="lazy">
@@ -194,6 +208,17 @@
     </figure>
 
     <p>Pense assim: <strong>IP</strong> é “número da casa”. <strong>ASN</strong> é “o condomínio/bairro” responsável por aquela faixa.</p>
+
+    <!-- ✅ Complemento: BGP sem enrolar -->
+    <h3 id="bgp">BGP em 30 segundos (sem complicar)</h3>
+    <p>
+      O <strong>BGP</strong> é o “protocolo de roteamento” que faz as redes na internet anunciarem quais blocos de IP elas alcançam.
+      Quando uma rede anuncia um bloco, ela está dizendo: <strong>“se quiser chegar nesses IPs, passe por mim”</strong>.
+    </p>
+    <div class="callout">
+      Resumo: <strong>ASN</strong> é a identidade da rede e <strong>BGP</strong> é a forma como ela “fala” com o resto da internet sobre rotas.
+      Por isso ASN aparece em ferramentas de IP/segurança.
+    </div>
 
     <h3 id="video">Vídeo no meio do artigo</h3>
     <div class="video">
@@ -219,10 +244,21 @@
 
     <p>Olhe o “filme”: origem (ASN), padrão (bot ou humano) e impacto (login, spam, fraude).</p>
 
+    <!-- ✅ Complemento: como ler um ASN -->
+    <h3 id="leitura">Como ler um ASN na prática (ISP vs Datacenter vs CDN)</h3>
+    <ul>
+      <li><strong>ISP/Operadora/Provedor:</strong> geralmente IP dinâmico e usuário comum. Um evento isolado pode ser “ruído”, mas repetição pode indicar dispositivo infectado.</li>
+      <li><strong>Datacenter/Cloud/VPS:</strong> muito usado para automação. Repetição e varredura tendem a ser mais comuns (bots, scanners, brute force).</li>
+      <li><strong>CDN/Proteção (ex.: redes de cache):</strong> nem sempre é “o atacante”. Às vezes é tráfego passando por uma camada intermediária.</li>
+    </ul>
+
+    <div class="callout warn">
+      Atenção: <strong>ASN “de datacenter” não prova ataque</strong>. O que prova é: volume + repetição + tipo de tentativa + contexto.
+    </div>
+
     <h3 id="checklist">Checklist rápido</h3>
     <figure>
-      <img class="img" src="../assets/img/checklist-investigacao.png.jpg
-" alt="Ilustração de checklist de investigação e segurança digital" loading="lazy">
+      <img class="img" src="../assets/img/checklist-investigacao.png.jpg" alt="Ilustração de checklist de investigação e segurança digital" loading="lazy">
       <figcaption>Checklist visual + checklist prático.</figcaption>
     </figure>
 
@@ -234,9 +270,20 @@
       <li>2FA está habilitado para contas sensíveis?</li>
     </ul>
 
+    <!-- ✅ Complemento: o que fazer conforme cenário -->
+    <div class="callout">
+      <strong>Ação rápida:</strong><br>
+      • <strong>Tentativa isolada:</strong> registrar e monitorar<br>
+      • <strong>Muitas tentativas em pouco tempo:</strong> rate-limit + bloqueio temporário<br>
+      • <strong>Login sensível:</strong> forçar 2FA, senha forte e alertas<br>
+      • <strong>Roteador/dispositivo doméstico:</strong> atualizar firmware e trocar senhas
+    </div>
+
     <h3 id="faq">FAQ rápido</h3>
     <p><strong>ASN e IP são a mesma coisa?</strong> Não. IP é o endereço. ASN é a rede que anuncia/roteia blocos de IP.</p>
     <p><strong>ASN serve só pra provedor?</strong> Não. Serve muito pra investigação em logs e segurança.</p>
+    <p><strong>Se o ASN for de datacenter, é ataque?</strong> Não necessariamente. Datacenters também hospedam serviços legítimos. Avalie o comportamento.</p>
+    <p><strong>ASN ajuda a identificar golpe em link?</strong> Ajuda a dar contexto (origem/infra), mas para links o principal ainda é o domínio/URL.</p>
 
     <h3 id="transcricao">Transcrição (roteiro criado para publicar como artigo)</h3>
 
@@ -292,6 +339,7 @@ E isso te ajuda a identificar padrão, origem, e tomar decisão com mais seguran
     <div class="actions">
       <a class="btn btn-primary" href="../artigos.html">Voltar para Artigos</a>
       <a class="btn" href="../tools/meu-asn.html">Abrir ferramenta “Meu ASN”</a>
+      <a class="btn" href="./como-saber-se-um-ip-e-perigoso.html">Ler também: IP perigoso</a>
     </div>
   </article>
 </div>
