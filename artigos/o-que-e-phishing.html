@@ -32,6 +32,16 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 .links a:hover{background:rgba(255,255,255,.08)}
 .footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
 .footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+
+/* ===== Complementos (sem mexer no tema) ===== */
+.toc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.toc b{display:block;margin-bottom:8px;color:#0a1f44}
+.badges{display:flex;gap:8px;flex-wrap:wrap}
+.badges a{display:inline-block;text-decoration:none;font-weight:900;color:#0a1f44;background:#f6f8fb;border:1px solid #eef2f7;border-radius:999px;padding:8px 10px}
+.badges a:hover{background:#eef2f7}
+.hr{margin:18px 0;border:none;border-top:1px solid #e6edf7}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
 </style></head><body>
 
 <header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
@@ -57,64 +67,163 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout warn">Phishing é o golpe mais comum da internet hoje — e quase sempre começa com um link.</div>
 
-<h3>Vídeo explicativo (no topo)</h3>
+<!-- ✅ Complemento: objetivo + sumário -->
+<div class="callout">Objetivo: você vai entender como o phishing funciona, quais são os sinais mais comuns e o que fazer <strong>antes</strong> e <strong>depois</strong> de um clique.</div>
+
+<div class="toc" aria-label="Sumário do artigo">
+  <b>Sumário rápido</b>
+  <div class="badges">
+    <a href="#definicao">O que é</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a href="#tipos">Tipos</a>
+    <a href="#sinais">Sinais</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#se-caiu">Se você caiu</a>
+    <a href="#protecao">Como se proteger</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</div>
 
 <div class="actions" style="margin-top:10px">
   <a class="btn btn-primary" href="#" id="playWithSound">Tocar vídeo com som</a>
   <a class="btn" href="./como-identificar-link-falso.html">Como identificar link falso</a>
 </div>
 
+<div class="callout">Se o vídeo não iniciar sozinho com som, é normal: navegadores bloqueiam autoplay com áudio. Use “Tocar vídeo com som”.</div>
+
 <div id="ytPlayer" style="border-radius:12px; overflow:hidden"></div>
 
-<hr style="margin:18px 0;border:none;border-top:1px solid #e6edf7"/>
+<hr class="hr"/>
 
-<h3>O que é phishing?</h3>
-<p>Phishing é um tipo de golpe onde criminosos tentam enganar você para que forneça dados pessoais, senhas, códigos ou dinheiro.</p>
+<h3 id="definicao">O que é phishing?</h3>
+<p>Phishing é um tipo de golpe onde criminosos tentam enganar você para que forneça dados pessoais, senhas, códigos, informações bancárias ou até faça pagamentos.</p>
 
-<div class="callout">Eles criam páginas falsas que imitam bancos, lojas ou redes sociais.</div>
+<div class="callout">Eles criam páginas falsas que imitam bancos, lojas ou redes sociais — e o objetivo é te fazer confiar rápido e agir sem verificar.</div>
 
 <div style="text-align:center;margin:14px 0">
-<img src="https://mickaelfelipe2025.github.io/segurancatech/assets/img/o-que-e-phishing/P%C3%A1gina%20falsa%20de%20banco.jpg" style="max-width:30%;border-radius:12px">
+<img src="https://mickaelfelipe2025.github.io/segurancatech/assets/img/o-que-e-phishing/P%C3%A1gina%20falsa%20de%20banco.jpg" style="max-width:30%;border-radius:12px" alt="Exemplo de página falsa imitando banco" loading="lazy">
 </div>
 
-<h3>Como o phishing funciona?</h3>
+<!-- ✅ Complemento: por que funciona -->
+<div class="callout warn">
+Phishing quase sempre usa <strong>urgência</strong> + <strong>autoridade</strong> + <strong>medo</strong>: “sua conta será bloqueada”, “compra suspeita”, “confirme agora”.
+</div>
+
+<h3 id="como-funciona">Como o phishing funciona?</h3>
 <ul>
-<li>Você recebe uma mensagem</li>
+<li>Você recebe uma mensagem (WhatsApp, SMS, e-mail, rede social)</li>
 <li>Clica em um link</li>
-<li>Abre uma página falsa</li>
-<li>Insere seus dados</li>
-<li>O golpista recebe tudo</li>
+<li>Abre uma página falsa (bem parecida com a real)</li>
+<li>Insere seus dados (login, senha, cartão, código)</li>
+<li>O golpista recebe tudo e usa para roubo/chantagem/transações</li>
 </ul>
 
 <div style="text-align:center;margin:14px 0">
-<img src="https://mickaelfelipe2025.github.io/segurancatech/assets/img/o-que-e-phishing/Mensagem%20de%20phishing%20no%20WhatsApp.jpg" style="max-width:30%;border-radius:12px">
+<img src="https://mickaelfelipe2025.github.io/segurancatech/assets/img/o-que-e-phishing/Mensagem%20de%20phishing%20no%20WhatsApp.jpg" style="max-width:30%;border-radius:12px" alt="Exemplo de mensagem de phishing no WhatsApp" loading="lazy">
 </div>
 
-<h3>Principais tipos de phishing</h3>
+<!-- ✅ Complemento: o que o golpista realmente quer -->
+<div class="callout">
+<strong>O que eles querem de você:</strong> senha, código de 6 dígitos, token, “confirmar dados”, pagamento via PIX, ou instalar um app suspeito.
+</div>
+
+<h3 id="tipos">Principais tipos de phishing</h3>
 <ul>
-<li>Phishing por e-mail</li>
-<li>Phishing por WhatsApp</li>
-<li>Phishing por SMS</li>
-<li>Phishing em redes sociais</li>
+<li><strong>Phishing por e-mail:</strong> “fatura”, “nota fiscal”, “conta bloqueada”, “atualize seus dados”.</li>
+<li><strong>Phishing por WhatsApp:</strong> falso suporte, “código”, promoções e links de entrega.</li>
+<li><strong>Phishing por SMS (smishing):</strong> mensagens curtas com link e urgência.</li>
+<li><strong>Phishing em redes sociais:</strong> “verificação”, “copyright”, “sua conta será removida”.</li>
+<li><strong>Spear phishing:</strong> golpe mais direcionado (usa seu nome/empresa) para parecer legítimo.</li>
 </ul>
 
-<h3>Sinais de alerta</h3>
+<div class="callout warn">
+Quanto mais “personalizada” a mensagem, maior a chance de ser <strong>spear phishing</strong>. E esse tipo costuma dar mais prejuízo.
+</div>
+
+<h3 id="sinais">Sinais de alerta</h3>
 <ul>
-<li>Mensagem urgente</li>
-<li>Erro de português</li>
-<li>Link estranho</li>
-<li>Pedido de código</li>
+<li>Mensagem urgente (“em 10 minutos”, “última chance”)</li>
+<li>Erro de português ou texto estranho (mas alguns golpes já são bem escritos)</li>
+<li>Link estranho/encurtado ou com domínio diferente do oficial</li>
+<li>Pedido de código (SMS, token, 6 dígitos)</li>
+<li>Pedido de segredo (“não conte pra ninguém”) ou pressão (“não desligue”)</li>
 </ul>
 
 <div style="text-align:center;margin:14px 0">
-<img src="https://mickaelfelipe2025.github.io/segurancatech/assets/img/o-que-e-phishing/Compara%C3%A7%C3%A3o%20site%20verdadeiro%20vs%20falso.jpg" style="max-width:100%;border-radius:12px">
+<img src="https://mickaelfelipe2025.github.io/segurancatech/assets/img/o-que-e-phishing/Compara%C3%A7%C3%A3o%20site%20verdadeiro%20vs%20falso.jpg" style="max-width:100%;border-radius:12px" alt="Comparação entre site verdadeiro e falso" loading="lazy">
 </div>
 
-<div class="callout warn">Nenhuma empresa pede sua senha por link.</div>
+<div class="callout warn">Nenhuma empresa pede sua senha por link. E código de verificação é “chave”: quem tem o código, entra.</div>
+
+<!-- ✅ Complemento: checklist rápido -->
+<hr class="hr"/>
+<h3 id="checklist">Checklist de 20 segundos (antes de clicar)</h3>
+<ul>
+<li>Chegou “do nada”? <strong>(alerta)</strong></li>
+<li>Tem pressa/ameaça (“bloqueio”, “multa”, “suspensão”)? <strong>(alerta)</strong></li>
+<li>Pede código, senha, token ou “confirmar dados”? <strong>(🚫 golpe)</strong></li>
+<li>O domínio do link é exatamente o oficial? (sem letras trocadas)</li>
+<li>Se for banco/conta: você consegue resolver abrindo o app oficial? (preferível)</li>
+</ul>
+
+<div class="callout">
+Ferramenta útil do seu site: <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Identificador de links falsos</a> (use antes de abrir links suspeitos).
+</div>
+
+<!-- ✅ Complemento: se caiu -->
+<hr class="hr"/>
+<h3 id="se-caiu">O que fazer se você clicou (ou caiu)</h3>
+<ul>
+<li><strong>Se só clicou:</strong> feche a página. Evite aceitar permissões/instalar apps. Rode um antivírus no PC se desconfiar.</li>
+<li><strong>Se digitou senha:</strong> troque imediatamente (de preferência por uma senha única) e ative <strong>2FA</strong>.</li>
+<li><strong>Se passou código/token:</strong> tente recuperar a conta e encerre sessões/dispositivos logados.</li>
+<li><strong>Se fez PIX:</strong> fale com seu banco pelo app oficial o quanto antes e registre contestação.</li>
+<li><strong>Avise contatos:</strong> golpes podem se espalhar se passando por você.</li>
+</ul>
+
+<div class="callout warn">Não é vergonha cair. Vergonha é ficar parado depois. Agir rápido diminui muito o estrago.</div>
+
+<!-- ✅ Complemento: proteção real -->
+<hr class="hr"/>
+<h3 id="protecao">Como se proteger de verdade (sem depender de sorte)</h3>
+<ul>
+<li><strong>Não clique por impulso:</strong> digite o site oficial no navegador ou abra o app.</li>
+<li><strong>Ative 2FA</strong> (e-mail, WhatsApp, redes sociais, banco).</li>
+<li><strong>Senhas únicas:</strong> se uma vaza, as outras ficam seguras.</li>
+<li><strong>Desconfie de urgência:</strong> segurança real te dá tempo para conferir.</li>
+<li><strong>Atualize aparelho e apps:</strong> falhas antigas viram porta de entrada.</li>
+</ul>
+
+<div class="callout">
+Leia também: <a href="./engenharia-social-como-os-golpistas-te-manipulam.html" style="color:#0a1f44;font-weight:900">Engenharia social (a manipulação por trás do phishing)</a>.
+</div>
+
+<!-- ✅ Complemento: FAQ -->
+<hr class="hr"/>
+<h3 id="faq">FAQ rápido</h3>
+<div class="faq">
+  <details>
+    <summary>Phishing é vírus?</summary>
+    <p>Não necessariamente. Phishing é principalmente <strong>engano</strong>: fazer você entregar dados. Mas pode levar a malware se envolver download/instalação.</p>
+  </details>
+  <details>
+    <summary>HTTPS (cadeado) garante que é seguro?</summary>
+    <p>Não. Site falso também pode ter HTTPS. O que manda é o <strong>domínio oficial</strong> e o contexto.</p>
+  </details>
+  <details>
+    <summary>Como saber se um link é falso?</summary>
+    <p>Confira o domínio (sem letras trocadas), evite encurtadores e use sua ferramenta de links. Se for banco, abra o app.</p>
+  </details>
+  <details>
+    <summary>Qual o phishing mais comum no Brasil?</summary>
+    <p>Falsos bancos/entregas/promoções e “conta bloqueada” via WhatsApp, SMS e e-mail. O padrão é sempre urgência + link.</p>
+  </details>
+</div>
 
 <div class="actions">
 <a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
 <a class="btn" href="./engenharia-social-como-os-golpistas-te-manipulam.html">Próximo</a>
+<a class="btn" href="../tools/links-falsos.html">Ferramenta: Links falsos</a>
 </div>
 
 </article></div>
