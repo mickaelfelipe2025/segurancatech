@@ -1,140 +1,510 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Identificador de Links Falsos - Segurança Tech</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Verificador de Domínio (IDN / Homógrafo) - Segurança Tech</title>
+  <meta name="color-scheme" content="light">
   <style>
-    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px}
+    :root{
+      /* Tema (igual ao da página de referência) */
+      --bg:#f4f6f8;
+      --card:#fff;
+      --nav:#122c66;
+      --header:#0a1f44;
+      --text:#0b1220;
+      --muted:#475569;
+      --shadow:0 10px 22px rgba(2,6,23,.10);
+      --radius:14px;
+
+      /* Estados */
+      --ok:#0f7a3a;
+      --warn:#8a5b00;
+      --bad:#b42318;
+
+      --line:#d7e1ef;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    }
+
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-    header{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
-    nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
-    nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header{
+      background: var(--header);
+      color:#fff;
+      padding:22px 16px;
+      text-align:center;
+    }
+    header h1{margin:0;font-size:22px}
+    header p{margin:6px 0 0;opacity:.92}
+
+    nav{
+      background: var(--nav);
+      padding:10px 12px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:999;
+    }
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:10px 12px;
+      border-radius:10px;
+    }
     nav a:hover{background:rgba(255,255,255,.10)}
-    .container{max-width:980px;margin:0 auto;padding:22px 14px}
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    input{flex:1;min-width:240px;padding:12px 12px;border:1px solid #d7e1ef;border-radius:12px;font-size:16px}
-    button{padding:12px 14px;border:0;border-radius:12px;background:#122c66;color:#fff;font-weight:800;cursor:pointer}
-    button:hover{filter:brightness(1.05)}
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:900}
-    .ok{background:#e8fff1;color:#0f7a3a}
-    .warn{background:#fff7e6;color:#8a5b00}
-    .bad{background:#ffecec;color:#b42318}
-    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.6}
-    .muted{color:var(--muted);line-height:1.6}
+
+    .container{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 14px;
+    }
+
+    .card{
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+      border: 1px solid #e8eef6;
+    }
+
+    .sub{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
     .hr{height:1px;background:#e8eef6;margin:14px 0}
+
+    /* ======= Mantendo a estrutura/IDs (funcionalidade intacta) ======= */
+    .top{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .input{
+      width: 100%;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+
+    textarea{
+      flex: 1;
+      min-width: 240px;
+      min-height: 58px;
+      max-height: 140px;
+      resize: vertical;
+      padding: 12px 12px;
+      font-size: 15px;
+      font-family: var(--mono);
+      color: var(--text);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      outline: none;
+    }
+    textarea:focus{
+      border-color: rgba(18,44,102,.55);
+      box-shadow: 0 0 0 4px rgba(18,44,102,.14);
+    }
+
+    .btns{display:flex; gap:10px; flex-wrap:wrap}
+    button{
+      padding:12px 14px;
+      border:0;
+      border-radius:12px;
+      background:#122c66;
+      color:#fff;
+      font-weight:800;
+      cursor:pointer;
+      transition: filter .12s ease, transform .05s ease;
+      white-space: nowrap;
+    }
+    button:hover{filter:brightness(1.05)}
+    button:active{transform: translateY(1px)}
+
+    /* Botões secundários no mesmo estilo (sem quebrar IDs/classes) */
+    #btnCopy, #btnClear{
+      background:#0a1f44;
+      opacity:.95;
+    }
+
+    .hint{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      min-height: 18px;
+    }
+
+    .result{
+      margin-top: 12px;
+      display:grid;
+      gap: 12px;
+    }
+
+    .badges{display:flex; gap:8px; flex-wrap:wrap}
+
+    .badge{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      border: 1px solid transparent;
+    }
+    .b-ok{background:#e8fff1;color:var(--ok);border-color:#c9f2da}
+    .b-warn{background:#fff7e6;color:var(--warn);border-color:#ffe2ad}
+    .b-bad{background:#ffecec;color:var(--bad);border-color:#ffc9c9}
+
+    .grid{
+      display:grid;
+      grid-template-columns: 220px 1fr;
+      gap: 8px 10px;
+      align-items:start;
+      font-size: 13px;
+    }
+    @media (max-width: 560px){
+      .grid{grid-template-columns: 1fr}
+    }
+
+    .k{color: var(--muted)}
+    .v{
+      font-family: var(--mono);
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .callout{
+      border: 2px solid #b42318;
+      background: rgba(180,35,24,.08);
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #b42318;
+      font-weight: 700;
+      box-shadow: 0 0 0 4px rgba(180,35,24,.10);
+      animation: pulseWarn 1.5s infinite;
+    }
+    @keyframes pulseWarn{
+      0%{ box-shadow: 0 0 0 0 rgba(180,35,24,.25); }
+      70%{ box-shadow: 0 0 0 10px rgba(180,35,24,0); }
+      100%{ box-shadow: 0 0 0 0 rgba(180,35,24,0); }
+    }
+    .callout b{font-weight: 900}
+
+    footer{
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      padding-top: 12px;
+      border-top: 1px solid #e8eef6;
+    }
+    footer a{color: var(--nav); font-weight: 800; text-decoration: none}
+    footer a:hover{text-decoration: underline}
   </style>
 </head>
+
 <body>
-<header>
-  <h1>Identificador de Links Falsos</h1>
-  <p>Heurísticas rápidas + checklist de segurança</p>
-</header>
+  <!-- Header + Nav (igual ao tema da referência) -->
+  <header>
+    <h1>Verificador de Domínio (IDN / Homógrafo)</h1>
+    <p>Detecção de Unicode, punycode e mistura de alfabetos</p>
+  </header>
 
-<nav>
-  <a href="../index.html">Home</a>
-  <a href="../sobre.html">Sobre</a>
-  <a href="../index.html">Ferramentas</a>
-</nav>
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../sobre.html">Sobre</a>
+    <a href="../index.html">Ferramentas</a>
+  </nav>
 
-<div class="container">
-  <div class="card">
-    <h2>Verificar</h2>
-    <div class="row">
-      <input id="url" type="text" placeholder="Cole o link aqui (ex: https://exemplo.com)"/>
-      <button id="btn">Analisar</button>
+  <div class="container">
+    <div class="card">
+      <h2 style="margin:0 0 6px">Analisar domínio</h2>
+      <div class="sub">
+        Cole um link ou domínio. A ferramenta mostra sinais comuns de phishing por domínio “parecido”:
+        Unicode, punycode (<span style="font-family:var(--mono)">xn--</span>) e mistura de alfabetos.
+      </div>
+
+      <div class="top">
+        <div class="input">
+          <!-- IDs preservados -->
+          <textarea id="inp" placeholder="Ex.: https://mercadolivre.com.br"></textarea>
+          <div class="btns">
+            <button id="btn" class="primary">Analisar</button>
+            <button id="btnCopy">Copiar relatório</button>
+            <button id="btnClear">Limpar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- hint + resultados preservados -->
+      <div class="hint" id="hint"></div>
+
+      <div class="hr"></div>
+
+      <div class="result">
+        <div class="badges" id="badges"></div>
+        <div class="grid" id="kv"></div>
+        <div class="callout" id="callout" style="display:none"></div>
+      </div>
+
+      <footer>
+        <strong>Observação:</strong> isto é uma triagem. Um site pode ser malicioso mesmo com domínio “normal”.
+        Use sempre canais oficiais e desconfie de links recebidos por mensagens.
+      </footer>
     </div>
-
-    <div class="hr"></div>
-
-    <div id="result" class="muted">Cole um link e clique em <strong>Analisar</strong>.</div>
-
-    <div class="hr"></div>
-
-    <h2>Por que isso é importante?</h2>
-    <p class="muted">
-      Links maliciosos são usados para phishing (páginas falsas), roubo de senhas e até instalação de malware.
-      Essa ferramenta faz uma análise por <strong>regras simples</strong> (não é antivírus), mas já ajuda a identificar riscos comuns.
-    </p>
   </div>
-</div>
 
 <script>
-  const elUrl = document.getElementById("url");
-  const elBtn = document.getElementById("btn");
-  const elRes = document.getElementById("result");
+(function(){
+  const $ = (id)=>document.getElementById(id);
 
-  function scoreUrl(u){
-    let score = 0;
-    const reasons = [];
+  const inp = $("inp");
+  const badges = $("badges");
+  const kv = $("kv");
+  const hint = $("hint");
+  const callout = $("callout");
 
-    const raw = (u || "").trim();
+  // Um conjunto pequeno e prático de "lookalikes" muito comuns em golpes (Unicode).
+  // (Não é exaustivo, mas pega MUITO caso real.)
+  const lookalikes = new Map([
+    // Cyrillic
+    ["а","Cirílico (parece 'a')"], // U+0430
+    ["е","Cirílico (parece 'e')"], // U+0435
+    ["о","Cirílico (parece 'o')"], // U+043E
+    ["р","Cirílico (parece 'p')"], // U+0440
+    ["с","Cirílico (parece 'c')"], // U+0441
+    ["у","Cirílico (parece 'y')"], // U+0443
+    ["х","Cirílico (parece 'x')"], // U+0445
+    ["і","Cirílico (parece 'i')"], // U+0456
+    ["ј","Cirílico (parece 'j')"], // U+0458 (dependendo da fonte)
+    // Greek
+    ["ο","Grego (omicron, parece 'o')"] // U+03BF
+  ]);
 
-    if (!raw) {
-      return {level:"warn", label:"Cole um link", score, reasons:["Nenhum link informado."]};
-    }
+  function isASCII(str){ return /^[\x00-\x7F]*$/.test(str); }
 
-    let url;
-    try{
-      url = new URL(raw.includes("://") ? raw : "https://" + raw);
-    }catch{
-      return {level:"bad", label:"Formato inválido", score:10, reasons:["O link não parece um URL válido."]};
-    }
-
-    const host = url.hostname.toLowerCase();
-    const href = url.href;
-
-    // Regras comuns
-    if (!href.startsWith("https://")) { score += 2; reasons.push("Não usa HTTPS (cadeado)."); }
-    if (host.includes("xn--")) { score += 3; reasons.push("Domínio com punycode (pode ser homógrafo)."); }
-    if (host.split(".").length >= 4) { score += 2; reasons.push("Muitos subdomínios (pode ser tentativa de enganar)."); }
-    if (/[0-9]/.test(host) && host.length > 18) { score += 1; reasons.push("Domínio longo com números (padrão comum em golpes)."); }
-    if (host.match(/(login|secure|account|verify|support|update|billing)/)) { score += 2; reasons.push("Palavras que imitam login/verificação (comum em phishing)."); }
-    if (href.match(/(@|%40)/)) { score += 2; reasons.push("Contém @ (pode redirecionar/mascarar destino)."); }
-    if (href.length > 120) { score += 1; reasons.push("URL muito longa (pode ocultar o destino real)."); }
-    if (url.searchParams.toString().length > 80) { score += 1; reasons.push("Muitos parâmetros na URL (pode ser rastreio/ocultação)."); }
-
-    // Decisão
-    let level = "ok";
-    let label = "Baixo risco (pela heurística)";
-
-    if (score >= 6) { level = "bad"; label = "Alto risco — suspeito"; }
-    else if (score >= 3) { level = "warn"; label = "Atenção — verifique"; }
-
-    return {level, label, score, reasons, parsed: {host, protocol:url.protocol, path:url.pathname}};
+  function safeURL(text){
+    let t = (text || "").trim();
+    if(!t) return null;
+    if(!/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(t)) t = "https://" + t;
+    try{ return new URL(t); } catch { return null; }
   }
 
-  function render(res){
-    const badgeClass = res.level === "ok" ? "ok" : (res.level === "warn" ? "warn" : "bad");
-    const reasons = (res.reasons && res.reasons.length)
-      ? `<ul>${res.reasons.map(r => `<li>${r}</li>`).join("")}</ul>`
-      : `<ul><li>Nenhum sinal óbvio detectado pelas regras.</li></ul>`;
-
-    const extra = res.parsed
-      ? `<div class="muted" style="margin-top:10px">
-           <strong>Domínio:</strong> ${res.parsed.host}<br/>
-           <strong>Protocolo:</strong> ${res.parsed.protocol}<br/>
-           <strong>Caminho:</strong> ${res.parsed.path}
-         </div>`
-      : "";
-
-    elRes.innerHTML = `
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-        <span class="badge ${badgeClass}">${res.label}</span>
-        <span class="muted">Pontuação: <strong>${res.score}</strong> (quanto maior, mais suspeito)</span>
-      </div>
-      ${reasons}
-      ${extra}
-      <div class="muted" style="margin-top:12px">
-        <strong>Dica:</strong> se o link veio por WhatsApp/e-mail e pede senha/código, não clique — confirme a origem.
-      </div>
-    `;
+  function setBadges(items){
+    badges.innerHTML = "";
+    for (const it of items){
+      const b = document.createElement("div");
+      b.className = "badge " + (it.kind==="ok" ? "b-ok" : it.kind==="warn" ? "b-warn" : "b-bad");
+      b.textContent = it.text;
+      badges.appendChild(b);
+    }
   }
 
-  elBtn.addEventListener("click", () => render(scoreUrl(elUrl.value)));
-  elUrl.addEventListener("keydown", (e) => { if (e.key === "Enter") render(scoreUrl(elUrl.value)); });
+  function setKV(rows){
+    kv.innerHTML = "";
+    for (const [k,v] of rows){
+      const dk = document.createElement("div");
+      dk.className = "k";
+      dk.textContent = k;
+      const dv = document.createElement("div");
+      dv.className = "v";
+      dv.textContent = v;
+      kv.appendChild(dk);
+      kv.appendChild(dv);
+    }
+  }
+
+  function scriptMixing(host){
+    // Detecta scripts (necessita suporte do navegador a Unicode property escapes).
+    // Chrome/Edge modernos suportam bem.
+    const hasLatin = /\p{Script=Latin}/u.test(host);
+    const hasCyrillic = /\p{Script=Cyrillic}/u.test(host);
+    const hasGreek = /\p{Script=Greek}/u.test(host);
+    const hasArabic = /\p{Script=Arabic}/u.test(host);
+    const hasHan = /\p{Script=Han}/u.test(host);
+    const hasHiragana = /\p{Script=Hiragana}/u.test(host);
+    const hasKatakana = /\p{Script=Katakana}/u.test(host);
+
+    const scripts = [];
+    if(hasLatin) scripts.push("Latin");
+    if(hasCyrillic) scripts.push("Cirílico");
+    if(hasGreek) scripts.push("Grego");
+    if(hasArabic) scripts.push("Árabe");
+    if(hasHan) scripts.push("Han");
+    if(hasHiragana) scripts.push("Hiragana");
+    if(hasKatakana) scripts.push("Katakana");
+
+    const mixed = hasLatin && (hasCyrillic || hasGreek || hasArabic || hasHan || hasHiragana || hasKatakana);
+    return {scripts, mixed};
+  }
+
+  function codepointHex(ch){
+    return "U+" + ch.codePointAt(0).toString(16).toUpperCase().padStart(4,"0");
+  }
+
+  function analyze(){
+    callout.style.display = "none";
+    callout.textContent = "";
+
+    const raw = (inp.value || "").trim();
+    const url = safeURL(raw);
+
+    if(!url){
+      setBadges([{kind:"bad", text:"Entrada inválida"}]);
+      setKV([["Como usar", "Cole um link ou domínio válido (ex.: mercadolivre.com.br)"]]);
+      hint.textContent = "";
+      return;
+    }
+
+    const hostnameASCII = url.hostname; // Geralmente já vem em punycode se for IDN
+    const hostAsTyped = (() => {
+      const u2 = safeURL(raw);
+      return u2 ? u2.hostname : hostnameASCII;
+    })();
+
+    const hasPuny = hostnameASCII.includes("xn--");
+    const hasUnicode = !isASCII(hostAsTyped);
+    const mix = scriptMixing(hostAsTyped);
+
+    // Detecta lookalikes
+    const looks = [];
+    for(const ch of hostAsTyped){
+      if(lookalikes.has(ch)) looks.push({ch, note: lookalikes.get(ch)});
+    }
+
+    // Score simples
+    const suspicious =
+      hasPuny ||
+      hasUnicode ||
+      mix.mixed ||
+      looks.length > 0;
+
+    let verdict;
+
+    if(suspicious){
+      verdict = {
+        kind:"bad",
+        text:"⚠️ LINK SUSPEITO DETECTADO"
+      };
+    }else{
+      verdict = {
+        kind:"ok",
+        text:"Nenhum sinal de falsificação detectado"
+      };
+    }
+
+    const badgeItems = [
+      verdict,
+      {kind: hasPuny ? "warn":"ok", text: hasPuny ? "Punycode detectado (xn--)" : "Sem punycode (xn--)"},
+      {kind: hasUnicode ? "warn":"ok", text: hasUnicode ? "Unicode no domínio" : "Domínio ASCII"},
+      {kind: mix.mixed ? "warn":"ok", text: mix.mixed ? "Mistura de alfabetos" : "Sem mistura suspeita"}
+    ];
+
+    if(looks.length){
+      badgeItems.push({kind:"warn", text:`Letras parecidas: ${looks.map(x=>x.ch).join(" ")}`});
+    }
+
+    setBadges(badgeItems);
+
+    setKV([
+      ["Entrada", raw],
+      ["Hostname (ASCII / punycode)", hostnameASCII],
+      ["Hostname (como colado)", hostAsTyped],
+      ["Protocolo", url.protocol.replace(":","")],
+      ["Caminho", url.pathname + (url.search || "")],
+      ["Scripts detectados", mix.scripts.length ? mix.scripts.join(", ") : "—"]
+    ]);
+
+    if(suspicious){
+      const lines = [];
+      const flagged = [];
+      for(const ch of hostAsTyped){
+        if(!isASCII(ch) || lookalikes.has(ch)){
+          flagged.push({ch, cp: codepointHex(ch), note: lookalikes.get(ch) || ""});
+        }
+      }
+      if(flagged.length){
+        lines.push("Caracteres que merecem atenção:");
+        for(const f of flagged){
+          lines.push(`• ${f.ch}  (${f.cp})${f.note ? " — " + f.note : ""}`);
+        }
+        callout.style.display = "block";
+        callout.innerHTML = `
+🚨 <b>CUIDADO: Foram encontrados sinais suspeitos neste link!</b><br><br>
+Este domínio pode estar utilizando caracteres falsos (Unicode) para se passar por outro site legítimo.<br>
+Evite inserir dados pessoais ou realizar pagamentos.<br><br>
+<b>Detalhes técnicos detectados:</b><br>
+${lines.join("<br>")}
+`;
+      }
+    }
+
+    hint.textContent = hasPuny
+      ? "Dica: aparecendo xn--, trate como suspeito até confirmar por canal oficial."
+      : "Dica: valide sempre por canal oficial, principalmente se for link recebido por mensagem.";
+  }
+
+  function copyReport(){
+    const badgeText = Array.from(badges.querySelectorAll(".badge")).map(b=>"- " + b.textContent).join("\n");
+    const keys = Array.from(kv.querySelectorAll(".k")).map(e=>e.textContent);
+    const vals = Array.from(kv.querySelectorAll(".v")).map(e=>e.textContent);
+    const kvText = keys.map((k,i)=>`${k}: ${vals[i]}`).join("\n");
+    const extra = (callout.style.display !== "none") ? ("\n\n" + callout.textContent.trim()) : "";
+
+    const report =
+`RELATÓRIO • Verificador de Domínio (IDN / Homógrafo)
+${badgeText}
+
+${kvText}${extra}`;
+
+    navigator.clipboard.writeText(report).then(()=>{
+      hint.textContent = "Relatório copiado ✅";
+      setTimeout(()=>hint.textContent="", 2200);
+    }).catch(()=>{
+      hint.textContent = "Não consegui copiar (permissão do navegador).";
+      setTimeout(()=>hint.textContent="", 2200);
+    });
+  }
+
+  $("btn").addEventListener("click", analyze);
+  $("btnClear").addEventListener("click", ()=>{
+    inp.value = "";
+    setBadges([{kind:"warn", text:"Cole um link/domínio para analisar"}]);
+    setKV([["Exemplo", "mercadolivre.com.br"], ["Exemplo suspeito", "mercadоlivre.com.br (o cirílico)"]]);
+    callout.style.display = "none";
+    hint.textContent = "";
+    inp.focus();
+  });
+  $("btnCopy").addEventListener("click", copyReport);
+
+  inp.addEventListener("paste", ()=> setTimeout(analyze, 40));
+
+  // Estado inicial
+  setBadges([{kind:"warn", text:"Cole um link/domínio para analisar"}]);
+  setKV([["Exemplo", "mercadolivre.com.br"], ["Exemplo suspeito", "mercadоlivre.com.br (o cirílico)"]]);
+})();
 </script>
 </body>
 </html>
