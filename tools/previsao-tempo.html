@@ -7,7 +7,13 @@
   <style>
     :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px}
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden; /* impede “carrossel gigante” de criar scroll na página */
+    }
     header{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
     nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
     nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px}
@@ -19,9 +25,6 @@
     button{padding:12px 14px;border:0;border-radius:12px;background:#122c66;color:#fff;font-weight:800;cursor:pointer}
     button:hover{filter:brightness(1.05)}
     .muted{color:var(--muted);line-height:1.6}
-    table{width:100%;border-collapse:collapse;margin-top:12px}
-    th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:left}
-    th{font-weight:900}
 
     /* =========================
        UPGRADE (SEM MUDAR O TEMA)
@@ -55,21 +58,44 @@
     }
     .miniCard .label{color:var(--muted);font-weight:800;font-size:13px}
     .miniCard .val{font-weight:1000;font-size:18px;margin-top:2px}
-    .hours{
-      display:flex;gap:10px;overflow:auto;padding-bottom:6px;scroll-snap-type:x mandatory
+
+    /* =========================
+       HORAS (SEM CARROSSEL HORIZONTAL)
+       - grade responsiva
+       - carrega mais conforme desce
+    ========================= */
+    .hoursGrid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));
+      gap:10px;
     }
     .hourCard{
-      min-width:120px;scroll-snap-align:start;
-      background:#f8fafc;border:1px solid #e5eaf2;border-radius:14px;padding:12px
+      background:#f8fafc;border:1px solid #e5eaf2;border-radius:14px;padding:12px;
+      min-width:0; /* evita overflow */
     }
     .hourTime{font-weight:1000}
     .hourIcon{font-size:20px;margin-top:6px}
     .hourTemp{font-size:20px;font-weight:1000;margin-top:4px}
-    .hourMeta{color:var(--muted);font-weight:800;font-size:12px;margin-top:4px;line-height:1.3}
+    .hourMeta{color:var(--muted);font-weight:800;font-size:12px;margin-top:6px;line-height:1.35}
+    .hoursMore{
+      margin-top:10px;
+      display:flex;
+      justify-content:center;
+    }
+    .hoursMore button{
+      background:#122c66;
+    }
+
+    /* =========================
+       7 DIAS
+    ========================= */
     .days{display:grid;gap:10px;margin-top:10px}
     .dayRow{
       display:grid;grid-template-columns:1fr auto;gap:10px;
       background:#f8fafc;border:1px solid #e5eaf2;border-radius:14px;padding:12px
+    }
+    @media (max-width:560px){
+      .dayRow{grid-template-columns:1fr}
     }
     .dayLeft{display:grid;gap:4px}
     .dayTop{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -86,10 +112,14 @@
       opacity:.95
     }
     .dayRight{display:grid;justify-items:end;gap:6px}
+    @media (max-width:560px){
+      .dayRight{justify-items:start}
+    }
     .tag{
       font-size:12px;font-weight:1000;color:#0b1220;
       background:#eef2f7;border:1px solid #d7e1ef;border-radius:999px;padding:6px 10px
     }
+
     .hint{
       background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12;
       border-radius:14px;padding:12px;font-weight:800;line-height:1.4
@@ -177,84 +207,26 @@
       background:#0b2a4a; /* COR REAL */
       border-top: none;
     }
-
-    .st-footer__wrap{
-      max-width:1100px;
-      margin:0 auto;
-    }
-
-    .st-footer__grid{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:20px;
-    }
-
-    @media (max-width:900px){
-      .st-footer__grid{grid-template-columns:1fr}
-    }
-
+    .st-footer__wrap{max-width:1100px;margin:0 auto;}
+    .st-footer__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;}
+    @media (max-width:900px){.st-footer__grid{grid-template-columns:1fr}}
     .st-footer__card{
-      background:#1f3a63; /* CARD */
-      border:1px solid #2e4a74;
-      border-radius:18px;
-      padding:18px;
+      background:#1f3a63; border:1px solid #2e4a74;
+      border-radius:18px; padding:18px;
     }
-
-    .st-footer__title{
-      color:#e6edf7;
-      margin:0 0 10px;
-      font-size:18px;
-      font-weight:900;
-    }
-
-    .st-footer__text{
-      color:#e6edf7;
-      font-size:16px;
-      line-height:1.6;
-      margin:0;
-    }
-
-    .st-footer__links{
-      display:grid;
-      gap:12px;
-    }
-
+    .st-footer__title{color:#e6edf7;margin:0 0 10px;font-size:18px;font-weight:900;}
+    .st-footer__text{color:#e6edf7;font-size:16px;line-height:1.6;margin:0;}
+    .st-footer__links{display:grid;gap:12px;}
     .st-footer__link{
-      display:block;
-      background:#2a4269; /* BOTÃO */
-      border:1px solid #3a5686;
-      padding:14px 16px;
-      border-radius:14px;
-      color:#e6edf7;
-      text-decoration:none;
-      font-size:18px;
-      font-weight:900;
-      transition:.15s;
+      display:block;background:#2a4269;border:1px solid #3a5686;
+      padding:14px 16px;border-radius:14px;color:#e6edf7;text-decoration:none;
+      font-size:18px;font-weight:900;transition:.15s;
     }
-
     .st-footer__link:hover{background:#314d7a}
-
-    .st-footer__hr{
-      height:1px;
-      background:#2e4a74; /* LINHA */
-      margin:24px 0 16px;
-    }
-
-    .st-footer__bottom{
-      text-align:center;
-      color:#e6edf7;
-      font-size:14px;
-      font-weight:700;
-    }
-
-    .st-footer__bottom a{
-      color:#e6edf7;
-      text-decoration:none;
-      font-weight:900;
-    }
-
+    .st-footer__hr{height:1px;background:#2e4a74;margin:24px 0 16px;}
+    .st-footer__bottom{text-align:center;color:#e6edf7;font-size:14px;font-weight:700;}
+    .st-footer__bottom a{color:#e6edf7;text-decoration:none;font-weight:900;}
     .st-footer__bottom a:hover{text-decoration:underline}
-
     .st-footer__dot{margin:0 8px}
   </style>
 </head>
@@ -273,7 +245,6 @@
 <div class="container">
   <div class="card">
 
-    <!-- CONTROLES (proporcional) -->
     <div class="controls">
       <button id="geoBtn">Usar minha localização</button>
 
@@ -313,12 +284,14 @@
   const ALERT_GUST_THRESHOLD = 45;    // km/h rajadas p/ alertar
   const ALERT_LOOKAHEAD_HOURS = 12;   // próximas X horas analisadas
 
+  // Paginação “Próximas horas” (sem carrossel)
+  const HOURS_PAGE_SIZE = 8;
+
   function fmt(n, digits=0){
     if(n == null || !Number.isFinite(Number(n))) return "—";
     return Number(n).toFixed(digits);
   }
   function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
-
   function pad2(x){ return String(x).padStart(2,"0"); }
   function toPtDay(isoDate){
     const d = new Date(isoDate + "T00:00:00");
@@ -329,11 +302,7 @@
     const d = new Date(iso);
     return `${pad2(d.getHours())}:00`;
   }
-  function localDayKey(date){
-    return `${date.getFullYear()}-${pad2(date.getMonth()+1)}-${pad2(date.getDate())}`;
-  }
 
-  // Weathercode (WMO) -> descrição + ícone
   function wx(code, isDay=true){
     const map = {
       0:["Céu limpo", "☀️"],
@@ -387,31 +356,49 @@
   function findClosestHourlyIndex(hourlyTimes, targetISO){
     if(!hourlyTimes || !hourlyTimes.length) return -1;
     const target = new Date(targetISO).getTime();
-    let best = 0;
-    let bestDiff = Infinity;
+    let best = 0, bestDiff = Infinity;
     for(let i=0;i<hourlyTimes.length;i++){
       const t = new Date(hourlyTimes[i]).getTime();
       const diff = Math.abs(t - target);
-      if(diff < bestDiff){
-        bestDiff = diff;
-        best = i;
-      }
+      if(diff < bestDiff){ bestDiff = diff; best = i; }
     }
     return best;
   }
 
+  function rangeStats(hourly, startHour, endHour){
+    // pega hoje (local) e soma precip + média pop no intervalo [startHour..endHour]
+    const now = new Date();
+    const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
+    const start = new Date(y, m, d, startHour, 0, 0).toISOString();
+    const end = new Date(y, m, d, endHour, 0, 0).toISOString();
+    const times = hourly.time || [];
+
+    let popSum=0, popCount=0, prSum=0;
+    for(let i=0;i<times.length;i++){
+      const t = times[i];
+      if(t >= start && t <= end){
+        const pop = hourly.precipitation_probability?.[i];
+        const pr = hourly.precipitation?.[i];
+        if(pop != null){ popSum += pop; popCount++; }
+        if(pr != null){ prSum += pr; }
+      }
+    }
+    const popAvg = popCount ? (popSum/popCount) : null;
+    return { popAvg, prSum };
+  }
+
   function buildDaySlots(hourly){
-    // Pega hoje (local) e monta 06h/12h/18h (mais próximo) dentro do array hourly
+    // 06/12/18: mostra temp, sensação, pop e chuva por período (range)
     const now = new Date();
     const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
 
     const targets = [
-      { key:"Manhã", hour:6 },
-      { key:"Tarde", hour:12 },
-      { key:"Noite", hour:18 },
+      { key:"Manhã", hour:6,  rStart:6,  rEnd:11 },
+      { key:"Tarde", hour:12, rStart:12, rEnd:17 },
+      { key:"Noite", hour:18, rStart:18, rEnd:23 },
     ];
 
-    const outSlots = [];
+    const slots = [];
 
     for(const t of targets){
       const dt = new Date(y, m, d, t.hour, 0, 0);
@@ -420,19 +407,25 @@
 
       const code = hourly.weather_code?.[idx];
       const [desc, icon] = wx(code, true);
-      outSlots.push({
+
+      const rs = rangeStats(hourly, t.rStart, t.rEnd);
+
+      slots.push({
         name: t.key,
         time: hourly.time?.[idx],
         icon,
         desc,
         temp: hourly.temperature_2m?.[idx],
+        feels: hourly.apparent_temperature?.[idx],
         pop: hourly.precipitation_probability?.[idx],
         wind: hourly.wind_speed_10m?.[idx],
-        hum: hourly.relative_humidity_2m?.[idx]
+        hum: hourly.relative_humidity_2m?.[idx],
+        popPeriod: rs.popAvg,
+        prPeriod: rs.prSum
       });
     }
 
-    return outSlots;
+    return slots;
   }
 
   function buildAlerts(hourly, startIdx){
@@ -441,14 +434,10 @@
 
     const endIdx = Math.min(hourly.time.length, startIdx + ALERT_LOOKAHEAD_HOURS);
 
-    // chuva
     let bestPop = -1, bestPopIdx = -1;
     for(let i=startIdx;i<endIdx;i++){
       const pop = hourly.precipitation_probability?.[i];
-      if(pop != null && pop > bestPop){
-        bestPop = pop;
-        bestPopIdx = i;
-      }
+      if(pop != null && pop > bestPop){ bestPop = pop; bestPopIdx = i; }
     }
     if(bestPop >= ALERT_POP_THRESHOLD && bestPopIdx >= 0){
       const when = toPtHour(hourly.time[bestPopIdx]);
@@ -460,14 +449,10 @@
       });
     }
 
-    // vento/rajadas
     let bestGust = -1, bestGustIdx = -1;
     for(let i=startIdx;i<endIdx;i++){
       const gust = hourly.wind_gusts_10m?.[i];
-      if(gust != null && gust > bestGust){
-        bestGust = gust;
-        bestGustIdx = i;
-      }
+      if(gust != null && gust > bestGust){ bestGust = gust; bestGustIdx = i; }
     }
     if(bestGust >= ALERT_GUST_THRESHOLD && bestGustIdx >= 0){
       const when = toPtHour(hourly.time[bestGustIdx]);
@@ -482,6 +467,78 @@
     return alerts;
   }
 
+  // ----------------------------
+  // HORAS: render progressivo sem carrossel
+  // ----------------------------
+  let __hoursData = [];
+  let __hoursRendered = 0;
+  let __hoursObserver = null;
+
+  function hourCardHTML(h){
+    return `
+      <div class="hourCard">
+        <div class="hourTime">${toPtHour(h.time)}</div>
+        <div class="hourIcon">${h.icon}</div>
+        <div class="hourTemp">${fmt(h.temp,0)}°</div>
+        <div class="hourMeta">
+          Sensação: ${fmt(h.feels,0)}°<br/>
+          Chuva: ${fmt(h.pop,0)}% • ${fmt(h.pr,1)} mm<br/>
+          Vento: ${fmt(h.wind,0)} km/h • Raj: ${fmt(h.gust,0)}<br/>
+          Umidade: ${fmt(h.hum,0)}%
+        </div>
+      </div>
+    `;
+  }
+
+  function renderMoreHours(){
+    const grid = document.getElementById("hoursGrid");
+    const btnWrap = document.getElementById("hoursMoreWrap");
+    const sentinel = document.getElementById("hoursSentinel");
+    if(!grid) return;
+
+    const next = __hoursData.slice(__hoursRendered, __hoursRendered + HOURS_PAGE_SIZE);
+    grid.insertAdjacentHTML("beforeend", next.map(hourCardHTML).join(""));
+    __hoursRendered += next.length;
+
+    const hasMore = __hoursRendered < __hoursData.length;
+    if(btnWrap) btnWrap.style.display = hasMore ? "flex" : "none";
+    if(sentinel) sentinel.style.display = hasMore ? "block" : "none";
+  }
+
+  function setupHoursInfinite(hoursArr){
+    __hoursData = hoursArr || [];
+    __hoursRendered = 0;
+
+    if(__hoursObserver){
+      try{ __hoursObserver.disconnect(); }catch(e){}
+      __hoursObserver = null;
+    }
+
+    // primeira leva
+    renderMoreHours();
+
+    // botão “mostrar mais”
+    const btn = document.getElementById("hoursMoreBtn");
+    if(btn){
+      btn.onclick = () => renderMoreHours();
+    }
+
+    // auto: quando o usuário chega no final da seção, carrega mais
+    const sentinel = document.getElementById("hoursSentinel");
+    if(sentinel){
+      __hoursObserver = new IntersectionObserver((entries) => {
+        const e = entries[0];
+        if(e && e.isIntersecting){
+          if(__hoursRendered < __hoursData.length){
+            renderMoreHours();
+          }
+        }
+      }, { root: null, threshold: 0.1 });
+
+      __hoursObserver.observe(sentinel);
+    }
+  }
+
   async function fetchWeather(lat, lon, label=""){
     out.innerHTML = `<p class="muted"><strong>Consultando previsão...</strong></p>`;
     try{
@@ -490,50 +547,27 @@
       url.searchParams.set("longitude", String(lon));
       url.searchParams.set("timezone", "auto");
 
-      // Agora (bem completo)
       url.searchParams.set("current",
         [
-          "temperature_2m",
-          "apparent_temperature",
-          "relative_humidity_2m",
-          "precipitation",
-          "weather_code",
-          "cloud_cover",
-          "pressure_msl",
-          "wind_speed_10m",
-          "wind_direction_10m",
-          "wind_gusts_10m",
-          "is_day",
-          "visibility"
+          "temperature_2m","apparent_temperature","relative_humidity_2m",
+          "precipitation","weather_code","cloud_cover","pressure_msl",
+          "wind_speed_10m","wind_direction_10m","wind_gusts_10m","is_day","visibility"
         ].join(",")
       );
 
-      // Próximas horas
       url.searchParams.set("hourly",
         [
-          "temperature_2m",
-          "apparent_temperature",
-          "precipitation_probability",
-          "precipitation",
-          "weather_code",
-          "wind_speed_10m",
-          "wind_gusts_10m",
-          "relative_humidity_2m"
+          "temperature_2m","apparent_temperature",
+          "precipitation_probability","precipitation","weather_code",
+          "wind_speed_10m","wind_gusts_10m","relative_humidity_2m"
         ].join(",")
       );
 
-      // 7 dias
       url.searchParams.set("daily",
         [
-          "weather_code",
-          "temperature_2m_max",
-          "temperature_2m_min",
-          "precipitation_probability_max",
-          "precipitation_sum",
-          "uv_index_max",
-          "sunrise",
-          "sunset",
-          "wind_speed_10m_max"
+          "weather_code","temperature_2m_max","temperature_2m_min",
+          "precipitation_probability_max","precipitation_sum","uv_index_max",
+          "sunrise","sunset","wind_speed_10m_max"
         ].join(",")
       );
 
@@ -549,7 +583,6 @@
       const isDay = cur.is_day === 1;
       const [desc, icon] = wx(cur.weather_code, isDay);
 
-      // Constrói 7 dias
       const days = (daily.time || []).map((t, i) => ({
         date: t,
         code: daily.weather_code?.[i],
@@ -563,23 +596,23 @@
         windMax: daily.wind_speed_10m_max?.[i],
       }));
 
-      // Para barra min/max
       const mins = days.map(x => x.min).filter(x => x!=null);
       const maxs = days.map(x => x.max).filter(x => x!=null);
       const tMinAll = mins.length ? Math.min(...mins) : 0;
       const tMaxAll = maxs.length ? Math.max(...maxs) : 1;
       const span = Math.max(1, tMaxAll - tMinAll);
 
-      // Próximas 24 horas a partir do "current.time"
       const nowIso = cur.time || (hourly.time ? hourly.time[0] : null);
       let startIdx = 0;
       if(nowIso && hourly.time){
         startIdx = Math.max(0, hourly.time.findIndex(t => t >= nowIso));
         if(startIdx < 0) startIdx = 0;
       }
+
+      // pega 24 horas (pode aumentar p/ 48 se quiser)
       const hours24 = (hourly.time || []).slice(startIdx, startIdx + 24).map((t, i) => {
         const idx = startIdx + i;
-        const [hd, hi] = wx(hourly.weather_code?.[idx], true);
+        const [_, hi] = wx(hourly.weather_code?.[idx], true);
         return {
           time: t,
           icon: hi,
@@ -593,10 +626,7 @@
         };
       });
 
-      // Resumo manhã/tarde/noite (hoje)
       const slots = buildDaySlots(hourly);
-
-      // Alertas rápidos (próximas X horas)
       const alerts = buildAlerts(hourly, startIdx);
 
       const placeLine = label
@@ -659,8 +689,9 @@
 
                   <div class="slotTemp">${fmt(s.temp,0)}°</div>
                   <div class="slotMeta">
-                    Chuva: ${fmt(s.pop,0)}% • Vento: ${fmt(s.wind,0)} km/h<br/>
-                    Umidade: ${fmt(s.hum,0)}%
+                    Sensação: ${fmt(s.feels,0)}° • Umidade: ${fmt(s.hum,0)}%<br/>
+                    Vento: ${fmt(s.wind,0)} km/h • Chuva (hora): ${fmt(s.pop,0)}%<br/>
+                    <strong>Chuva por período:</strong> ${fmt(s.popPeriod,0)}% • ${fmt(s.prPeriod,1)} mm
                   </div>
                 </div>
               `).join("")}
@@ -669,7 +700,6 @@
         ` : ``}
 
         <div class="grid2">
-          <!-- AGORA -->
           <section class="card" style="padding:16px">
             <div class="titlebar">
               <h2 class="h2">Agora</h2>
@@ -709,7 +739,6 @@
             </div>
           </section>
 
-          <!-- DESTAQUES DO DIA -->
           <section class="card" style="padding:16px">
             <div class="titlebar">
               <h2 class="h2">Hoje</h2>
@@ -746,34 +775,22 @@
           </section>
         </div>
 
-        <!-- PRÓXIMAS HORAS -->
         <section class="card">
           <div class="titlebar">
             <h2 class="h2">Próximas 24 horas</h2>
-            <span class="small">Temperatura • chuva • vento</span>
+            <span class="small">Aparece mais conforme você desce</span>
           </div>
           <div class="divider"></div>
 
-          ${hours24.length ? `
-            <div class="hours">
-              ${hours24.map(h => `
-                <div class="hourCard">
-                  <div class="hourTime">${toPtHour(h.time)}</div>
-                  <div class="hourIcon">${h.icon}</div>
-                  <div class="hourTemp">${fmt(h.temp,0)}°</div>
-                  <div class="hourMeta">
-                    Sensação: ${fmt(h.feels,0)}°<br/>
-                    Chuva: ${fmt(h.pop,0)}% • ${fmt(h.pr,1)} mm<br/>
-                    Vento: ${fmt(h.wind,0)} km/h • Raj: ${fmt(h.gust,0)}<br/>
-                    Umidade: ${fmt(h.hum,0)}%
-                  </div>
-                </div>
-              `).join("")}
-            </div>
-          ` : `<p class="muted">Sem dados horários disponíveis.</p>`}
+          <div id="hoursGrid" class="hoursGrid"></div>
+
+          <div id="hoursMoreWrap" class="hoursMore">
+            <button id="hoursMoreBtn" type="button">Mostrar mais horas</button>
+          </div>
+
+          <div id="hoursSentinel" style="height:1px"></div>
         </section>
 
-        <!-- 7 DIAS -->
         <section class="card">
           <div class="titlebar">
             <h2 class="h2">Previsão para 7 dias</h2>
@@ -827,7 +844,9 @@
         </p>
       `;
 
-      // Salva última consulta
+      // Setupa as próximas horas SEM carrossel (render progressivo)
+      setupHoursInfinite(hours24);
+
       localStorage.setItem(LS_KEY, JSON.stringify({ lat, lon, label, at: Date.now() }));
 
     }catch(e){
@@ -944,7 +963,6 @@
         fetchWeather(lat, lon, "Minha localização");
       },
       () => {
-        // fallback: última consulta salva
         try{
           const raw = localStorage.getItem(LS_KEY);
           if(raw){
@@ -963,7 +981,6 @@
     return true;
   }
 
-  // Auto: tenta geolocalizar ao abrir, senão usa última consulta
   (function boot(){
     const started = tryAutoGeo();
     if(started) return;
@@ -981,7 +998,6 @@
 <footer class="st-footer">
   <div class="st-footer__wrap">
     <div class="st-footer__grid">
-      <!-- Coluna esquerda -->
       <section class="st-footer__card">
         <h3 class="st-footer__title">Segurança Tech</h3>
         <p class="st-footer__text">
@@ -990,10 +1006,8 @@
         </p>
       </section>
 
-      <!-- Coluna direita -->
       <section class="st-footer__card">
         <h3 class="st-footer__title">LINKS IMPORTANTES</h3>
-
         <div class="st-footer__links">
           <a class="st-footer__link" href="../sobre.html">Sobre</a>
           <a class="st-footer__link" href="../politica-de-privacidade.html">Política de Privacidade</a>
