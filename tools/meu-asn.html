@@ -1,64 +1,455 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Meu ASN - Segurança Tech</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meu ASN • BGP Tools | Segurança Tech</title>
+  <meta name="color-scheme" content="light">
+
   <style>
-    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px}
+    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e8eef6}
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-    header{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
+    header.site{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
+    header.site h1{margin:0;font-size:22px}
+    header.site p{margin:6px 0 0;opacity:.92}
     nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
     nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px}
     nav a:hover{background:rgba(255,255,255,.10)}
-    .container{max-width:980px;margin:0 auto;padding:22px 14px}
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    .container{max-width:1020px;margin:0 auto;padding:22px 14px}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden}
+    .cardHead{padding:12px 14px;border-bottom:1px solid var(--line);background:#fbfdff;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .cardHead h2{margin:0;font-size:13.5px;font-weight:950}
+    .cardBody{padding:12px 14px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    .kv{display:grid;grid-template-columns:230px 1fr;gap:10px 12px}
+    @media (max-width:560px){.kv{grid-template-columns:1fr}}
+    .k{font-size:12.5px;color:var(--muted)}
+    .v{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:13px;word-break:break-word}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid #d7e1ef;font-size:12px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;white-space:nowrap;background:#fff;color:var(--muted)}
+    .tOk{background:#e8fff1;color:#0f7a3a;border-color:#c9f2da}
+    .tWarn{background:#fff7e6;color:#8a5b00;border-color:#ffe2ad}
+    .tBad{background:#ffecec;color:#b42318;border-color:#ffc9c9}
+    .tInfo{background:#f8fafc;color:var(--muted);border-color:#e8eef6}
     button{padding:12px 14px;border:0;border-radius:12px;background:#122c66;color:#fff;font-weight:800;cursor:pointer}
     button:hover{filter:brightness(1.05)}
-    .muted{color:var(--muted);line-height:1.6}
+    .list{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 10px;border-bottom:1px solid var(--line);font-size:12.5px;vertical-align:top}
+    th{background:#fbfdff;color:var(--muted);text-align:left;font-weight:950}
+    tr:last-child td{border-bottom:none}
+    .right{text-align:right}
+    .note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.45}
+    .progress{width:260px;max-width:100%;height:10px;border-radius:999px;background:#f1f5f9;border:1px solid #e8eef6;overflow:hidden}
+    .bar{height:100%;width:0%;background:linear-gradient(90deg,#122c66,#0a1f44);transition:width .18s ease}
+    .toast{position:fixed;right:14px;bottom:14px;max-width:420px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.95);color:var(--text);box-shadow:var(--shadow);display:none;z-index:9999}
+    .toast strong{display:block;margin-bottom:4px}
   </style>
 </head>
+
 <body>
-<header>
-  <h1>Meu ASN</h1>
-  <p>Consulta seu ASN (quando disponível) e organização</p>
-</header>
+  <header class="site">
+    <h1>Meu ASN</h1>
+    <p>Detecção automática via IP público • RIPEstat</p>
+  </header>
 
-<nav>
-  <a href="../index.html">Home</a>
-  <a href="../sobre.html">Sobre</a>
-  <a href="../index.html">Ferramentas</a>
-</nav>
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../sobre.html">Sobre</a>
+    <a href="../index.html">Ferramentas</a>
+  </nav>
 
-<div class="container">
-  <div class="card">
-    <button id="btn">Consultar ASN</button>
-    <p class="muted">Observação: o ASN pode não aparecer em todas as consultas dependendo do provedor e da API pública.</p>
-    <div id="out" class="muted" style="margin-top:10px"></div>
+  <div class="container">
+
+    <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px">
+      <button id="btnRefresh">Atualizar</button>
+      <span class="tag tInfo" id="hint">Inicializando…</span>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="cardHead">
+          <h2>Resumo da conexão</h2>
+          <span class="tag tInfo" id="pill">Auto</span>
+        </div>
+        <div class="cardBody">
+          <div class="kv">
+            <div class="k">IP público</div>
+            <div class="v" id="out_ip">carregando…</div>
+
+            <div class="k">Anunciado como</div>
+            <div class="v" id="out_prefix">—</div>
+
+            <div class="k">Meu ASN</div>
+            <div class="v" id="out_myasn">—</div>
+
+            <div class="k">Status (anúncio)</div>
+            <div class="v" id="out_status">—</div>
+
+            <div class="k">Holder</div>
+            <div class="v" id="out_holder">—</div>
+
+            <div class="k">Prefixos anunciados</div>
+            <div class="v" id="out_counts">—</div>
+
+            <div class="k">Última coleta</div>
+            <div class="v" id="out_last">—</div>
+
+            <div class="k">RPKI (amostra)</div>
+            <div class="v" id="out_rpki">—</div>
+          </div>
+
+          <div class="note">
+            Bandeira do IP é baseada em geolocalização e pode variar (VPN/CGNAT/proxy).
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cardHead">
+          <h2>Validação RPKI</h2>
+          <span class="tag tInfo" id="rpkiPill">Amostra</span>
+        </div>
+        <div class="cardBody">
+          <div class="note" id="rpkiNote">Aguardando rotas…</div>
+          <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <div class="progress" title="Progresso da checagem RPKI">
+              <div class="bar" id="rpkiBar"></div>
+            </div>
+            <span class="tag tInfo" id="rpkiStat">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px">
+      <div class="cardHead" style="border-radius:14px 14px 0 0;border:1px solid var(--line);border-bottom:none;background:#fbfdff">
+        <h2 style="margin:0;font-size:13.5px;font-weight:950">Rotas anunciadas (amostra)</h2>
+        <span class="tag tInfo" id="routesPill">—</span>
+      </div>
+      <div class="list" style="border-top-left-radius:0;border-top-right-radius:0">
+        <table>
+          <thead>
+            <tr>
+              <th>Prefixo</th>
+              <th class="right">Família</th>
+              <th class="right">RPKI</th>
+            </tr>
+          </thead>
+          <tbody id="tblRoutes"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="note">
+      IP: ipify + ipwho.is (país/bandeira). ASN/rotas/RPKI: RIPEstat.
+    </div>
   </div>
-</div>
+
+  <div class="toast" id="toast">
+    <strong id="toastTitle">Aviso</strong>
+    <div id="toastMsg"></div>
+  </div>
 
 <script>
-  const out = document.getElementById("out");
-  document.getElementById("btn").addEventListener("click", async () => {
-    out.textContent = "Consultando...";
-    try{
-      const r = await fetch("https://ipapi.co/json/");
-      if(!r.ok) throw new Error("Falha na consulta");
-      const d = await r.json();
+  const MAX_PREFIXES_TABLE = 20;
+  const MAX_RPKI_SAMPLE = 12;
 
-      out.innerHTML = `
-        <p><strong>IP:</strong> ${d.ip || "—"}</p>
-        <p><strong>ASN:</strong> ${d.asn || "—"}</p>
-        <p><strong>Organização/ISP:</strong> ${d.org || "—"}</p>
-        <p><strong>Roteamento (aprox.):</strong> ${(d.network || "—")}</p>
-        <p><strong>Cidade/UF:</strong> ${(d.city||"—")} / ${(d.region||"—")}</p>
-      `;
-    }catch(e){
-      out.innerHTML = `<p style="color:#b42318"><strong>Erro:</strong> não foi possível consultar agora. Tente novamente.</p>`;
+  const cache = new Map();
+  let announcedPrefixes = [];
+  let currentASN = null;
+
+  const el = (id)=>document.getElementById(id);
+  const out = {
+    hint: el('hint'),
+    pill: el('pill'),
+
+    ip: el('out_ip'),
+    prefix: el('out_prefix'),
+    myasn: el('out_myasn'),
+    status: el('out_status'),
+    holder: el('out_holder'),
+    counts: el('out_counts'),
+    last: el('out_last'),
+    rpki: el('out_rpki'),
+
+    tbl: el('tblRoutes'),
+    routesPill: el('routesPill'),
+
+    rpkiNote: el('rpkiNote'),
+    rpkiBar: el('rpkiBar'),
+    rpkiStat: el('rpkiStat'),
+    rpkiPill: el('rpkiPill'),
+
+    btnRefresh: el('btnRefresh'),
+
+    toast: el('toast'),
+    toastTitle: el('toastTitle'),
+    toastMsg: el('toastMsg'),
+  };
+
+  function toast(title, msg){
+    out.toastTitle.textContent = title;
+    out.toastMsg.textContent = msg;
+    out.toast.style.display = 'block';
+    clearTimeout(toast._t);
+    toast._t = setTimeout(()=> out.toast.style.display = 'none', 3400);
+  }
+
+  function escapeHTML(s){
+    return String(s).replace(/[&<>"']/g, ch => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+    }[ch]));
+  }
+  function cssEscape(s){
+    return String(s).replace(/\\/g,'\\\\').replace(/"/g,'\\"');
+  }
+  function familyOf(prefix){ return prefix.includes(':') ? 'IPv6' : 'IPv4'; }
+  function formatISO(ts){
+    if (!ts) return '—';
+    try{
+      const d = new Date(ts);
+      if (Number.isNaN(d.getTime())) return String(ts);
+      return d.toLocaleString('pt-BR');
+    }catch{ return String(ts); }
+  }
+  async function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
+
+  async function fetchJSON(url, retries=2){
+    if (cache.has(url)) return cache.get(url);
+    const p = (async ()=>{
+      let last=null;
+      for (let i=0;i<=retries;i++){
+        try{
+          const r = await fetch(url, { headers: { 'accept':'application/json' }});
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return await r.json();
+        }catch(e){
+          last=e;
+          await sleep(250*(i+1));
+        }
+      }
+      throw last;
+    })();
+    cache.set(url,p);
+    return p;
+  }
+
+  function tag(text, kind){
+    const cls =
+      kind === 'ok' ? 'tag tOk' :
+      kind === 'bad' ? 'tag tBad' :
+      kind === 'warn' ? 'tag tWarn' : 'tag tInfo';
+    return `<span class="${cls}">${text}</span>`;
+  }
+
+  function clearUI(){
+    out.hint.textContent = 'Inicializando…';
+    out.ip.textContent = 'carregando…';
+    out.prefix.textContent = '—';
+    out.myasn.textContent = '—';
+    out.status.innerHTML = '—';
+    out.holder.textContent = '—';
+    out.counts.textContent = '—';
+    out.last.textContent = '—';
+    out.rpki.innerHTML = '—';
+    out.tbl.innerHTML = '';
+    out.routesPill.textContent = '—';
+
+    out.rpkiNote.textContent = 'Aguardando rotas…';
+    out.rpkiBar.style.width = '0%';
+    out.rpkiStat.textContent = '—';
+
+    announcedPrefixes = [];
+    currentASN = null;
+  }
+
+  async function detectIp(){
+    const j = await fetchJSON('https://api.ipify.org?format=json', 1);
+    if (!j?.ip) throw new Error('ipify sem ip');
+    return String(j.ip);
+  }
+
+  async function detectGeoFlag(ip){
+    const j = await fetchJSON(`https://ipwho.is/${encodeURIComponent(ip)}`, 1);
+    if (!j?.success) return null;
+    const emoji = j?.flag?.emoji || null;
+    const cc = j?.country_code || null;
+    return { emoji, cc };
+  }
+
+  async function detectFromRipe(ip){
+    const j = await fetchJSON(`https://stat.ripe.net/data/network-info/data.json?resource=${encodeURIComponent(ip)}`, 2);
+    const d = j?.data || {};
+    const prefix = d?.prefix || '—';
+    const asns = Array.isArray(d?.asns) ? d.asns : [];
+    const asn = asns.length ? Number(asns[0]) : null;
+    return { prefix, asn };
+  }
+
+  async function loadRipeForAsn(asn){
+    const urlOverview  = `https://stat.ripe.net/data/as-overview/data.json?resource=AS${asn}`;
+    const urlAnnounced = `https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS${asn}`;
+    const urlRouting   = `https://stat.ripe.net/data/routing-status/data.json?resource=AS${asn}`;
+
+    const [ovR, anR, rsR] = await Promise.allSettled([
+      fetchJSON(urlOverview),
+      fetchJSON(urlAnnounced),
+      fetchJSON(urlRouting),
+    ]);
+
+    if (ovR.status === 'fulfilled'){
+      const d = ovR.value?.data || {};
+      const announced = !!d.announced;
+      out.status.innerHTML = announced
+        ? `ANUNCIANDO ${tag('OK','ok')}`
+        : `NÃO ANUNCIANDO ${tag('OFF','bad')}`;
+      out.holder.textContent = d.holder || '—';
+    } else {
+      out.status.innerHTML = `PARCIAL ${tag('API','warn')}`;
     }
+
+    let list = [];
+    if (anR.status === 'fulfilled'){
+      list = (anR.value?.data?.prefixes || []).map(p => p?.prefix).filter(Boolean);
+      announcedPrefixes = list.slice();
+
+      const v4 = list.filter(p=>!p.includes(':')).length;
+      const v6 = list.filter(p=>p.includes(':')).length;
+      out.counts.textContent = `${list.length} (v4: ${v4} • v6: ${v6})`;
+      out.routesPill.textContent = `${Math.min(MAX_PREFIXES_TABLE, list.length)} exibidos`;
+
+      const sample = list.slice(0, MAX_PREFIXES_TABLE);
+      out.tbl.innerHTML = sample.map(p => `
+        <tr>
+          <td class="mono">${escapeHTML(p)}</td>
+          <td class="right">${familyOf(p)}</td>
+          <td class="right mono" data-rpki="${escapeHTML(p)}">—</td>
+        </tr>
+      `).join('');
+
+      out.rpki.innerHTML = `Pronto para checar (${Math.min(MAX_RPKI_SAMPLE, list.length)} prefixos) ${tag('READY','ok')}`;
+      out.rpkiNote.textContent = 'Checando automaticamente uma amostra para evitar rate limit.';
+      out.rpkiPill.textContent = 'Amostra';
+    } else {
+      out.tbl.innerHTML = `<tr><td colspan="3" style="color:var(--muted)">Announced-prefixes indisponível no momento.</td></tr>`;
+      out.rpki.innerHTML = `Indisponível ${tag('API','warn')}`;
+      out.rpkiNote.textContent = 'Sem rotas para validar (API instável).';
+      out.rpkiPill.textContent = 'Indisponível';
+    }
+
+    if (rsR.status === 'fulfilled'){
+      const d = rsR.value?.data || {};
+      out.last.textContent = formatISO(d.last_seen_time || d.query_time || d.time || '');
+    } else {
+      out.last.textContent = '—';
+    }
+  }
+
+  async function checkRpkiSample(){
+    if (!currentASN || !announcedPrefixes.length){
+      out.rpkiStat.textContent = '—';
+      return;
+    }
+
+    const sample = announcedPrefixes.slice(0, Math.min(MAX_RPKI_SAMPLE, announcedPrefixes.length));
+    let valid=0, invalid=0, unknown=0, done=0;
+
+    out.rpki.innerHTML = `checando... ${tag('RUN','warn')}`;
+    out.rpkiBar.style.width = '0%';
+
+    for (const prefix of sample){
+      try{
+        const url = `https://stat.ripe.net/data/rpki-validation/data.json?resource=AS${currentASN}&prefix=${encodeURIComponent(prefix)}`;
+        const j = await fetchJSON(url, 1);
+        const state = (j?.data?.validity || j?.data?.status || '').toString().toLowerCase();
+        const normalized =
+          state.includes('valid') ? 'VALID' :
+          state.includes('invalid') ? 'INVALID' :
+          'UNKNOWN';
+
+        if (normalized === 'VALID') valid++;
+        else if (normalized === 'INVALID') invalid++;
+        else unknown++;
+
+        const cell = document.querySelector(`[data-rpki="${cssEscape(prefix)}"]`);
+        if (cell){
+          cell.textContent = normalized;
+          cell.style.fontWeight = '900';
+          cell.style.color =
+            normalized === 'VALID' ? '#166534' :
+            normalized === 'INVALID' ? '#991b1b' :
+            '#92400e';
+        }
+      }catch{
+        unknown++;
+      }finally{
+        done++;
+        out.rpkiBar.style.width = Math.round((done / sample.length) * 100) + '%';
+      }
+    }
+
+    out.rpkiStat.textContent = `VALID:${valid} • INVALID:${invalid} • UNKNOWN:${unknown}`;
+
+    out.rpki.innerHTML =
+      `VALID: ${valid} • INVALID: ${invalid} • UNKNOWN: ${unknown} ` +
+      (invalid ? tag('ATTN','bad') : tag('OK','ok'));
+  }
+
+  async function run(){
+    clearUI();
+    out.hint.textContent = 'Detectando IP…';
+
+    try{
+      const ip = await detectIp();
+
+      let flag = null;
+      try{ flag = await detectGeoFlag(ip); } catch {}
+
+      if (flag?.emoji){
+        out.ip.innerHTML = `<span title="${flag.cc || ''}">${flag.emoji}</span> ${escapeHTML(ip)}`;
+      } else {
+        out.ip.textContent = ip;
+      }
+
+      out.hint.textContent = 'Detectando ASN…';
+
+      const det = await detectFromRipe(ip);
+      out.prefix.textContent = det.prefix || '—';
+
+      if (!det.asn){
+        out.myasn.textContent = '—';
+        out.hint.textContent = 'Não foi possível detectar ASN (VPN/CGNAT/proxy pode afetar).';
+        out.status.innerHTML = `PARCIAL ${tag('NO ASN','warn')}`;
+        toast('Parcial', 'IP detectado, mas ASN não foi identificado.');
+        return;
+      }
+
+      currentASN = Number(det.asn);
+      out.myasn.innerHTML = `AS${currentASN} ${tag('DETECT','ok')}`;
+      out.hint.textContent = 'Carregando dados do ASN…';
+
+      await loadRipeForAsn(currentASN);
+
+      out.hint.textContent = 'Pronto.';
+      await checkRpkiSample();
+
+    }catch(e){
+      console.error(e);
+      out.hint.textContent = 'Falha ao detectar IP/ASN. Tente novamente.';
+      out.status.innerHTML = `ERRO ${tag('FAIL','bad')}`;
+      toast('Erro', 'Não foi possível obter IP/ASN. Verifique bloqueios de rede/DNS.');
+    }
+  }
+
+  out.btnRefresh.addEventListener('click', ()=>{
+    cache.clear();
+    run();
   });
+
+  run();
 </script>
 </body>
 </html>
