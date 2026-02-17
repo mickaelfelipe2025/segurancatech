@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Meu IP - Segurança Tech</title>
+  <title>Rastreio de IP - Segurança Tech</title>
   <style>
     :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px}
     *{box-sizing:border-box}
@@ -14,6 +14,8 @@
     nav a:hover{background:rgba(255,255,255,.10)}
     .container{max-width:980px;margin:0 auto;padding:22px 14px}
     .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    input{flex:1;min-width:220px;padding:12px 12px;border:1px solid #d7e1ef;border-radius:12px;font-size:16px}
     button{padding:12px 14px;border:0;border-radius:12px;background:#122c66;color:#fff;font-weight:800;cursor:pointer}
     button:hover{filter:brightness(1.05)}
     pre{background:#0b1220;color:#e2e8f0;padding:14px;border-radius:14px;overflow:auto}
@@ -22,8 +24,8 @@
 </head>
 <body>
 <header>
-  <h1>Meu IP</h1>
-  <p>Mostra seu IP público e informações básicas</p>
+  <h1>Rastreio de IP</h1>
+  <p>Consulta informações de um IP informado</p>
 </header>
 
 <nav>
@@ -34,30 +36,49 @@
 
 <div class="container">
   <div class="card">
-    <button id="btn">Consultar agora</button>
-    <p class="muted">Usamos uma API pública para retornar IP e dados de rede aproximados.</p>
+    <div class="row">
+      <input id="ip" placeholder="Digite o IP (ex: 8.8.8.8)"/>
+      <button id="btn">Consultar</button>
+    </div>
+    <p class="muted">Use com responsabilidade. Localização é aproximada.</p>
     <div id="out" class="muted" style="margin-top:10px"></div>
   </div>
 </div>
 
 <script>
   const out = document.getElementById("out");
+  const ip = document.getElementById("ip");
+
+  function isValidIP(v){
+    const s = (v||"").trim();
+    // IPv4 simples
+    const m = s.match(/^(\d{1,3}\.){3}\d{1,3}$/);
+    if(!m) return false;
+    return s.split(".").every(n => Number(n) >= 0 && Number(n) <= 255);
+  }
+
   document.getElementById("btn").addEventListener("click", async () => {
+    const v = ip.value.trim();
+    if(!isValidIP(v)){
+      out.innerHTML = `<p style="color:#b42318"><strong>IP inválido.</strong> Digite um IPv4 válido (ex: 8.8.8.8).</p>`;
+      return;
+    }
+
     out.textContent = "Consultando...";
     try{
-      const r = await fetch("https://ipapi.co/json/");
+      const r = await fetch(`https://ipapi.co/${encodeURIComponent(v)}/json/`);
       if(!r.ok) throw new Error("Falha na consulta");
-      const data = await r.json();
+      const d = await r.json();
 
       out.innerHTML = `
-        <p><strong>IP:</strong> ${data.ip || "—"}</p>
-        <p><strong>Cidade/UF:</strong> ${(data.city||"—")} / ${(data.region||"—")}</p>
-        <p><strong>País:</strong> ${(data.country_name||data.country||"—")}</p>
-        <p><strong>ISP/Org:</strong> ${(data.org||"—")}</p>
-        <p><strong>ASN:</strong> ${(data.asn||"—")}</p>
+        <p><strong>IP:</strong> ${d.ip || v}</p>
+        <p><strong>Cidade/UF:</strong> ${(d.city||"—")} / ${(d.region||"—")}</p>
+        <p><strong>País:</strong> ${(d.country_name||d.country||"—")}</p>
+        <p><strong>Org/ISP:</strong> ${(d.org||"—")}</p>
+        <p><strong>ASN:</strong> ${(d.asn||"—")}</p>
         <details style="margin-top:10px">
           <summary style="cursor:pointer;font-weight:800">Ver JSON completo</summary>
-          <pre>${escapeHtml(JSON.stringify(data, null, 2))}</pre>
+          <pre>${escapeHtml(JSON.stringify(d, null, 2))}</pre>
         </details>
       `;
     }catch(e){
