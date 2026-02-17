@@ -1,95 +1,315 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Contato — Segurança Tech</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contato — Segurança Tech</title>
 
-<style>
-:root{
-  --bg:#f4f6f8;
-  --card:#ffffff;
-  --nav:#122c66;
-  --header:#0a1f44;
-  --text:#0b1220;
-  --muted:#475569;
-}
-body{
-  margin:0;
-  font-family:Arial;
-  background:var(--bg);
-  color:var(--text);
-}
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:40px 20px;
-}
-h1{color:var(--header);}
-p{line-height:1.7;}
-.card{
-  background:#fff;
-  padding:30px;
-  border-radius:12px;
-}
-a{
-  color:var(--nav);
-  text-decoration:none;
-  font-weight:bold;
-}
-</style>
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --nav:#122c66;
+      --header:#0a1f44;
+      --text:#0b1220;
+      --muted:#475569;
+      --line:rgba(2,6,23,.10);
+      --shadow:0 10px 22px rgba(2,6,23,.10);
+      --radius:14px;
+
+      --footer:#0a1f44;
+      --footer2:#0b2a66;
+      --footerCard:rgba(255,255,255,.10);
+      --footerText:#eaf2ff;
+      --footerMuted:rgba(234,242,255,.75);
+      --btn:rgba(255,255,255,.10);
+      --btnHover:rgba(255,255,255,.16);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    /* ===== TOP BAR / HEADER ===== */
+    .top{
+      background:linear-gradient(180deg, var(--header), var(--nav));
+      color:#fff;
+      padding:18px 12px 10px;
+      text-align:center;
+    }
+    .top h1{
+      margin:0;
+      font-size:20px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .top p{
+      margin:6px 0 0;
+      font-size:13px;
+      opacity:.9;
+    }
+
+    /* ===== NAV ===== */
+    .nav{
+      background:var(--nav);
+      display:flex;
+      justify-content:center;
+      gap:24px;
+      padding:10px 12px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      font-size:13px;
+      opacity:.92;
+      padding:6px 10px;
+      border-radius:10px;
+    }
+    .nav a:hover{background:rgba(255,255,255,.10)}
+    .nav a.active{background:rgba(255,255,255,.14)}
+
+    /* ===== CONTENT ===== */
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:18px 16px 36px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      color:var(--header);
+      font-size:26px;
+      letter-spacing:-.2px;
+    }
+    p{
+      line-height:1.7;
+      margin:10px 0;
+      color:var(--text);
+    }
+    .muted{color:var(--muted)}
+    .contactRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:14px;
+    }
+    .pill{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      min-width:260px;
+    }
+    .pill strong{color:var(--header)}
+    .pill a{
+      color:var(--nav);
+      text-decoration:none;
+      font-weight:800;
+    }
+    ul{
+      margin:10px 0 0 18px;
+      color:var(--text);
+    }
+    li{margin:6px 0}
+
+    .note{
+      margin-top:14px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* ===== FOOTER (igual ao seu print) ===== */
+    footer{
+      background:linear-gradient(180deg, var(--nav), var(--header));
+      color:var(--footerText);
+      padding:22px 0 10px;
+      margin-top:22px;
+    }
+    .footerWrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 16px;
+    }
+    .footerGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+    }
+    .footerCard{
+      background:var(--footerCard);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:18px;
+      min-height:140px;
+    }
+    .footerTitle{
+      margin:0 0 10px;
+      font-size:16px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .footerText{
+      margin:0;
+      line-height:1.7;
+      color:var(--footerText);
+      opacity:.95;
+      font-size:13px;
+    }
+    .linksCol{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:10px;
+    }
+    .linkBtn{
+      display:block;
+      width:100%;
+      padding:14px 14px;
+      border-radius:12px;
+      background:var(--btn);
+      border:1px solid rgba(255,255,255,.10);
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+    }
+    .linkBtn:hover{background:var(--btnHover)}
+    .footerBottom{
+      max-width:1100px;
+      margin:14px auto 0;
+      padding:10px 16px 0;
+      border-top:1px solid rgba(255,255,255,.12);
+      text-align:center;
+      color:var(--footerMuted);
+      font-size:12px;
+    }
+    .footerBottom a{
+      color:var(--footerText);
+      text-decoration:none;
+      font-weight:800;
+      opacity:.95;
+    }
+    .footerBottom a:hover{opacity:1; text-decoration:underline}
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 860px){
+      .footerGrid{grid-template-columns:1fr}
+      .pill{min-width:unset; width:100%}
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
-<div class="card">
+  <header class="top">
+    <h1>Segurança Tech</h1>
+    <p>Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.</p>
+  </header>
 
-<h1>Contato</h1>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="ferramentas.html">Ferramentas</a>
+    <a class="active" href="contato.html">Contato</a>
+  </nav>
 
-<p>
-Se você deseja entrar em contato com a equipe do <strong>Segurança Tech</strong> para tirar dúvidas, enviar sugestões, reportar possíveis erros ou até mesmo comunicar atividades suspeitas relacionadas à segurança digital, utilize um dos canais oficiais abaixo.
-</p>
+  <main class="wrap">
+    <section class="card">
+      <h2>Contato</h2>
 
-<p>
-Nosso objetivo é oferecer informações educativas que ajudem usuários comuns da internet a se protegerem contra golpes online, fraudes digitais e ataques de engenharia social.
-</p>
+      <p>
+        Se você deseja entrar em contato com a equipe do <strong>Segurança Tech</strong> para tirar dúvidas, enviar sugestões,
+        reportar possíveis erros ou comunicar atividades suspeitas relacionadas à segurança digital, utilize um dos canais oficiais abaixo.
+      </p>
 
-<p>
-Caso tenha sido vítima de algum golpe digital ou precise de orientação sobre como agir em situações envolvendo segurança online, entre em contato conosco. Faremos o possível para orientar com base em boas práticas de proteção digital.
-</p>
+      <p class="muted">
+        Nosso objetivo é oferecer informações educativas e ferramentas simples que ajudem usuários comuns a se protegerem contra golpes online,
+        fraudes digitais e ataques de engenharia social.
+      </p>
 
-<p>
-📧 <strong>Email:</strong> segurancatech@gmail.com
-</p>
+      <div class="contactRow">
+        <div class="pill">
+          <span aria-hidden="true">📧</span>
+          <div>
+            <strong>Email</strong><br/>
+            <a href="mailto:segurancatech@gmail.com">segurancatech@gmail.com</a>
+          </div>
+        </div>
 
-<p>
-📱 <strong>WhatsApp:</strong> (98) 98569-9508
-</p>
+        <div class="pill">
+          <span aria-hidden="true">📱</span>
+          <div>
+            <strong>WhatsApp</strong><br/>
+            <a href="https://wa.me/5598985699508" target="_blank" rel="noopener">(+55) 98 98569-9508</a>
+          </div>
+        </div>
+      </div>
 
-<p>
-Atendemos solicitações relacionadas a:
-</p>
+      <p style="margin-top:14px;">
+        Atendemos solicitações relacionadas a:
+      </p>
 
-<ul>
-<li>Dúvidas sobre golpes digitais</li>
-<li>Identificação de links suspeitos</li>
-<li>Segurança no WhatsApp</li>
-<li>Verificação de IPs</li>
-<li>Relatos de tentativas de fraude online</li>
-<li>Boas práticas de proteção de dados</li>
-</ul>
+      <ul>
+        <li>Dúvidas sobre golpes digitais</li>
+        <li>Identificação de links suspeitos</li>
+        <li>Segurança no WhatsApp</li>
+        <li>Verificação de IPs e dados públicos de rede</li>
+        <li>Relatos de tentativas de fraude online</li>
+        <li>Boas práticas de proteção de dados</li>
+      </ul>
 
-<p>
-O tempo de resposta pode variar conforme a demanda, mas buscamos responder todas as mensagens o mais breve possível.
-</p>
+      <p class="note">
+        ⏱️ O tempo de resposta pode variar conforme a demanda, mas buscamos responder o mais breve possível.
+        Este canal é destinado exclusivamente a assuntos relacionados ao conteúdo publicado no Segurança Tech.
+      </p>
+    </section>
+  </main>
 
-<p>
-Este canal está disponível exclusivamente para assuntos relacionados ao conteúdo publicado no site Segurança Tech.
-</p>
+  <footer>
+    <div class="footerWrap">
+      <div class="footerGrid">
+        <div class="footerCard">
+          <h3 class="footerTitle">Segurança Tech</h3>
+          <p class="footerText">
+            Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.
+            Use com responsabilidade e sempre valide informações importantes por fontes oficiais.
+          </p>
+        </div>
 
-</div>
-</div>
+        <div class="footerCard">
+          <h3 class="footerTitle">LINKS IMPORTANTES</h3>
+          <div class="linksCol">
+            <a class="linkBtn" href="sobre.html">Sobre</a>
+            <a class="linkBtn" href="politica-de-privacidade.html">Política de Privacidade</a>
+            <a class="linkBtn" href="termos-de-uso.html">Termos de Uso</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        © 2026 Segurança Tech &nbsp;•&nbsp;
+        <a href="ferramentas.html">Ferramentas</a>
+        &nbsp;•&nbsp;
+        <a href="blog.html">Artigos</a>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>
