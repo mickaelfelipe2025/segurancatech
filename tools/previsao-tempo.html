@@ -110,6 +110,34 @@
     .ddList .sub{display:block;font-size:12px;color:var(--muted);font-weight:800;margin-top:2px}
 
     /* =========================
+       CONTROLES (layout proporcional)
+    ========================= */
+    .controls{
+      display:grid;
+      grid-template-columns: auto minmax(240px, 420px) auto;
+      gap:10px;
+      align-items:center;
+    }
+    .controls .dd{min-width:240px; max-width:420px}
+    .controls #city{width:100%}
+
+    .controls2{
+      display:grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap:10px;
+      align-items:center;
+      margin-top:10px;
+    }
+    .controlsNote{margin-top:12px}
+
+    @media (max-width:900px){
+      .controls{grid-template-columns:1fr}
+      .controls .dd{max-width:none}
+      .controls2{grid-template-columns:1fr}
+      .controls button{width:100%}
+    }
+
+    /* =========================
        FOOTER REAL (SEM TRANSPARÊNCIA)
     ========================= */
 
@@ -174,9 +202,7 @@
       transition:.15s;
     }
 
-    .st-footer__link:hover{
-      background:#314d7a;
-    }
+    .st-footer__link:hover{background:#314d7a}
 
     .st-footer__hr{
       height:1px;
@@ -197,13 +223,9 @@
       font-weight:900;
     }
 
-    .st-footer__bottom a:hover{
-      text-decoration:underline;
-    }
+    .st-footer__bottom a:hover{text-decoration:underline}
 
-    .st-footer__dot{
-      margin:0 8px;
-    }
+    .st-footer__dot{margin:0 8px}
   </style>
 </head>
 <body>
@@ -220,7 +242,9 @@
 
 <div class="container">
   <div class="card">
-    <div class="row" style="align-items:flex-start">
+
+    <!-- CONTROLES (proporcional) -->
+    <div class="controls">
       <button id="geoBtn">Usar minha localização</button>
 
       <div class="dd">
@@ -229,14 +253,15 @@
       </div>
 
       <button id="cityBtn">Buscar</button>
+    </div>
 
-      <span class="muted" style="width:100%">ou informe coordenadas:</span>
+    <div class="controls2">
       <input id="lat" placeholder="Latitude (ex: -2.72)"/>
       <input id="lon" placeholder="Longitude (ex: -42.52)"/>
       <button id="coordBtn">Consultar</button>
     </div>
 
-    <p class="muted" style="margin-top:12px">
+    <p class="muted controlsNote">
       Dica: use “Buscar cidade” para ficar igual portal. Se o navegador pedir permissão de localização, permita.
     </p>
 
@@ -270,7 +295,7 @@
     return `${pad2(d.getHours())}:00`;
   }
 
-  // Weathercode (WMO) -> descrição + ícone (emoji)
+  // Weathercode (WMO) -> descrição + ícone
   function wx(code, isDay=true){
     const map = {
       0:["Céu limpo", "☀️"],
@@ -402,7 +427,7 @@
         windMax: daily.wind_speed_10m_max?.[i],
       }));
 
-      // Para barra min/max (normaliza no range dos 7 dias)
+      // Para barra min/max
       const mins = days.map(x => x.min).filter(x => x!=null);
       const maxs = days.map(x => x.max).filter(x => x!=null);
       const tMinAll = mins.length ? Math.min(...mins) : 0;
@@ -440,7 +465,6 @@
         ? `<span class="chip">🕒 Atualizado: ${new Date(cur.time).toLocaleString("pt-BR")}</span>`
         : `<span class="chip">🕒 Atualizado: agora</span>`;
 
-      // Render
       out.innerHTML = `
         <div class="titlebar">
           <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
@@ -606,7 +630,7 @@
         </section>
 
         <p class="muted">
-          Observação: probabilidades e acumulados são estimativas. Para decisões críticas (viagem, mar, alertas), confirme com fontes oficiais.
+          Observação: probabilidades e acumulados são estimativas. Para decisões críticas, confirme com fontes oficiais.
         </p>
       `;
 
@@ -618,7 +642,7 @@
     }
   }
 
-  // Sugestões de cidade (dropdown)
+  // Sugestões de cidade
   let ddTimer = null;
   cityEl.addEventListener("input", () => {
     const q = cityEl.value.trim();
@@ -715,8 +739,42 @@
     fetchWeather(lat.toFixed(4), lon.toFixed(4), `Coords: ${lat.toFixed(4)}, ${lon.toFixed(4)}`);
   });
 
-  // Auto-carrega última consulta
+  function tryAutoGeo(){
+    if(!navigator.geolocation) return false;
+
+    out.innerHTML = `<p class="muted"><strong>Obtendo sua localização automaticamente...</strong></p>`;
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude.toFixed(4);
+        const lon = pos.coords.longitude.toFixed(4);
+        fetchWeather(lat, lon, "Minha localização");
+      },
+      () => {
+        // fallback: última consulta salva
+        try{
+          const raw = localStorage.getItem(LS_KEY);
+          if(raw){
+            const last = JSON.parse(raw);
+            if(last && last.lat != null && last.lon != null){
+              fetchWeather(String(last.lat), String(last.lon), last.label || "");
+              return;
+            }
+          }
+        }catch(e){}
+        showHint("Não consegui pegar sua localização automaticamente. Clique em <strong>Usar minha localização</strong> ou pesquise pela <strong>cidade</strong>.");
+      },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 600000 }
+    );
+
+    return true;
+  }
+
+  // Auto: tenta geolocalizar ao abrir, senão usa última consulta
   (function boot(){
+    const started = tryAutoGeo();
+    if(started) return;
+
     try{
       const raw = localStorage.getItem(LS_KEY);
       if(!raw) return;
