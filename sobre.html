@@ -1,69 +1,197 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Sobre — Segurança Tech</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sobre — Segurança Tech</title>
 
-<style>
-:root{
-  --bg:#f4f6f8;
-  --card:#ffffff;
-  --nav:#122c66;
-  --header:#0a1f44;
-  --text:#0b1220;
-  --muted:#475569;
-}
-body{
-  margin:0;
-  font-family:Arial;
-  background:var(--bg);
-  color:var(--text);
-}
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:40px 20px;
-}
-h1{color:var(--header);}
-p{line-height:1.7;}
-.card{
-  background:#fff;
-  padding:30px;
-  border-radius:12px;
-}
-</style>
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --nav:#122c66;
+      --header:#0a1f44;
+      --text:#0b1220;
+      --muted:#475569;
+      --line:rgba(2,6,23,.10);
+      --shadow:0 10px 22px rgba(2,6,23,.10);
+      --radius:14px;
+      --footerText:#eaf2ff;
+      --footerMuted:rgba(234,242,255,.75);
+      --btn:rgba(255,255,255,.10);
+      --btnHover:rgba(255,255,255,.16);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .top{
+      background:linear-gradient(180deg, var(--header), var(--nav));
+      color:#fff;
+      padding:18px 12px 10px;
+      text-align:center;
+    }
+    .top h1{margin:0;font-size:20px;font-weight:800}
+    .top p{margin:6px 0 0;font-size:13px;color:#eaf2ff}
+
+    .nav{
+      background:var(--nav);
+      display:flex;
+      justify-content:center;
+      gap:24px;
+      padding:10px 12px;
+    }
+    .nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      font-size:13px;
+      padding:6px 10px;
+      border-radius:10px;
+    }
+    .nav a:hover{background:rgba(255,255,255,.10)}
+    .nav a.active{background:rgba(255,255,255,.14)}
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:18px 16px 36px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    h2{color:var(--header);margin-top:0}
+    p{line-height:1.7;margin:10px 0}
+
+    footer{
+      background:linear-gradient(180deg, var(--nav), var(--header));
+      color:var(--footerText);
+      padding:22px 0 10px;
+      margin-top:22px;
+    }
+    .footerWrap{max-width:1100px;margin:0 auto;padding:0 16px;}
+    .footerGrid{display:grid;grid-template-columns: 1.2fr .8fr;gap:18px;}
+    .footerCard{
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:18px;
+    }
+    .linkBtn{
+      display:block;
+      width:100%;
+      padding:14px;
+      border-radius:12px;
+      background:var(--btn);
+      border:1px solid rgba(255,255,255,.10);
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      margin-top:10px;
+    }
+    .linkBtn:hover{background:var(--btnHover)}
+    .footerBottom{
+      max-width:1100px;
+      margin:14px auto 0;
+      padding:10px 16px 0;
+      border-top:1px solid rgba(255,255,255,.12);
+      text-align:center;
+      color:var(--footerMuted);
+      font-size:12px;
+    }
+    .footerBottom a{color:#fff;text-decoration:none;font-weight:800}
+  </style>
 </head>
 
 <body>
 
-<div class="container">
-<div class="card">
+<header class="top">
+  <h1>Segurança Tech</h1>
+  <p>Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.</p>
+</header>
 
-<h1>Sobre o Segurança Tech</h1>
+<nav class="nav">
+  <a href="index.html">Home</a>
+  <a class="active" href="sobre.html">Sobre</a>
+  <a href="ferramentas.html">Ferramentas</a>
+  <a href="contato.html">Contato</a>
+</nav>
+
+<main class="wrap">
+<section class="card">
+
+<h2>Sobre o Segurança Tech</h2>
 
 <p>
-O Segurança Tech é um portal educacional criado com o objetivo de ajudar usuários comuns da internet a se protegerem contra golpes digitais, fraudes online, engenharia social e ataques cibernéticos.
+O Segurança Tech é um portal educacional criado com o objetivo de auxiliar usuários comuns da internet a compreenderem melhor os riscos digitais e adotarem práticas seguras no uso de tecnologias online.
 </p>
 
 <p>
-Nosso conteúdo é voltado para conscientização digital, abordando temas como segurança no WhatsApp, identificação de links falsos, análise de IPs suspeitos, golpes online e boas práticas de proteção de dados.
+Nosso conteúdo aborda temas relacionados à segurança da informação, engenharia social, identificação de golpes virtuais, análise de IPs, verificação de links suspeitos e proteção de dados pessoais no ambiente digital.
 </p>
 
 <p>
-O projeto é mantido por um estudante da área de Defesa Cibernética, com foco em compartilhar conhecimento técnico de forma acessível para o público geral.
+O projeto é mantido por um estudante da área de Defesa Cibernética, com interesse em compartilhar conhecimento técnico de forma acessível para o público geral.
 </p>
 
 <p>
-Nosso compromisso é fornecer informações claras e úteis que auxiliem na prevenção de fraudes e no uso seguro da internet.
+Atualmente, grande parte dos golpes aplicados na internet utiliza técnicas de manipulação psicológica, como engenharia social, com o objetivo de induzir usuários a fornecerem informações pessoais, bancárias ou confidenciais.
 </p>
 
 <p>
-Para dúvidas ou sugestões, entre em contato através do nosso formulário disponível no site.
+A missão do Segurança Tech é contribuir com a conscientização digital, fornecendo informações educativas que ajudem na prevenção de fraudes online e no uso mais seguro de aplicativos e serviços digitais.
 </p>
 
+<p>
+Além do conteúdo informativo, o site disponibiliza ferramentas públicas de consulta de dados de rede, como verificação de IP, ASN e informações de provedores, baseadas em bancos de dados públicos disponíveis na internet.
+</p>
+
+<p>
+Essas ferramentas têm finalidade exclusivamente educativa e informativa, sendo recomendada a validação de dados importantes por meio de fontes oficiais.
+</p>
+
+<p>
+Nosso compromisso é disponibilizar informações claras e úteis, que auxiliem usuários a reconhecerem ameaças digitais e adotarem boas práticas de segurança online no dia a dia.
+</p>
+
+</section>
+</main>
+
+<footer>
+<div class="footerWrap">
+<div class="footerGrid">
+<div class="footerCard">
+<h3>Segurança Tech</h3>
+<p>
+Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.
+</p>
+</div>
+
+<div class="footerCard">
+<h3>LINKS IMPORTANTES</h3>
+<a class="linkBtn" href="sobre.html">Sobre</a>
+<a class="linkBtn" href="politica-de-privacidade.html">Política de Privacidade</a>
+<a class="linkBtn" href="termos-de-uso.html">Termos de Uso</a>
 </div>
 </div>
+
+<div class="footerBottom">
+© 2026 Segurança Tech • <a href="ferramentas.html">Ferramentas</a> • <a href="blog.html">Artigos</a>
+</div>
+
+</div>
+</footer>
 
 </body>
 </html>
