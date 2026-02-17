@@ -1,83 +1,402 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Info Técnica do Meu PC - Segurança Tech</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diagnóstico do Dispositivo | Segurança Tech</title>
+  <meta name="color-scheme" content="light">
   <style>
-    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px}
+    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e8eef6}
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-    header{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
+    header.site{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
+    header.site h1{margin:0;font-size:22px}
+    header.site p{margin:6px 0 0;opacity:.92}
     nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
     nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px}
     nav a:hover{background:rgba(255,255,255,.10)}
-    .container{max-width:980px;margin:0 auto;padding:22px 14px}
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    .container{max-width:1100px;margin:0 auto;padding:22px 14px}
+    .topActions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-bottom:12px}
     button{padding:12px 14px;border:0;border-radius:12px;background:#122c66;color:#fff;font-weight:800;cursor:pointer}
     button:hover{filter:brightness(1.05)}
-    table{width:100%;border-collapse:collapse;margin-top:12px}
-    td{padding:10px;border-bottom:1px solid #eef2f7}
-    td:first-child{font-weight:900;width:280px}
-    .muted{color:var(--muted);line-height:1.6}
+    button.secondary{background:#0a1f44}
+    .grid{display:grid;grid-template-columns:repeat(12, 1fr);gap:12px}
+    .card{grid-column:span 12;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 14px 10px}
+    .card h2{margin:0 0 10px;font-size:14px;font-weight:950;display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--text)}
+    .pill{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #d7e1ef;color:var(--muted);background:#fff;white-space:nowrap}
+    .kv{display:grid;grid-template-columns:220px 1fr;gap:8px 12px;padding:10px 0;border-top:1px dashed #e8eef6}
+    .kv:first-of-type{border-top:none;padding-top:2px}
+    .k{color:var(--muted);font-size:12.5px}
+    .v{font-size:13px;word-break:break-word}
+    .note{margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#f8fafc;color:var(--muted);font-size:12.5px;line-height:1.4}
+    pre{margin:10px 0 0;padding:12px;border-radius:14px;border:1px solid var(--line);background:#0b1220;color:#eaf2ff;overflow:auto;font-size:12px}
+    .muted{color:var(--muted)}
+    @media (min-width: 880px){
+      .card.span6{grid-column:span 6}
+      .card.span4{grid-column:span 4}
+      .card.span8{grid-column:span 8}
+    }
   </style>
 </head>
+
 <body>
-<header>
-  <h1>Informações Técnicas do Meu PC</h1>
-  <p>Dados do navegador e do dispositivo (sem instalar nada)</p>
-</header>
+  <header class="site">
+    <h1>Diagnóstico do Dispositivo</h1>
+    <p>Informações técnicas coletadas pelo navegador (sem acesso a dados pessoais)</p>
+  </header>
 
-<nav>
-  <a href="../index.html">Home</a>
-  <a href="../sobre.html">Sobre</a>
-  <a href="../index.html">Ferramentas</a>
-</nav>
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../sobre.html">Sobre</a>
+    <a href="../index.html">Ferramentas</a>
+  </nav>
 
-<div class="container">
-  <div class="card">
-    <button id="btn">Carregar informações</button>
-    <p class="muted">
-      Isso mostra informações que o navegador expõe (ex.: user-agent, resolução, idioma). Não acessa arquivos do seu PC.
-    </p>
-    <div id="out"></div>
+  <div class="container">
+    <div class="topActions">
+      <button id="btnRefresh">Atualizar</button>
+      <button id="btnCopy" class="secondary">Copiar resumo</button>
+    </div>
+
+    <!-- HTML ORIGINAL (IDs preservados) -->
+    <div class="grid">
+      <!-- (Colei aqui seu HTML exatamente como está, só removi o header antigo) -->
+      <!-- Rede -->
+      <section class="card span6">
+        <h2>Rede <span class="pill" id="netPill">carregando…</span></h2>
+        <div class="kv"><div class="k">IP público (via API externa)</div><div class="v" id="ipPublico">—</div></div>
+        <div class="kv"><div class="k">Online</div><div class="v" id="online">—</div></div>
+        <div class="kv"><div class="k">Tipo de conexão</div><div class="v" id="connType">—</div></div>
+        <div class="kv"><div class="k">Downlink (estimado)</div><div class="v" id="downlink">—</div></div>
+        <div class="kv"><div class="k">RTT (estimado)</div><div class="v" id="rtt">—</div></div>
+        <div class="kv"><div class="k">Economia de dados</div><div class="v" id="saveData">—</div></div>
+        <div class="note"><span class="muted" id="netStatusTxt">Aguardando…</span></div>
+      </section>
+
+      <!-- CPU & Memória -->
+      <section class="card span6">
+        <h2>CPU & Memória <span class="pill" id="perfPill">—</span></h2>
+        <div class="kv"><div class="k">Núcleos lógicos (threads)</div><div class="v" id="cores">—</div></div>
+        <div class="kv"><div class="k">Memória do dispositivo (aprox.)</div><div class="v" id="ram">—</div></div>
+        <div class="kv"><div class="k">Plataforma/Arquitetura (limitado)</div><div class="v" id="platform">—</div></div>
+        <div class="kv"><div class="k">Preferência de redução de movimento</div><div class="v" id="reducedMotion">—</div></div>
+        <div class="kv"><div class="k">Recursos do navegador (features)</div><div class="v" id="features">—</div></div>
+        <div class="note">Modelo exato de CPU/placa-mãe/frequência RAM geralmente não ficam disponíveis no navegador.</div>
+      </section>
+
+      <!-- Tela & Sistema -->
+      <section class="card span8">
+        <h2>Tela & Sistema</h2>
+        <div class="kv"><div class="k">Resolução da tela</div><div class="v" id="screenRes">—</div></div>
+        <div class="kv"><div class="k">Viewport</div><div class="v" id="viewport">—</div></div>
+        <div class="kv"><div class="k">DPR</div><div class="v" id="dpr">—</div></div>
+        <div class="kv"><div class="k">Idioma</div><div class="v" id="lang">—</div></div>
+        <div class="kv"><div class="k">Fuso horário</div><div class="v" id="tz">—</div></div>
+        <div class="kv"><div class="k">Data/Hora local</div><div class="v" id="now">—</div></div>
+        <div class="kv"><div class="k">Cookies</div><div class="v" id="cookies">—</div></div>
+        <div class="kv"><div class="k">Do Not Track</div><div class="v" id="dnt">—</div></div>
+      </section>
+
+      <!-- GPU -->
+      <section class="card span4">
+        <h2>GPU (WebGL)</h2>
+        <div class="kv"><div class="k">Fornecedor</div><div class="v" id="gpuVendor">—</div></div>
+        <div class="kv"><div class="k">Renderizador</div><div class="v" id="gpuRenderer">—</div></div>
+        <div class="kv"><div class="k">WebGL</div><div class="v" id="webglOk">—</div></div>
+        <div class="note">Pode vir “mascarado” dependendo de privacidade/sistema.</div>
+      </section>
+
+      <!-- Storage -->
+      <section class="card span6">
+        <h2>Armazenamento (quota do navegador)</h2>
+        <div class="kv"><div class="k">Quota total</div><div class="v" id="quota">—</div></div>
+        <div class="kv"><div class="k">Usado</div><div class="v" id="usage">—</div></div>
+        <div class="kv"><div class="k">Disponível</div><div class="v" id="free">—</div></div>
+        <div class="note">Isso é a quota do site no navegador, não o tamanho real do SSD/HD.</div>
+      </section>
+
+      <!-- Bateria -->
+      <section class="card span6">
+        <h2>Bateria</h2>
+        <div class="kv"><div class="k">Suporta Battery API</div><div class="v" id="batSupport">—</div></div>
+        <div class="kv"><div class="k">Nível</div><div class="v" id="batLevel">—</div></div>
+        <div class="kv"><div class="k">Carregando</div><div class="v" id="batCharging">—</div></div>
+        <div class="kv"><div class="k">Tempo</div><div class="v" id="batTime">—</div></div>
+        <div class="note">Alguns navegadores removem/limitam essa API.</div>
+      </section>
+
+      <!-- Navegador -->
+      <section class="card span12">
+        <h2>Identificação do Navegador</h2>
+        <div class="kv"><div class="k">User-Agent</div><div class="v" id="ua">—</div></div>
+        <div class="kv"><div class="k">App Version</div><div class="v" id="appVersion">—</div></div>
+        <div class="kv"><div class="k">Vendor</div><div class="v" id="vendor">—</div></div>
+
+        <details style="margin-top:10px;">
+          <summary class="muted">Ver JSON completo (para suporte técnico)</summary>
+          <pre id="fullJson">{}</pre>
+        </details>
+
+        <div class="note">
+          Dica: para pegar dados mais profundos (modelo exato/placa-mãe), só com agente local.
+        </div>
+      </section>
+    </div>
   </div>
-</div>
 
-<script>
-  const out = document.getElementById("out");
-  document.getElementById("btn").addEventListener("click", () => {
-    const n = navigator;
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "—";
-    const mem = n.deviceMemory ? (n.deviceMemory + " GB (aprox.)") : "—";
-    const cores = n.hardwareConcurrency || "—";
-    const online = (n.onLine === true) ? "Online" : ((n.onLine === false) ? "Offline" : "—");
+  <script>
+    /* SEU JS ORIGINAL INTACTO */
+    const $ = (id)=>document.getElementById(id);
 
-    const data = [
-      ["Sistema/Plataforma", n.platform || "—"],
-      ["Navegador (User-Agent)", n.userAgent || "—"],
-      ["Idiomas", (n.languages && n.languages.join(", ")) || n.language || "—"],
-      ["Fuso horário", tz],
-      ["Núcleos (aprox.)", String(cores)],
-      ["Memória (aprox.)", mem],
-      ["Resolução da tela", `${screen.width} x ${screen.height}`],
-      ["Área útil (viewport)", `${window.innerWidth} x ${window.innerHeight}`],
-      ["Status de rede", online],
-      ["Cookies habilitados", n.cookieEnabled ? "Sim" : "Não"]
-    ];
+    function fmtBytes(bytes){
+      if (!Number.isFinite(bytes)) return "—";
+      const units = ["B","KB","MB","GB","TB"];
+      let i = 0;
+      let n = bytes;
+      while (n >= 1024 && i < units.length-1){ n/=1024; i++; }
+      return `${n.toFixed(i===0?0:2)} ${units[i]}`;
+    }
 
-    out.innerHTML = `
-      <table>
-        ${data.map(([k,v]) => `<tr><td>${k}</td><td class="muted">${escapeHtml(v)}</td></tr>`).join("")}
-      </table>
-    `;
-  });
+    function yesNo(v){
+      return (v === true) ? "Sim" : (v === false) ? "Não" : "—";
+    }
 
-  function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, s => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[s]));
-  }
-</script>
+    async function getPublicIP(){
+      const url = "https://api.ipify.org?format=json";
+      try{
+        const r = await fetch(url, { cache:"no-store" });
+        if(!r.ok) throw new Error("HTTP " + r.status);
+        const j = await r.json();
+        return j.ip || "—";
+      }catch(err){
+        return "Não foi possível obter (bloqueado/sem CORS/rede)";
+      }
+    }
+
+    function getConnectionInfo(){
+      const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if(!c) return null;
+      return {
+        effectiveType: c.effectiveType,
+        downlink: c.downlink,
+        rtt: c.rtt,
+        saveData: c.saveData
+      };
+    }
+
+    function getFeatures(){
+      const feats = [];
+      if ("serviceWorker" in navigator) feats.push("ServiceWorker");
+      if ("bluetooth" in navigator) feats.push("Bluetooth API");
+      if ("usb" in navigator) feats.push("WebUSB");
+      if ("serial" in navigator) feats.push("WebSerial");
+      if ("geolocation" in navigator) feats.push("Geolocation");
+      if ("mediaDevices" in navigator) feats.push("MediaDevices");
+      if ("clipboard" in navigator) feats.push("Clipboard");
+      if ("storage" in navigator && "estimate" in navigator.storage) feats.push("Storage Estimate");
+      if ("deviceMemory" in navigator) feats.push("DeviceMemory");
+      if ("hardwareConcurrency" in navigator) feats.push("HardwareConcurrency");
+      return feats.length ? feats.join(", ") : "—";
+    }
+
+    function getWebGLInfo(){
+      const canvas = document.createElement("canvas");
+      const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+      if(!gl) return { ok:false, vendor:"—", renderer:"—" };
+
+      const dbg = gl.getExtension("WEBGL_debug_renderer_info");
+      let vendor = "—", renderer = "—";
+      if(dbg){
+        vendor = gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) || "—";
+        renderer = gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || "—";
+      } else {
+        vendor = gl.getParameter(gl.VENDOR) || "—";
+        renderer = gl.getParameter(gl.RENDERER) || "—";
+      }
+      return { ok:true, vendor, renderer };
+    }
+
+    async function getStorageEstimate(){
+      if(!(navigator.storage && navigator.storage.estimate)) return null;
+      try{
+        const est = await navigator.storage.estimate();
+        return {
+          quota: est.quota,
+          usage: est.usage,
+          free: (Number.isFinite(est.quota) && Number.isFinite(est.usage)) ? (est.quota - est.usage) : NaN
+        };
+      }catch(e){
+        return null;
+      }
+    }
+
+    async function getBatteryInfo(){
+      if(!("getBattery" in navigator)) return { supported:false };
+      try{
+        const b = await navigator.getBattery();
+        return {
+          supported:true,
+          level: b.level,
+          charging: b.charging,
+          chargingTime: b.chargingTime,
+          dischargingTime: b.dischargingTime
+        };
+      }catch(e){
+        return { supported:false };
+      }
+    }
+
+    function setPerfPill(){
+      const cores = navigator.hardwareConcurrency || 0;
+      const ram = navigator.deviceMemory || 0;
+      let label = "—";
+      if(cores && ram){
+        label = `${cores}c • ${ram}GB`;
+      } else if(cores){
+        label = `${cores}c`;
+      } else if(ram){
+        label = `${ram}GB`;
+      }
+      $("perfPill").textContent = label;
+    }
+
+    async function refresh(){
+      const online = navigator.onLine;
+      $("online").textContent = online ? "Sim" : "Não";
+      $("netPill").textContent = online ? "OK" : "atenção";
+      $("netStatusTxt").textContent = online ? "Conectado" : "Sem conexão (ou bloqueado)";
+
+      const ip = await getPublicIP();
+      $("ipPublico").textContent = ip;
+
+      const conn = getConnectionInfo();
+      if(conn){
+        $("connType").textContent = conn.effectiveType || "—";
+        $("downlink").textContent = (conn.downlink != null) ? `${conn.downlink} Mbps` : "—";
+        $("rtt").textContent = (conn.rtt != null) ? `${conn.rtt} ms` : "—";
+        $("saveData").textContent = yesNo(conn.saveData);
+      } else {
+        $("connType").textContent = "Não suportado neste navegador";
+        $("downlink").textContent = "—";
+        $("rtt").textContent = "—";
+        $("saveData").textContent = "—";
+      }
+
+      $("cores").textContent = navigator.hardwareConcurrency ? String(navigator.hardwareConcurrency) : "—";
+      $("ram").textContent = navigator.deviceMemory ? `${navigator.deviceMemory} GB (aprox.)` : "—";
+      $("platform").textContent = (navigator.userAgentData && navigator.userAgentData.platform)
+        ? navigator.userAgentData.platform
+        : (navigator.platform || "—");
+      $("reducedMotion").textContent = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "Sim" : "Não";
+      $("features").textContent = getFeatures();
+      setPerfPill();
+
+      $("screenRes").textContent = `${screen.width} × ${screen.height}`;
+      $("viewport").textContent = `${window.innerWidth} × ${window.innerHeight}`;
+      $("dpr").textContent = String(window.devicePixelRatio || 1);
+      $("lang").textContent = `${navigator.language || "—"} ${(navigator.languages && navigator.languages.length) ? `(${navigator.languages.join(", ")})` : ""}`;
+      $("tz").textContent = Intl.DateTimeFormat().resolvedOptions().timeZone || "—";
+      $("now").textContent = new Date().toLocaleString();
+      $("cookies").textContent = yesNo(navigator.cookieEnabled);
+      $("dnt").textContent = (navigator.doNotTrack == null) ? "—" : String(navigator.doNotTrack);
+
+      const gl = getWebGLInfo();
+      $("webglOk").textContent = gl.ok ? "Disponível" : "Indisponível";
+      $("gpuVendor").textContent = gl.vendor;
+      $("gpuRenderer").textContent = gl.renderer;
+
+      const st = await getStorageEstimate();
+      if(st){
+        $("quota").textContent = fmtBytes(st.quota);
+        $("usage").textContent = fmtBytes(st.usage);
+        $("free").textContent = fmtBytes(st.free);
+      } else {
+        $("quota").textContent = "Não suportado";
+        $("usage").textContent = "—";
+        $("free").textContent = "—";
+      }
+
+      const bat = await getBatteryInfo();
+      $("batSupport").textContent = bat.supported ? "Sim" : "Não";
+      if(bat.supported){
+        $("batLevel").textContent = `${Math.round((bat.level || 0)*100)}%`;
+        $("batCharging").textContent = yesNo(bat.charging);
+
+        const ct = (bat.chargingTime != null && bat.chargingTime !== Infinity) ? `${Math.round(bat.chargingTime/60)} min` : "—";
+        const dt = (bat.dischargingTime != null && bat.dischargingTime !== Infinity) ? `${Math.round(bat.dischargingTime/60)} min` : "—";
+        $("batTime").textContent = `Carregamento: ${ct} • Descarga: ${dt}`;
+      } else {
+        $("batLevel").textContent = "—";
+        $("batCharging").textContent = "—";
+        $("batTime").textContent = "—";
+      }
+
+      $("ua").textContent = navigator.userAgent || "—";
+      $("appVersion").textContent = navigator.appVersion || "—";
+      $("vendor").textContent = navigator.vendor || "—";
+
+      const payload = {
+        timestamp: new Date().toISOString(),
+        network: { online, publicIP: ip, connection: conn || "not_supported" },
+        device: {
+          platform: (navigator.userAgentData && navigator.userAgentData.platform) ? navigator.userAgentData.platform : (navigator.platform || null),
+          cores: navigator.hardwareConcurrency || null,
+          deviceMemoryGB: navigator.deviceMemory || null,
+          reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        },
+        display: {
+          screen: { width: screen.width, height: screen.height },
+          viewport: { width: window.innerWidth, height: window.innerHeight },
+          dpr: window.devicePixelRatio || 1
+        },
+        locale: {
+          language: navigator.language || null,
+          languages: navigator.languages || null,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+          localTime: new Date().toString()
+        },
+        privacy: { cookiesEnabled: navigator.cookieEnabled, doNotTrack: navigator.doNotTrack },
+        gpu: gl,
+        storageEstimate: st || "not_supported",
+        battery: bat,
+        browser: { userAgent: navigator.userAgent || null, appVersion: navigator.appVersion || null, vendor: navigator.vendor || null },
+        features: getFeatures()
+      };
+      $("fullJson").textContent = JSON.stringify(payload, null, 2);
+    }
+
+    function copySummary(){
+      const text =
+`DIAGNÓSTICO DO DISPOSITIVO
+- IP Público: ${$("ipPublico").textContent}
+- Online: ${$("online").textContent}
+- Conexão: ${$("connType").textContent} | Downlink: ${$("downlink").textContent} | RTT: ${$("rtt").textContent}
+- CPU (cores): ${$("cores").textContent}
+- RAM (aprox): ${$("ram").textContent}
+- Plataforma: ${$("platform").textContent}
+- Tela: ${$("screenRes").textContent} | Viewport: ${$("viewport").textContent} | DPR: ${$("dpr").textContent}
+- Timezone: ${$("tz").textContent} | Idioma: ${$("lang").textContent}
+- GPU: ${$("gpuVendor").textContent} / ${$("gpuRenderer").textContent}
+- Storage (quota site): Quota ${$("quota").textContent} | Usado ${$("usage").textContent} | Livre ${$("free").textContent}
+- User-Agent: ${$("ua").textContent}`;
+
+      navigator.clipboard.writeText(text).then(()=>{
+        const btn = $("btnCopy");
+        const old = btn.textContent;
+        btn.textContent = "Copiado ✅";
+        setTimeout(()=>btn.textContent = old, 1200);
+      }).catch(()=>{
+        alert("Não consegui copiar automaticamente. Seu navegador pode estar bloqueando a área de transferência.");
+      });
+    }
+
+    $("btnRefresh").addEventListener("click", refresh);
+    $("btnCopy").addEventListener("click", copySummary);
+
+    window.addEventListener("online", refresh);
+    window.addEventListener("offline", refresh);
+    window.addEventListener("resize", ()=>{ $("viewport").textContent = `${window.innerWidth} × ${window.innerHeight}`; });
+
+    refresh();
+  </script>
 </body>
 </html>
