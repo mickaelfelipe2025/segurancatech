@@ -65,6 +65,103 @@
     }
     .topnote p{margin:0;color:var(--muted);line-height:1.6}
     footer{padding:22px 14px;color:#64748b;text-align:center}
+
+/* =========================
+   FOOTER REAL (SEM TRANSPARÊNCIA)
+========================= */
+
+.st-footer{
+  margin-top: 48px;
+  padding: 30px 18px 20px;
+  background:#0b2a4a; /* COR REAL */
+  border-top: none;
+}
+
+.st-footer__wrap{
+  max-width:1100px;
+  margin:0 auto;
+}
+
+.st-footer__grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:20px;
+}
+
+@media (max-width:900px){
+  .st-footer__grid{grid-template-columns:1fr}
+}
+
+.st-footer__card{
+  background:#1f3a63; /* CARD */
+  border:1px solid #2e4a74;
+  border-radius:18px;
+  padding:18px;
+}
+
+.st-footer__title{
+  color:#e6edf7;
+  margin:0 0 10px;
+  font-size:18px;
+  font-weight:900;
+}
+
+.st-footer__text{
+  color:#e6edf7;
+  font-size:16px;
+  line-height:1.6;
+  margin:0;
+}
+
+.st-footer__links{
+  display:grid;
+  gap:12px;
+}
+
+.st-footer__link{
+  display:block;
+  background:#2a4269; /* BOTÃO */
+  border:1px solid #3a5686;
+  padding:14px 16px;
+  border-radius:14px;
+  color:#e6edf7;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:900;
+  transition:.15s;
+}
+
+.st-footer__link:hover{
+  background:#314d7a;
+}
+
+.st-footer__hr{
+  height:1px;
+  background:#2e4a74; /* LINHA */
+  margin:24px 0 16px;
+}
+
+.st-footer__bottom{
+  text-align:center;
+  color:#e6edf7;
+  font-size:14px;
+  font-weight:700;
+}
+
+.st-footer__bottom a{
+  color:#e6edf7;
+  text-decoration:none;
+  font-weight:900;
+}
+
+.st-footer__bottom a:hover{
+  text-decoration:underline;
+}
+
+.st-footer__dot{
+  margin:0 8px;
+}
+    
   </style>
 </head>
 <body>
@@ -160,7 +257,7 @@
     </article>
 
     <article class="card">
-      <div class="tag">☁️ Utilidade</div>
+      <div class="tag">🛡 Utilidade</div>
       <h2 class="title">Verificador de Senhas</h2>
       <p class="desc">Consulte a segurança das suas senhas, vejas se já foram vasadas, crie senhas seguras, etc...</p>
       <div class="actions">
@@ -199,5 +296,42 @@
   document.addEventListener("click", () => closeMenu());
   document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeMenu(); });
 </script>
+
+<footer class="st-footer">
+  <div class="st-footer__wrap">
+    <div class="st-footer__grid">
+      <!-- Coluna esquerda -->
+      <section class="st-footer__card">
+        <h3 class="st-footer__title">Segurança Tech</h3>
+        <p class="st-footer__text">
+          Educação e ferramentas gratuitas para ajudar você a evitar golpes, phishing e riscos comuns na internet.
+          Use com responsabilidade e sempre valide informações importantes por fontes oficiais.
+        </p>
+      </section>
+
+      <!-- Coluna direita -->
+      <section class="st-footer__card">
+        <h3 class="st-footer__title">LINKS IMPORTANTES</h3>
+
+        <div class="st-footer__links">
+          <a class="st-footer__link" href="../sobre.html">Sobre</a>
+          <a class="st-footer__link" href="../politica-de-privacidade.html">Política de Privacidade</a>
+          <a class="st-footer__link" href="../termos-de-uso.html">Termos de Uso</a>
+        </div>
+      </section>
+    </div>
+
+    <div class="st-footer__hr"></div>
+
+    <div class="st-footer__bottom">
+      <span>© 2026 Segurança Tech</span>
+      <span class="st-footer__dot">•</span>
+      <a href="../ferramentas.html">Ferramentas</a>
+      <span class="st-footer__dot">•</span>
+      <a href="../blog.html">Artigos</a>
+    </div>
+  </div>
+</footer>
+  
 </body>
 </html>
