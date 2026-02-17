@@ -32,6 +32,23 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 .links a:hover{background:rgba(255,255,255,.08)}
 .footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
 .footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+
+/* ===== ADIÇÕES (sem mexer no tema) ===== */
+.hr{height:1px;background:var(--line);margin:14px 0}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px;line-height:1.5}
+.toc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.toc b{display:block;margin-bottom:8px;color:#0a1f44}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#0a1f44;font-weight:900;font-size:13px;text-decoration:none}
+.badge:hover{text-decoration:underline}
+.kit{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px}
+.kit .box{grid-column:span 6;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.kit .box strong{color:#0a1f44}
+@media (max-width:860px){.kit .box{grid-column:span 12}}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
 </style></head><body>
 <header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
 <nav>
@@ -52,14 +69,34 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <h2>Golpes no WhatsApp: os mais comuns</h2>
 <div class="meta">Leitura: 10–12 min • Atualizado: 16/02/2026</div>
 
-<div class="callout warn">Se pediram código, dinheiro ou clique urgente no WhatsApp… pare. É muito provável que seja golpe.</div>
+<!-- ✅ Complemento: objetivo + sumário -->
+<div class="callout">Objetivo: você vai reconhecer os golpes mais comuns, entender os sinais e saber o que fazer <strong>antes</strong> e <strong>depois</strong> de um golpe.</div>
 
-<h3>Vídeo (no topo): como os golpes no WhatsApp acontecem</h3>
+<div class="toc" aria-label="Sumário do artigo">
+  <b>Sumário rápido</b>
+  <div class="badge-row">
+    <a class="badge" href="#por-que">Por que acontece</a>
+    <a class="badge" href="#golpes">Golpes comuns</a>
+    <a class="badge" href="#sinais">Sinais de alerta</a>
+    <a class="badge" href="#defesa">Como se proteger</a>
+    <a class="badge" href="#caiu">Se você caiu</a>
+    <a class="badge" href="#faq">FAQ</a>
+  </div>
+</div>
+
+<!-- ✅ Imagem sugerida (opcional) -->
+<figure class="figure">
+  <img src="http://segurancatech.com.br/assets/img/golpes-no-whatsapp-os-mais-comuns/Ilustra%C3%A7%C3%A3o%20representando%20golpes%20no%20WhatsApp%20e%20seguran%C3%A7a%20digital.jpg"
+</figure>
+
+<div class="callout warn">Se pediram código, dinheiro ou clique urgente no WhatsApp… pare. É muito provável que seja golpe.</div>
 
 <div class="actions" style="margin-top:10px">
   <a class="btn btn-primary" href="#" id="playWithSound">Tocar vídeo com som</a>
   <a class="btn" href="./engenharia-social-como-os-golpistas-te-manipulam.html">Entenda a manipulação</a>
 </div>
+
+<div class="callout">Se o vídeo não iniciar sozinho com som, é normal: navegadores costumam bloquear autoplay com áudio. Use “Tocar vídeo com som”.</div>
 
 <div id="ytWrap">
   <div id="ytPlayer" style="border-radius:12px; overflow:hidden"></div>
@@ -67,18 +104,31 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <hr style="margin:18px 0;border:none;border-top:1px solid #e6edf7"/>
 
-<h3>Por que o WhatsApp é o principal alvo?</h3>
+<h3 id="por-que">Por que o WhatsApp é o principal alvo?</h3>
 <p>Porque ele mistura duas coisas perigosas: <strong>confiança</strong> (você fala com família e clientes) e <strong>pressa</strong> (responde rápido). Golpistas usam isso para te fazer agir sem verificar.</p>
 
 <div class="callout">A maioria dos golpes no WhatsApp usa engenharia social: manipular você para entregar o que eles não conseguem “hackeando”.</div>
 
-<h3>1) Golpe do código de 6 dígitos (clonagem)</h3>
+<!-- ✅ Complemento: por que o golpe “gruda” -->
+<div class="callout warn">
+<strong>O golpe vence por 3 motivos:</strong><br/>
+1) Você acredita pela foto/nome (identidade falsa)<br/>
+2) Você age rápido (urgência/pressão)<br/>
+3) Você “confirma” com código/link (chave do golpe)
+</div>
+
+<h3 id="golpes">1) Golpe do código de 6 dígitos (clonagem)</h3>
 <ul>
 <li>O golpista pede seu número em um anúncio falso.</li>
 <li>Depois te chama dizendo que “enviou um código por engano”.</li>
 <li>Esse código é o login do seu WhatsApp.</li>
 </ul>
 <div class="callout warn">Se você informar o código, perde a conta.</div>
+
+<!-- ✅ Complemento: proteção direta (sem ensinar golpe) -->
+<div class="callout">
+<strong>Como se proteger:</strong> nunca repasse código, ative <strong>Verificação em duas etapas</strong> e desconfie de “erro de código”.
+</div>
 
 <h3>2) Golpe do falso suporte</h3>
 <p>Mensagem dizendo ser do WhatsApp, banco ou empresa:</p>
@@ -90,6 +140,11 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout">Empresas não pedem código por chat.</div>
 
+<!-- ✅ Complemento: canal oficial -->
+<div class="callout warn">
+Se alguém disser “sou do suporte”, faça o contrário do que ele quer: <strong>feche a conversa</strong> e procure o canal oficial por conta própria (app/site).
+</div>
+
 <h3>3) Golpe do familiar pedindo dinheiro</h3>
 <ul>
 <li>Golpista clona ou cria número com foto do parente.</li>
@@ -99,6 +154,11 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout warn">Sempre ligue antes de transferir.</div>
 
+<!-- ✅ Complemento: pergunta-chave -->
+<div class="callout">
+<strong>Regra de ouro:</strong> se pediram dinheiro, peça um “teste” simples: <strong>ligação de vídeo</strong> ou uma pergunta que só o parente sabe. Se fugir disso, suspeite.
+</div>
+
 <h3>4) Golpe do link de entrega</h3>
 <ul>
 <li>“Seu pedido está a caminho.”</li>
@@ -106,6 +166,12 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 </ul>
 
 <div class="callout">Links levam a páginas falsas.</div>
+
+<!-- ✅ Complemento: como verificar sem clicar -->
+<div class="callout">
+<strong>Método seguro:</strong> não clique. Entre no app/loja oficial ou no site digitado por você e confira o rastreio.  
+Se quiser, use a ferramenta: <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Identificador de links</a>.
+</div>
 
 <h3>5) Golpe da promoção falsa</h3>
 <ul>
@@ -115,6 +181,73 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout warn">Você nunca precisa pagar para ganhar prêmio.</div>
 
+<!-- ✅ Complemento: golpes comuns que faltavam -->
+<div class="hr"></div>
+<h3>6) Golpe do “PIX errado” / reembolso</h3>
+<ul>
+<li>O golpista diz que “mandou PIX por engano” e pede devolução.</li>
+<li>Ou pede para você “reembolsar” via outro PIX/código.</li>
+<li>Muitas vezes é tentativa de te levar para fora do canal seguro de contestação.</li>
+</ul>
+<div class="callout warn">Se for caso real, resolva no banco/app oficial. Não faça devolução por pressão no WhatsApp.</div>
+
+<h3>7) Golpe do “trabalho/serviço fácil”</h3>
+<ul>
+<li>Promessas de renda rápida e tarefas simples.</li>
+<li>Pede depósito inicial, taxa, compra de “kit”, ou cadastro com dados sensíveis.</li>
+</ul>
+<div class="callout warn">Renda fácil + pressa + pedido de dinheiro = padrão clássico de fraude.</div>
+
+<h3>8) Golpe do “QR Code” / links disfarçados</h3>
+<ul>
+<li>Mandam QR Code ou link dizendo ser “confirmação/atualização”.</li>
+<li>Você abre e cai em página falsa pedindo dados/código.</li>
+</ul>
+<div class="callout">QR Code é só outro tipo de link. Trate do mesmo jeito: confira o domínio e desconfie de urgência.</div>
+
+<!-- ✅ Sinais -->
+<div class="hr"></div>
+<h3 id="sinais">Sinais de alerta que quase sempre aparecem</h3>
+<ul>
+<li><strong>Urgência:</strong> “agora”, “última chance”, “em 10 minutos”.</li>
+<li><strong>Segredo:</strong> “não conte pra ninguém”.</li>
+<li><strong>Pedido de código:</strong> SMS, 6 dígitos, token, confirmação.</li>
+<li><strong>Link estranho:</strong> encurtador ou domínio esquisito.</li>
+<li><strong>Pedido de dinheiro:</strong> PIX urgente, taxa, reembolso fora do app.</li>
+</ul>
+
+<div class="callout warn">Se alguém tenta te impedir de confirmar (“não desligue”, “não ligue pro seu parente”), isso é manipulação.</div>
+
+<!-- ✅ Defesa -->
+<div class="hr"></div>
+<h3 id="defesa">Como se proteger (o que realmente funciona)</h3>
+<div class="kit" aria-label="Proteções mais importantes">
+  <div class="box">
+    <strong>✅ Verificação em duas etapas</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      Ative no WhatsApp e guarde o PIN. Isso reduz muito clonagem.
+    </span>
+  </div>
+  <div class="box">
+    <strong>✅ Confirmação por ligação</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      Pedido de dinheiro? Sempre confirme por ligação (de preferência vídeo).
+    </span>
+  </div>
+  <div class="box">
+    <strong>✅ Desconfie de links</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      Não clique por impulso. Verifique o domínio e use ferramentas.
+    </span>
+  </div>
+  <div class="box">
+    <strong>✅ Ajuste privacidade</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      Foto/recado/“visto por último” visível para desconhecidos facilita golpe.
+    </span>
+  </div>
+</div>
+
 <h3>Checklist rápido de segurança</h3>
 <ul>
 <li>Nunca informe códigos.</li>
@@ -123,6 +256,49 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <li>Ative verificação em duas etapas.</li>
 <li>Desconfie de urgência.</li>
 </ul>
+
+<!-- ✅ Se caiu -->
+<div class="hr"></div>
+<h3 id="caiu">O que fazer se você caiu (sem pânico, mas rápido)</h3>
+<ul>
+<li><strong>Parou e percebeu?</strong> Não continue conversando. Não clique em mais nada.</li>
+<li><strong>Se passou código:</strong> tente recuperar a conta imediatamente e ative 2FA.</li>
+<li><strong>Se fez PIX:</strong> contate o banco no app oficial e registre contestação o quanto antes.</li>
+<li><strong>Avise seus contatos:</strong> golpistas se passam por você para pedir dinheiro.</li>
+<li><strong>Guarde provas:</strong> prints, números, horários, links e mensagens.</li>
+</ul>
+
+<div class="callout">Quanto mais rápido você age, menor o prejuízo. O golpe vive de atraso e vergonha.</div>
+
+<!-- ✅ Links internos -->
+<div class="callout">
+<strong>Leituras e ferramentas do Segurança Tech:</strong><br/>
+• <a href="./engenharia-social-como-os-golpistas-te-manipulam.html" style="color:#0a1f44;font-weight:900">Engenharia social: como os golpistas te manipulam</a><br/>
+• <a href="./como-identificar-link-falso.html" style="color:#0a1f44;font-weight:900">Como identificar link falso</a><br/>
+• <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Ferramenta: Identificador de links</a>
+</div>
+
+<!-- ✅ FAQ -->
+<div class="hr"></div>
+<h3 id="faq">Perguntas frequentes (FAQ)</h3>
+<div class="faq">
+  <details>
+    <summary>WhatsApp pede código por mensagem?</summary>
+    <p>Não. Códigos são para você usar no seu próprio celular. Qualquer pedido de código por chat é sinal forte de golpe.</p>
+  </details>
+  <details>
+    <summary>Como saber se é meu parente mesmo?</summary>
+    <p>Confirme por ligação (de preferência vídeo) ou faça uma pergunta que só a pessoa sabe. Não faça PIX com base só em mensagem.</p>
+  </details>
+  <details>
+    <summary>Link de entrega é sempre golpe?</summary>
+    <p>Não sempre, mas é muito usado. O seguro é verificar no app/site oficial digitado por você ou validar o link com cuidado antes de abrir.</p>
+  </details>
+  <details>
+    <summary>O que é mais importante ativar no WhatsApp?</summary>
+    <p>Verificação em duas etapas (PIN) e ajustes de privacidade. Isso reduz muito clonagem e facilita reconhecer tentativas de golpe.</p>
+  </details>
+</div>
 
 <div class="actions">
 <a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
