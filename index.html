@@ -160,6 +160,83 @@
       .mini{grid-column:span 12}
     }
 
+    /* ====== Upgrade visual (sem mudar tema) ====== */
+    .hero{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:14px;
+      align-items:stretch;
+    }
+    .hero-main{grid-column:span 8}
+    .hero-side{grid-column:span 4}
+    @media (max-width: 860px){
+      .hero-main,.hero-side{grid-column:span 12}
+    }
+    .kpis{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .kpi{
+      grid-column:span 4;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background:#fff;
+    }
+    .kpi strong{display:block;font-size:14px;color:#0a1f44}
+    .kpi span{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+    @media (max-width: 860px){
+      .kpi{grid-column:span 12}
+    }
+
+    .quick-links{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .qitem{
+      grid-column:span 6;
+      text-decoration:none;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background:#fff;
+      box-shadow:0 6px 14px rgba(2,6,23,.06);
+      color:inherit;
+      display:block;
+    }
+    .qitem:hover{background:#f6f8fb}
+    .qitem b{display:block;color:#0a1f44}
+    .qitem small{display:block;color:var(--muted);margin-top:4px;line-height:1.4}
+    @media (max-width: 860px){
+      .qitem{grid-column:span 12}
+    }
+
+    .divider{
+      height:1px;
+      background:var(--line);
+      margin:14px 0;
+    }
+
+    .badge-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:12px;
+    }
+    .badge{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      padding:8px 10px;
+      font-weight:900;
+      color:#0a1f44;
+      font-size:13px;
+    }
+
     /* Rodapé “lindo” */
     footer{
       margin-top:18px;
@@ -243,53 +320,154 @@
     </div>
   </div>
 
-  <!-- Aba nova -->
   <a href="artigos.html">Artigos</a>
-
-  <!-- Mantive seu padrão de contato no sobre -->
   <a href="contato.html#contato">Contato</a>
 </nav>
 
 <div class="container">
   <div class="grid">
-    <section class="card">
-      <h2>Bem-vindo</h2>
-      <p>
-        Aqui você encontra ferramentas simples e úteis para segurança digital: verificação de links, consulta de IP/ASN,
-        informações técnicas do dispositivo e previsão do tempo. E na aba <strong>Artigos</strong>, você vai publicar conteúdos
-        para o site crescer e ajudar na aprovação do AdSense.
-      </p>
 
-      <div class="actions">
-        <a class="btn btn-primary" href="ferramentas.html">Abrir Ferramentas</a>
-        <a class="btn" href="artigos.html">Ver Artigos</a>
+    <!-- HERO (mais profissional) -->
+    <section class="card hero">
+      <div class="hero-main">
+        <h2>Bem-vindo</h2>
+        <p>
+          Aqui você encontra ferramentas simples e úteis para segurança digital: verificação de links, consulta de IP/ASN,
+          informações técnicas do dispositivo e guias práticos para evitar golpes. Na aba <strong>Artigos</strong>, eu publico
+          conteúdos para te ajudar a entender o “como” e o “porquê” por trás das ameaças.
+        </p>
+
+        <!-- Apresentação do autor (logo abaixo da mensagem de boas-vindas) -->
+        <div class="divider"></div>
+        <h2 style="font-size:18px;margin:0 0 8px">Quem está por trás do Segurança Tech</h2>
+        <p>
+          Eu sou <strong>Mickael Felipe</strong>, <strong>Supervisor Técnico de Operações</strong> em um provedor de internet.
+          No dia a dia eu acompanho rotinas de rede, qualidade, incidentes e atendimento técnico — e trago aqui uma abordagem
+          prática para você se proteger de golpes, phishing e riscos comuns na internet.
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="ferramentas.html">Abrir Ferramentas</a>
+          <a class="btn" href="artigos.html">Ver Artigos</a>
+          <a class="btn" href="sobre.html">Conhecer o Autor</a>
+        </div>
+
+        <div class="badge-row" aria-label="Destaques do projeto">
+          <span class="badge">✅ Conteúdo prático</span>
+          <span class="badge">✅ Ferramentas úteis</span>
+          <span class="badge">✅ Foco em golpes reais</span>
+          <span class="badge">✅ Linguagem simples</span>
+        </div>
+
+        <div class="kpis" aria-label="O que você vai encontrar aqui">
+          <div class="kpi">
+            <strong>Verificação de links</strong>
+            <span>Checklist e dicas para evitar phishing e páginas falsas.</span>
+          </div>
+          <div class="kpi">
+            <strong>IP / ASN / Rede</strong>
+            <span>Entenda o “rastro técnico” por trás de acessos e domínios.</span>
+          </div>
+          <div class="kpi">
+            <strong>Guias de WhatsApp</strong>
+            <span>Configurações e hábitos para reduzir golpes e invasões.</span>
+          </div>
+        </div>
+
+        <div class="pill">✅ Estrutura organizada: Ferramentas + Artigos + Páginas essenciais</div>
       </div>
 
-      <div class="pill">✅ Estrutura organizada: Ferramentas + Artigos + Páginas essenciais</div>
+      <div class="hero-side">
+        <h2 style="margin:0 0 8px">Acesso rápido</h2>
+        <p style="margin:0;color:var(--muted);line-height:1.6">
+          Se você chegou aqui com pressa, comece por uma dessas opções:
+        </p>
+
+        <div class="quick-links" role="list">
+          <a class="qitem" href="tools/links-falsos.html" role="listitem">
+            <b>🔎 Identificar link falso</b>
+            <small>Veja sinais de golpe antes de clicar e saiba o que checar.</small>
+          </a>
+          <a class="qitem" href="tools/meu-ip.html" role="listitem">
+            <b>🌐 Ver meu IP</b>
+            <small>Descubra seu IP público e detalhes do provedor/rota.</small>
+          </a>
+          <a class="qitem" href="tools/rastreio-ip.html" role="listitem">
+            <b>🧭 Rastrear um IP</b>
+            <small>Informe um IP e veja informações úteis para análise.</small>
+          </a>
+          <a class="qitem" href="tools/meu-asn.html" role="listitem">
+            <b>🏷️ Consultar ASN</b>
+            <small>Veja o ASN/operadora e dados de rede (via API pública).</small>
+          </a>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2 style="font-size:16px;margin:0 0 8px">Antes de seguir</h2>
+        <p style="margin:0;color:var(--muted);line-height:1.6">
+          Este site tem foco educativo e preventivo. Para casos graves, sempre use canais oficiais
+          (banco, operadora, polícia) e registre evidências.
+        </p>
+      </div>
     </section>
 
+    <!-- Seção mais “institucional” -->
     <section class="card">
-      <h2>Por que isso ajuda no AdSense</h2>
+      <h2>Como eu organizo o conteúdo</h2>
       <p>
-        O Google gosta de sites com navegação clara, páginas essenciais (Sobre/Privacidade/Termos)
-        e conteúdo útil recorrente. O seu projeto fica com “cara de site de verdade”.
+        Para facilitar, eu separo em dois pilares: <strong>Ferramentas</strong> (para resolver rápido) e
+        <strong>Artigos</strong> (para entender e prevenir). Isso melhora a experiência do visitante e deixa o site mais
+        confiável.
       </p>
 
       <div class="mini-grid">
         <div class="card mini">
-          <h3>📌 Ferramentas úteis</h3>
-          <p>Valor imediato para o visitante (e aumenta o tempo no site).</p>
+          <h3>🧰 Ferramentas</h3>
+          <p>Respostas rápidas: IP, ASN, verificação de links e utilitários úteis.</p>
         </div>
         <div class="card mini">
-          <h3>📰 Artigos recorrentes</h3>
-          <p>Você posta e o site vai crescendo organicamente (SEO).</p>
+          <h3>🧠 Guias práticos</h3>
+          <p>Passo a passo sem “enrolação”: o que checar, como agir e como evitar repetir o erro.</p>
         </div>
         <div class="card mini">
-          <h3>✅ Confiança</h3>
-          <p>Sobre + Privacidade + Termos = credibilidade e conformidade.</p>
+          <h3>🔒 Boas práticas</h3>
+          <p>Configurações essenciais (principalmente no WhatsApp) e hábitos de segurança.</p>
         </div>
       </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="artigos.html">Ir para Artigos</a>
+        <a class="btn" href="ferramentas.html">Ir para Ferramentas</a>
+      </div>
     </section>
+
+    <!-- EEAT / Confiança (ajuda muito no AdSense) -->
+    <section class="card">
+      <h2>Confiança e transparência</h2>
+      <p>
+        Eu priorizo conteúdos claros, com foco em prevenção e educação. Sempre que possível, explico o raciocínio por trás
+        das análises (por exemplo: sinais de phishing, padrões de golpe e dicas para reconhecer páginas maliciosas).
+      </p>
+
+      <div class="mini-grid">
+        <div class="card mini">
+          <h3>📌 Experiência prática</h3>
+          <p>Rotina técnica em provedor: operações, incidentes e suporte — aplicado em linguagem simples.</p>
+        </div>
+        <div class="card mini">
+          <h3>🧾 Conteúdo responsável</h3>
+          <p>Sem incentivar ações ilegais. O foco é prevenção, boas práticas e orientação segura.</p>
+        </div>
+        <div class="card mini">
+          <h3>🗂️ Páginas essenciais</h3>
+          <p>Sobre, Privacidade e Termos: transparência que melhora a credibilidade do site.</p>
+        </div>
+      </div>
+
+      <div class="pill">✅ Isso aumenta confiança (e ajuda na aprovação do AdSense)</div>
+    </section>
+
   </div>
 </div>
 
