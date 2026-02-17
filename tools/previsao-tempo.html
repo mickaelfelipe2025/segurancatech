@@ -23,108 +23,193 @@
     th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:left}
     th{font-weight:900}
 
-/* =========================
-   FOOTER REAL (SEM TRANSPARÊNCIA)
-========================= */
+    /* =========================
+       UPGRADE (SEM MUDAR O TEMA)
+    ========================= */
+    .stack{display:grid;gap:14px;margin-top:14px}
+    .grid2{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
+    @media (max-width:900px){.grid2{grid-template-columns:1fr}}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      background:#eef2f7;border:1px solid #d7e1ef;
+      font-weight:800;font-size:13px;color:#0b1220
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 12px;border-radius:12px;
+      background:#f8fafc;border:1px solid #e5eaf2;
+      font-weight:800;color:#0b1220
+    }
+    .titlebar{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .h2{margin:0;font-size:18px;font-weight:900}
+    .small{font-size:13px;color:var(--muted);font-weight:700}
+    .divider{height:1px;background:#eef2f7;margin:12px 0}
+    .kpi{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .tempBig{font-size:54px;line-height:1;font-weight:1000;letter-spacing:-1px}
+    .wxDesc{font-size:16px;font-weight:900}
+    .miniGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+    @media (max-width:560px){.miniGrid{grid-template-columns:1fr}}
+    .miniCard{
+      background:#f8fafc;border:1px solid #e5eaf2;border-radius:14px;padding:12px
+    }
+    .miniCard .label{color:var(--muted);font-weight:800;font-size:13px}
+    .miniCard .val{font-weight:1000;font-size:18px;margin-top:2px}
+    .hours{
+      display:flex;gap:10px;overflow:auto;padding-bottom:6px;scroll-snap-type:x mandatory
+    }
+    .hourCard{
+      min-width:120px;scroll-snap-align:start;
+      background:#f8fafc;border:1px solid #e5eaf2;border-radius:14px;padding:12px
+    }
+    .hourTime{font-weight:1000}
+    .hourIcon{font-size:20px;margin-top:6px}
+    .hourTemp{font-size:20px;font-weight:1000;margin-top:4px}
+    .hourMeta{color:var(--muted);font-weight:800;font-size:12px;margin-top:4px;line-height:1.3}
+    .days{display:grid;gap:10px;margin-top:10px}
+    .dayRow{
+      display:grid;grid-template-columns:1fr auto;gap:10px;
+      background:#f8fafc;border:1px solid #e5eaf2;border-radius:14px;padding:12px
+    }
+    .dayLeft{display:grid;gap:4px}
+    .dayTop{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .dayName{font-weight:1000}
+    .dayIcon{font-size:18px}
+    .dayBarWrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .tMin,.tMax{font-weight:1000}
+    .bar{
+      flex:1;min-width:160px;height:10px;border-radius:999px;
+      background:#e9eef6;position:relative;overflow:hidden;border:1px solid #d7e1ef
+    }
+    .bar > span{
+      position:absolute;top:0;bottom:0;border-radius:999px;background:#122c66;
+      opacity:.95
+    }
+    .dayRight{display:grid;justify-items:end;gap:6px}
+    .tag{
+      font-size:12px;font-weight:1000;color:#0b1220;
+      background:#eef2f7;border:1px solid #d7e1ef;border-radius:999px;padding:6px 10px
+    }
+    .hint{
+      background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12;
+      border-radius:14px;padding:12px;font-weight:800;line-height:1.4
+    }
 
-.st-footer{
-  margin-top: 48px;
-  padding: 30px 18px 20px;
-  background:#0b2a4a; /* COR REAL */
-  border-top: none;
-}
+    /* dropdown simples da busca */
+    .dd{position:relative;flex:1;min-width:240px}
+    .ddList{
+      position:absolute;left:0;right:0;top:calc(100% + 6px);
+      background:#fff;border:1px solid #d7e1ef;border-radius:14px;
+      box-shadow:var(--shadow);overflow:hidden;z-index:50;display:none
+    }
+    .ddList button{
+      width:100%;text-align:left;background:#fff;color:#0b1220;border:0;
+      padding:12px 12px;font-weight:900;border-radius:0;cursor:pointer
+    }
+    .ddList button:hover{background:#f1f5f9}
+    .ddList .sub{display:block;font-size:12px;color:var(--muted);font-weight:800;margin-top:2px}
 
-.st-footer__wrap{
-  max-width:1100px;
-  margin:0 auto;
-}
+    /* =========================
+       FOOTER REAL (SEM TRANSPARÊNCIA)
+    ========================= */
 
-.st-footer__grid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:20px;
-}
+    .st-footer{
+      margin-top: 48px;
+      padding: 30px 18px 20px;
+      background:#0b2a4a; /* COR REAL */
+      border-top: none;
+    }
 
-@media (max-width:900px){
-  .st-footer__grid{grid-template-columns:1fr}
-}
+    .st-footer__wrap{
+      max-width:1100px;
+      margin:0 auto;
+    }
 
-.st-footer__card{
-  background:#1f3a63; /* CARD */
-  border:1px solid #2e4a74;
-  border-radius:18px;
-  padding:18px;
-}
+    .st-footer__grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:20px;
+    }
 
-.st-footer__title{
-  color:#e6edf7;
-  margin:0 0 10px;
-  font-size:18px;
-  font-weight:900;
-}
+    @media (max-width:900px){
+      .st-footer__grid{grid-template-columns:1fr}
+    }
 
-.st-footer__text{
-  color:#e6edf7;
-  font-size:16px;
-  line-height:1.6;
-  margin:0;
-}
+    .st-footer__card{
+      background:#1f3a63; /* CARD */
+      border:1px solid #2e4a74;
+      border-radius:18px;
+      padding:18px;
+    }
 
-.st-footer__links{
-  display:grid;
-  gap:12px;
-}
+    .st-footer__title{
+      color:#e6edf7;
+      margin:0 0 10px;
+      font-size:18px;
+      font-weight:900;
+    }
 
-.st-footer__link{
-  display:block;
-  background:#2a4269; /* BOTÃO */
-  border:1px solid #3a5686;
-  padding:14px 16px;
-  border-radius:14px;
-  color:#e6edf7;
-  text-decoration:none;
-  font-size:18px;
-  font-weight:900;
-  transition:.15s;
-}
+    .st-footer__text{
+      color:#e6edf7;
+      font-size:16px;
+      line-height:1.6;
+      margin:0;
+    }
 
-.st-footer__link:hover{
-  background:#314d7a;
-}
+    .st-footer__links{
+      display:grid;
+      gap:12px;
+    }
 
-.st-footer__hr{
-  height:1px;
-  background:#2e4a74; /* LINHA */
-  margin:24px 0 16px;
-}
+    .st-footer__link{
+      display:block;
+      background:#2a4269; /* BOTÃO */
+      border:1px solid #3a5686;
+      padding:14px 16px;
+      border-radius:14px;
+      color:#e6edf7;
+      text-decoration:none;
+      font-size:18px;
+      font-weight:900;
+      transition:.15s;
+    }
 
-.st-footer__bottom{
-  text-align:center;
-  color:#e6edf7;
-  font-size:14px;
-  font-weight:700;
-}
+    .st-footer__link:hover{
+      background:#314d7a;
+    }
 
-.st-footer__bottom a{
-  color:#e6edf7;
-  text-decoration:none;
-  font-weight:900;
-}
+    .st-footer__hr{
+      height:1px;
+      background:#2e4a74; /* LINHA */
+      margin:24px 0 16px;
+    }
 
-.st-footer__bottom a:hover{
-  text-decoration:underline;
-}
+    .st-footer__bottom{
+      text-align:center;
+      color:#e6edf7;
+      font-size:14px;
+      font-weight:700;
+    }
 
-.st-footer__dot{
-  margin:0 8px;
-}
-    
+    .st-footer__bottom a{
+      color:#e6edf7;
+      text-decoration:none;
+      font-weight:900;
+    }
+
+    .st-footer__bottom a:hover{
+      text-decoration:underline;
+    }
+
+    .st-footer__dot{
+      margin:0 8px;
+    }
   </style>
 </head>
 <body>
 <header>
   <h1>Previsão do Tempo</h1>
-  <p>Usa Open-Meteo (sem chave) por localização ou coordenadas</p>
+  <p>Open-Meteo (sem chave) • busca por cidade, localização ou coordenadas</p>
 </header>
 
 <nav>
@@ -135,19 +220,27 @@
 
 <div class="container">
   <div class="card">
-    <div class="row">
+    <div class="row" style="align-items:flex-start">
       <button id="geoBtn">Usar minha localização</button>
-      <span class="muted">ou informe coordenadas:</span>
-      <input id="lat" placeholder="Latitude (ex: -3.73)"/>
-      <input id="lon" placeholder="Longitude (ex: -38.52)"/>
+
+      <div class="dd">
+        <input id="city" placeholder="Buscar cidade (ex: Paulino Neves)" autocomplete="off"/>
+        <div id="cityList" class="ddList" aria-label="Sugestões de cidades"></div>
+      </div>
+
+      <button id="cityBtn">Buscar</button>
+
+      <span class="muted" style="width:100%">ou informe coordenadas:</span>
+      <input id="lat" placeholder="Latitude (ex: -2.72)"/>
+      <input id="lon" placeholder="Longitude (ex: -42.52)"/>
       <button id="coordBtn">Consultar</button>
     </div>
 
-    <p class="muted">
-      Se o navegador pedir permissão de localização, permita para buscar automaticamente.
+    <p class="muted" style="margin-top:12px">
+      Dica: use “Buscar cidade” para ficar igual portal. Se o navegador pedir permissão de localização, permita.
     </p>
 
-    <div id="out" class="muted" style="margin-top:10px"></div>
+    <div id="out" class="stack" style="margin-top:12px"></div>
   </div>
 </div>
 
@@ -155,16 +248,133 @@
   const out = document.getElementById("out");
   const latEl = document.getElementById("lat");
   const lonEl = document.getElementById("lon");
+  const cityEl = document.getElementById("city");
+  const cityList = document.getElementById("cityList");
 
-  async function fetchWeather(lat, lon){
-    out.textContent = "Consultando previsão...";
+  const LS_KEY = "st_weather_last";
+
+  function fmt(n, digits=0){
+    if(n == null || !Number.isFinite(Number(n))) return "—";
+    return Number(n).toFixed(digits);
+  }
+  function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+
+  function pad2(x){ return String(x).padStart(2,"0"); }
+  function toPtDay(isoDate){
+    const d = new Date(isoDate + "T00:00:00");
+    const wd = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"][d.getDay()];
+    return `${wd} • ${pad2(d.getDate())}/${pad2(d.getMonth()+1)}`;
+  }
+  function toPtHour(iso){
+    const d = new Date(iso);
+    return `${pad2(d.getHours())}:00`;
+  }
+
+  // Weathercode (WMO) -> descrição + ícone (emoji)
+  function wx(code, isDay=true){
+    const map = {
+      0:["Céu limpo", "☀️"],
+      1:["Poucas nuvens", isDay ? "🌤️":"🌙"],
+      2:["Parcialmente nublado", "⛅"],
+      3:["Nublado", "☁️"],
+      45:["Nevoeiro", "🌫️"],
+      48:["Nevoeiro (geada)", "🌫️"],
+      51:["Garoa fraca", "🌦️"],
+      53:["Garoa moderada", "🌦️"],
+      55:["Garoa forte", "🌧️"],
+      56:["Garoa gelada fraca", "🌧️"],
+      57:["Garoa gelada forte", "🌧️"],
+      61:["Chuva fraca", "🌧️"],
+      63:["Chuva moderada", "🌧️"],
+      65:["Chuva forte", "🌧️"],
+      66:["Chuva gelada fraca", "🌧️"],
+      67:["Chuva gelada forte", "🌧️"],
+      71:["Neve fraca", "🌨️"],
+      73:["Neve moderada", "🌨️"],
+      75:["Neve forte", "🌨️"],
+      77:["Grãos de neve", "🌨️"],
+      80:["Pancadas fracas", "🌦️"],
+      81:["Pancadas moderadas", "🌧️"],
+      82:["Pancadas fortes", "⛈️"],
+      85:["Pancadas de neve fracas", "🌨️"],
+      86:["Pancadas de neve fortes", "🌨️"],
+      95:["Trovoadas", "⛈️"],
+      96:["Trovoadas com granizo", "⛈️"],
+      99:["Trovoadas com granizo forte", "⛈️"],
+    };
+    return map[code] || ["Condição desconhecida", "🌡️"];
+  }
+
+  function showHint(msg){
+    out.innerHTML = `<div class="hint">${msg}</div>`;
+  }
+
+  async function fetchGeocodeCity(name){
+    const url = new URL("https://geocoding-api.open-meteo.com/v1/search");
+    url.searchParams.set("name", name);
+    url.searchParams.set("count", "6");
+    url.searchParams.set("language", "pt");
+    url.searchParams.set("format", "json");
+    const r = await fetch(url.toString());
+    if(!r.ok) throw new Error("Falha no geocoding");
+    const d = await r.json();
+    return d.results || [];
+  }
+
+  async function fetchWeather(lat, lon, label=""){
+    out.innerHTML = `<p class="muted"><strong>Consultando previsão...</strong></p>`;
     try{
       const url = new URL("https://api.open-meteo.com/v1/forecast");
       url.searchParams.set("latitude", String(lat));
       url.searchParams.set("longitude", String(lon));
-      url.searchParams.set("current", "temperature_2m,relative_humidity_2m,wind_speed_10m");
-      url.searchParams.set("daily", "temperature_2m_max,temperature_2m_min,precipitation_probability_max");
       url.searchParams.set("timezone", "auto");
+
+      // Agora (bem completo)
+      url.searchParams.set("current",
+        [
+          "temperature_2m",
+          "apparent_temperature",
+          "relative_humidity_2m",
+          "precipitation",
+          "weather_code",
+          "cloud_cover",
+          "pressure_msl",
+          "wind_speed_10m",
+          "wind_direction_10m",
+          "wind_gusts_10m",
+          "is_day",
+          "visibility"
+        ].join(",")
+      );
+
+      // Próximas horas
+      url.searchParams.set("hourly",
+        [
+          "temperature_2m",
+          "apparent_temperature",
+          "precipitation_probability",
+          "precipitation",
+          "weather_code",
+          "wind_speed_10m",
+          "wind_gusts_10m",
+          "relative_humidity_2m"
+        ].join(",")
+      );
+
+      // 7 dias
+      url.searchParams.set("daily",
+        [
+          "weather_code",
+          "temperature_2m_max",
+          "temperature_2m_min",
+          "precipitation_probability_max",
+          "precipitation_sum",
+          "uv_index_max",
+          "sunrise",
+          "sunset",
+          "wind_speed_10m_max"
+        ].join(",")
+      );
 
       const r = await fetch(url.toString());
       if(!r.ok) throw new Error("Falha na consulta");
@@ -172,38 +382,311 @@
 
       const cur = d.current || {};
       const daily = d.daily || {};
+      const hourly = d.hourly || {};
+      const tz = d.timezone || "auto";
+
+      const isDay = cur.is_day === 1;
+      const [desc, icon] = wx(cur.weather_code, isDay);
+
+      // Constrói 7 dias
       const days = (daily.time || []).map((t, i) => ({
         date: t,
+        code: daily.weather_code?.[i],
         max: daily.temperature_2m_max?.[i],
         min: daily.temperature_2m_min?.[i],
-        rain: daily.precipitation_probability_max?.[i]
+        rainP: daily.precipitation_probability_max?.[i],
+        rainSum: daily.precipitation_sum?.[i],
+        uv: daily.uv_index_max?.[i],
+        sunrise: daily.sunrise?.[i],
+        sunset: daily.sunset?.[i],
+        windMax: daily.wind_speed_10m_max?.[i],
       }));
 
+      // Para barra min/max (normaliza no range dos 7 dias)
+      const mins = days.map(x => x.min).filter(x => x!=null);
+      const maxs = days.map(x => x.max).filter(x => x!=null);
+      const tMinAll = mins.length ? Math.min(...mins) : 0;
+      const tMaxAll = maxs.length ? Math.max(...maxs) : 1;
+      const span = Math.max(1, tMaxAll - tMinAll);
+
+      // Próximas 24 horas a partir do "current.time"
+      const nowIso = cur.time || (hourly.time ? hourly.time[0] : null);
+      let startIdx = 0;
+      if(nowIso && hourly.time){
+        startIdx = Math.max(0, hourly.time.findIndex(t => t >= nowIso));
+        if(startIdx < 0) startIdx = 0;
+      }
+      const hours24 = (hourly.time || []).slice(startIdx, startIdx + 24).map((t, i) => {
+        const idx = startIdx + i;
+        const [hd, hi] = wx(hourly.weather_code?.[idx], true);
+        return {
+          time: t,
+          icon: hi,
+          temp: hourly.temperature_2m?.[idx],
+          feels: hourly.apparent_temperature?.[idx],
+          pop: hourly.precipitation_probability?.[idx],
+          wind: hourly.wind_speed_10m?.[idx],
+          gust: hourly.wind_gusts_10m?.[idx],
+          hum: hourly.relative_humidity_2m?.[idx],
+          pr: hourly.precipitation?.[idx]
+        };
+      });
+
+      const placeLine = label
+        ? `<span class="chip">📍 ${label}</span>`
+        : `<span class="chip">📍 Coordenadas: ${lat}, ${lon}</span>`;
+
+      const updatedLine = cur.time
+        ? `<span class="chip">🕒 Atualizado: ${new Date(cur.time).toLocaleString("pt-BR")}</span>`
+        : `<span class="chip">🕒 Atualizado: agora</span>`;
+
+      // Render
       out.innerHTML = `
-        <p><strong>Local (coords):</strong> ${lat}, ${lon}</p>
-        <p><strong>Agora:</strong> ${cur.temperature_2m ?? "—"}°C • Umidade ${cur.relative_humidity_2m ?? "—"}% • Vento ${cur.wind_speed_10m ?? "—"} km/h</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Dia</th><th>Máx</th><th>Mín</th><th>Chuva (prob.)</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${days.slice(0,7).map(x => `
-              <tr>
-                <td>${x.date}</td>
-                <td>${x.max ?? "—"}°C</td>
-                <td>${x.min ?? "—"}°C</td>
-                <td>${(x.rain ?? "—")}${x.rain != null ? "%" : ""}</td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
+        <div class="titlebar">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            ${placeLine}
+            ${updatedLine}
+            <span class="chip">⏱️ Fuso: ${tz}</span>
+          </div>
+          <div class="small">Fonte: Open-Meteo</div>
+        </div>
+
+        <div class="grid2">
+          <!-- AGORA -->
+          <section class="card" style="padding:16px">
+            <div class="titlebar">
+              <h2 class="h2">Agora</h2>
+              <span class="pill">${icon} ${desc}</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="kpi">
+              <div>
+                <div class="tempBig">${fmt(cur.temperature_2m,0)}°</div>
+                <div class="wxDesc">Sensação: ${fmt(cur.apparent_temperature,0)}° • Umidade: ${fmt(cur.relative_humidity_2m,0)}%</div>
+              </div>
+            </div>
+
+            <div class="miniGrid">
+              <div class="miniCard">
+                <div class="label">Vento</div>
+                <div class="val">${fmt(cur.wind_speed_10m,0)} km/h</div>
+                <div class="small">Rajadas: ${fmt(cur.wind_gusts_10m,0)} km/h • Direção: ${fmt(cur.wind_direction_10m,0)}°</div>
+              </div>
+              <div class="miniCard">
+                <div class="label">Chuva agora</div>
+                <div class="val">${fmt(cur.precipitation,1)} mm</div>
+                <div class="small">Nebulosidade: ${fmt(cur.cloud_cover,0)}%</div>
+              </div>
+              <div class="miniCard">
+                <div class="label">Pressão</div>
+                <div class="val">${fmt(cur.pressure_msl,0)} hPa</div>
+                <div class="small">Conforto varia com umidade</div>
+              </div>
+              <div class="miniCard">
+                <div class="label">Visibilidade</div>
+                <div class="val">${cur.visibility != null ? fmt(cur.visibility/1000,1) + " km" : "—"}</div>
+                <div class="small">${cur.is_day===1 ? "Dia" : "Noite"}</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- DESTAQUES DO DIA -->
+          <section class="card" style="padding:16px">
+            <div class="titlebar">
+              <h2 class="h2">Hoje</h2>
+              <span class="small">${days[0] ? toPtDay(days[0].date) : ""}</span>
+            </div>
+            <div class="divider"></div>
+
+            ${
+              days[0] ? `
+              <div class="miniGrid">
+                <div class="miniCard">
+                  <div class="label">Máxima / Mínima</div>
+                  <div class="val">${fmt(days[0].max,0)}° / ${fmt(days[0].min,0)}°</div>
+                  <div class="small">Vento máx: ${fmt(days[0].windMax,0)} km/h</div>
+                </div>
+                <div class="miniCard">
+                  <div class="label">Chance de chuva</div>
+                  <div class="val">${fmt(days[0].rainP,0)}%</div>
+                  <div class="small">Acumulado: ${fmt(days[0].rainSum,1)} mm</div>
+                </div>
+                <div class="miniCard">
+                  <div class="label">Índice UV (máx)</div>
+                  <div class="val">${fmt(days[0].uv,0)}</div>
+                  <div class="small">Use proteção se alto</div>
+                </div>
+                <div class="miniCard">
+                  <div class="label">Sol</div>
+                  <div class="val">🌅 ${days[0].sunrise ? new Date(days[0].sunrise).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}) : "—"} • 🌇 ${days[0].sunset ? new Date(days[0].sunset).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}) : "—"}</div>
+                  <div class="small">Nascer / Pôr do sol</div>
+                </div>
+              </div>
+              ` : `<p class="muted">Sem dados diários disponíveis.</p>`
+            }
+          </section>
+        </div>
+
+        <!-- PRÓXIMAS HORAS -->
+        <section class="card">
+          <div class="titlebar">
+            <h2 class="h2">Próximas 24 horas</h2>
+            <span class="small">Temperatura • chuva • vento</span>
+          </div>
+          <div class="divider"></div>
+
+          ${hours24.length ? `
+            <div class="hours">
+              ${hours24.map(h => `
+                <div class="hourCard">
+                  <div class="hourTime">${toPtHour(h.time)}</div>
+                  <div class="hourIcon">${h.icon}</div>
+                  <div class="hourTemp">${fmt(h.temp,0)}°</div>
+                  <div class="hourMeta">
+                    Sensação: ${fmt(h.feels,0)}°<br/>
+                    Chuva: ${fmt(h.pop,0)}% • ${fmt(h.pr,1)} mm<br/>
+                    Vento: ${fmt(h.wind,0)} km/h • Raj: ${fmt(h.gust,0)}<br/>
+                    Umidade: ${fmt(h.hum,0)}%
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          ` : `<p class="muted">Sem dados horários disponíveis.</p>`}
+        </section>
+
+        <!-- 7 DIAS -->
+        <section class="card">
+          <div class="titlebar">
+            <h2 class="h2">Previsão para 7 dias</h2>
+            <span class="small">Máx/Mín • chuva • UV • sol</span>
+          </div>
+          <div class="divider"></div>
+
+          ${days.length ? `
+            <div class="days">
+              ${days.slice(0,7).map(x => {
+                const [dsc, ico] = wx(x.code, true);
+                const left = ((x.min - tMinAll) / span) * 100;
+                const right = ((x.max - tMinAll) / span) * 100;
+                const w = Math.max(6, right - left);
+                return `
+                  <div class="dayRow">
+                    <div class="dayLeft">
+                      <div class="dayTop">
+                        <span class="dayName">${toPtDay(x.date)}</span>
+                        <span class="dayIcon">${ico}</span>
+                        <span class="small">${dsc}</span>
+                      </div>
+
+                      <div class="dayBarWrap">
+                        <span class="tMin">${fmt(x.min,0)}°</span>
+                        <div class="bar"><span style="left:${clamp(left,0,100)}%;width:${clamp(w,0,100)}%"></span></div>
+                        <span class="tMax">${fmt(x.max,0)}°</span>
+                      </div>
+
+                      <div class="small">
+                        🌅 ${x.sunrise ? new Date(x.sunrise).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}) : "—"}
+                        • 🌇 ${x.sunset ? new Date(x.sunset).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}) : "—"}
+                        • 💨 ${fmt(x.windMax,0)} km/h
+                      </div>
+                    </div>
+
+                    <div class="dayRight">
+                      <span class="tag">Chuva: ${fmt(x.rainP,0)}%</span>
+                      <span class="tag">Acum.: ${fmt(x.rainSum,1)} mm</span>
+                      <span class="tag">UV: ${fmt(x.uv,0)}</span>
+                    </div>
+                  </div>
+                `;
+              }).join("")}
+            </div>
+          ` : `<p class="muted">Sem dados diários disponíveis.</p>`}
+        </section>
+
+        <p class="muted">
+          Observação: probabilidades e acumulados são estimativas. Para decisões críticas (viagem, mar, alertas), confirme com fontes oficiais.
+        </p>
       `;
+
+      // Salva última consulta
+      localStorage.setItem(LS_KEY, JSON.stringify({ lat, lon, label, at: Date.now() }));
+
     }catch(e){
       out.innerHTML = `<p style="color:#b42318"><strong>Erro:</strong> não foi possível consultar agora. Tente novamente.</p>`;
     }
   }
+
+  // Sugestões de cidade (dropdown)
+  let ddTimer = null;
+  cityEl.addEventListener("input", () => {
+    const q = cityEl.value.trim();
+    clearTimeout(ddTimer);
+    if(q.length < 3){
+      cityList.style.display = "none";
+      cityList.innerHTML = "";
+      return;
+    }
+    ddTimer = setTimeout(async () => {
+      try{
+        const results = await fetchGeocodeCity(q);
+        if(!results.length){
+          cityList.style.display = "none";
+          cityList.innerHTML = "";
+          return;
+        }
+        cityList.innerHTML = results.map((r) => {
+          const name = [r.name, r.admin1, r.country].filter(Boolean).join(" • ");
+          const sub = `Lat ${fmt(r.latitude,2)} • Lon ${fmt(r.longitude,2)}`;
+          return `<button type="button" data-lat="${r.latitude}" data-lon="${r.longitude}" data-label="${name.replaceAll('"','&quot;')}">
+                    ${r.name} <span class="sub">${name} — ${sub}</span>
+                  </button>`;
+        }).join("");
+        cityList.style.display = "block";
+      }catch(err){
+        cityList.style.display = "none";
+        cityList.innerHTML = "";
+      }
+    }, 300);
+  });
+
+  document.addEventListener("click", (e) => {
+    if(!cityList.contains(e.target) && e.target !== cityEl){
+      cityList.style.display = "none";
+    }
+  });
+
+  cityList.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-lat]");
+    if(!btn) return;
+    const lat = Number(btn.dataset.lat);
+    const lon = Number(btn.dataset.lon);
+    const label = btn.dataset.label || "";
+    cityEl.value = label || cityEl.value;
+    cityList.style.display = "none";
+    fetchWeather(lat.toFixed(4), lon.toFixed(4), label);
+  });
+
+  document.getElementById("cityBtn").addEventListener("click", async () => {
+    const q = cityEl.value.trim();
+    if(q.length < 3){
+      showHint("Digite pelo menos 3 letras no campo de cidade (ex: <strong>Paulino Neves</strong>).");
+      return;
+    }
+    try{
+      const results = await fetchGeocodeCity(q);
+      if(!results.length){
+        showHint("Não encontrei essa cidade. Tente escrever de outro jeito (ex: <strong>Paulino Neves</strong> ou <strong>São Luís</strong>).");
+        return;
+      }
+      const r = results[0];
+      const label = [r.name, r.admin1, r.country].filter(Boolean).join(" • ");
+      fetchWeather(Number(r.latitude).toFixed(4), Number(r.longitude).toFixed(4), label);
+    }catch(err){
+      out.innerHTML = `<p style="color:#b42318"><strong>Erro:</strong> não foi possível buscar a cidade agora.</p>`;
+    }
+  });
 
   document.getElementById("geoBtn").addEventListener("click", () => {
     if(!navigator.geolocation){
@@ -215,7 +698,7 @@
       (pos) => {
         const lat = pos.coords.latitude.toFixed(4);
         const lon = pos.coords.longitude.toFixed(4);
-        fetchWeather(lat, lon);
+        fetchWeather(lat, lon, "Minha localização");
       },
       () => out.innerHTML = `<p style="color:#b42318"><strong>Permissão negada</strong> ou localização indisponível.</p>`,
       { enableHighAccuracy: true, timeout: 12000 }
@@ -229,8 +712,19 @@
       out.innerHTML = `<p style="color:#b42318"><strong>Coordenadas inválidas.</strong> Informe latitude e longitude.</p>`;
       return;
     }
-    fetchWeather(lat, lon);
+    fetchWeather(lat.toFixed(4), lon.toFixed(4), `Coords: ${lat.toFixed(4)}, ${lon.toFixed(4)}`);
   });
+
+  // Auto-carrega última consulta
+  (function boot(){
+    try{
+      const raw = localStorage.getItem(LS_KEY);
+      if(!raw) return;
+      const last = JSON.parse(raw);
+      if(!last || last.lat==null || last.lon==null) return;
+      fetchWeather(String(last.lat), String(last.lon), last.label || "");
+    }catch(e){}
+  })();
 </script>
 
 <footer class="st-footer">
@@ -268,6 +762,6 @@
     </div>
   </div>
 </footer>
-  
+
 </body>
 </html>
