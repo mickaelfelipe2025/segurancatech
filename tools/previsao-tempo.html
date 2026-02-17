@@ -138,9 +138,39 @@
     }
 
     /* =========================
+       RESUMO DO DIA + ALERTAS
+    ========================= */
+    .alert{
+      background:#eef2f7;
+      border:1px solid #d7e1ef;
+      border-radius:14px;
+      padding:12px;
+      font-weight:900;
+      color:#0b1220;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .alert .aTitle{font-weight:1000}
+    .alert .aText{font-weight:800;color:var(--muted);line-height:1.45;margin-top:2px}
+    .tri{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+    }
+    @media (max-width:900px){.tri{grid-template-columns:1fr}}
+    .slot{
+      background:#f8fafc;border:1px solid #e5eaf2;border-radius:14px;padding:12px
+    }
+    .slotTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .slotName{font-weight:1000}
+    .slotIcon{font-size:18px}
+    .slotTemp{font-size:28px;font-weight:1000;margin-top:6px}
+    .slotMeta{color:var(--muted);font-weight:800;font-size:13px;line-height:1.35;margin-top:6px}
+
+    /* =========================
        FOOTER REAL (SEM TRANSPARÊNCIA)
     ========================= */
-
     .st-footer{
       margin-top: 48px;
       padding: 30px 18px 20px;
@@ -278,6 +308,11 @@
 
   const LS_KEY = "st_weather_last";
 
+  // Ajuste aqui se quiser:
+  const ALERT_POP_THRESHOLD = 70;     // % chance de chuva p/ alertar
+  const ALERT_GUST_THRESHOLD = 45;    // km/h rajadas p/ alertar
+  const ALERT_LOOKAHEAD_HOURS = 12;   // próximas X horas analisadas
+
   function fmt(n, digits=0){
     if(n == null || !Number.isFinite(Number(n))) return "—";
     return Number(n).toFixed(digits);
@@ -293,6 +328,9 @@
   function toPtHour(iso){
     const d = new Date(iso);
     return `${pad2(d.getHours())}:00`;
+  }
+  function localDayKey(date){
+    return `${date.getFullYear()}-${pad2(date.getMonth()+1)}-${pad2(date.getDate())}`;
   }
 
   // Weathercode (WMO) -> descrição + ícone
@@ -344,6 +382,104 @@
     if(!r.ok) throw new Error("Falha no geocoding");
     const d = await r.json();
     return d.results || [];
+  }
+
+  function findClosestHourlyIndex(hourlyTimes, targetISO){
+    if(!hourlyTimes || !hourlyTimes.length) return -1;
+    const target = new Date(targetISO).getTime();
+    let best = 0;
+    let bestDiff = Infinity;
+    for(let i=0;i<hourlyTimes.length;i++){
+      const t = new Date(hourlyTimes[i]).getTime();
+      const diff = Math.abs(t - target);
+      if(diff < bestDiff){
+        bestDiff = diff;
+        best = i;
+      }
+    }
+    return best;
+  }
+
+  function buildDaySlots(hourly){
+    // Pega hoje (local) e monta 06h/12h/18h (mais próximo) dentro do array hourly
+    const now = new Date();
+    const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
+
+    const targets = [
+      { key:"Manhã", hour:6 },
+      { key:"Tarde", hour:12 },
+      { key:"Noite", hour:18 },
+    ];
+
+    const outSlots = [];
+
+    for(const t of targets){
+      const dt = new Date(y, m, d, t.hour, 0, 0);
+      const idx = findClosestHourlyIndex(hourly.time, dt.toISOString());
+      if(idx < 0) continue;
+
+      const code = hourly.weather_code?.[idx];
+      const [desc, icon] = wx(code, true);
+      outSlots.push({
+        name: t.key,
+        time: hourly.time?.[idx],
+        icon,
+        desc,
+        temp: hourly.temperature_2m?.[idx],
+        pop: hourly.precipitation_probability?.[idx],
+        wind: hourly.wind_speed_10m?.[idx],
+        hum: hourly.relative_humidity_2m?.[idx]
+      });
+    }
+
+    return outSlots;
+  }
+
+  function buildAlerts(hourly, startIdx){
+    const alerts = [];
+    if(!hourly?.time?.length) return alerts;
+
+    const endIdx = Math.min(hourly.time.length, startIdx + ALERT_LOOKAHEAD_HOURS);
+
+    // chuva
+    let bestPop = -1, bestPopIdx = -1;
+    for(let i=startIdx;i<endIdx;i++){
+      const pop = hourly.precipitation_probability?.[i];
+      if(pop != null && pop > bestPop){
+        bestPop = pop;
+        bestPopIdx = i;
+      }
+    }
+    if(bestPop >= ALERT_POP_THRESHOLD && bestPopIdx >= 0){
+      const when = toPtHour(hourly.time[bestPopIdx]);
+      const pr = hourly.precipitation?.[bestPopIdx];
+      alerts.push({
+        icon:"🌧️",
+        title:`Alta chance de chuva nas próximas ${ALERT_LOOKAHEAD_HOURS} horas`,
+        text:`Pico previsto por volta de ${when} com ${fmt(bestPop,0)}% de chance${pr!=null ? ` • ~${fmt(pr,1)} mm` : ""}.`
+      });
+    }
+
+    // vento/rajadas
+    let bestGust = -1, bestGustIdx = -1;
+    for(let i=startIdx;i<endIdx;i++){
+      const gust = hourly.wind_gusts_10m?.[i];
+      if(gust != null && gust > bestGust){
+        bestGust = gust;
+        bestGustIdx = i;
+      }
+    }
+    if(bestGust >= ALERT_GUST_THRESHOLD && bestGustIdx >= 0){
+      const when = toPtHour(hourly.time[bestGustIdx]);
+      const wind = hourly.wind_speed_10m?.[bestGustIdx];
+      alerts.push({
+        icon:"💨",
+        title:`Vento forte nas próximas ${ALERT_LOOKAHEAD_HOURS} horas`,
+        text:`Rajadas podem chegar a ${fmt(bestGust,0)} km/h por volta de ${when}${wind!=null ? ` • vento ${fmt(wind,0)} km/h` : ""}.`
+      });
+    }
+
+    return alerts;
   }
 
   async function fetchWeather(lat, lon, label=""){
@@ -457,6 +593,12 @@
         };
       });
 
+      // Resumo manhã/tarde/noite (hoje)
+      const slots = buildDaySlots(hourly);
+
+      // Alertas rápidos (próximas X horas)
+      const alerts = buildAlerts(hourly, startIdx);
+
       const placeLine = label
         ? `<span class="chip">📍 ${label}</span>`
         : `<span class="chip">📍 Coordenadas: ${lat}, ${lon}</span>`;
@@ -474,6 +616,57 @@
           </div>
           <div class="small">Fonte: Open-Meteo</div>
         </div>
+
+        ${alerts.length ? `
+          <section class="card">
+            <div class="titlebar">
+              <h2 class="h2">Alertas rápidos</h2>
+              <span class="small">baseado nas próximas ${ALERT_LOOKAHEAD_HOURS}h</span>
+            </div>
+            <div class="divider"></div>
+            <div class="stack" style="margin-top:0">
+              ${alerts.map(a => `
+                <div class="alert">
+                  <div style="font-size:18px">${a.icon}</div>
+                  <div>
+                    <div class="aTitle">${a.title}</div>
+                    <div class="aText">${a.text}</div>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </section>
+        ` : ``}
+
+        ${slots.length ? `
+          <section class="card">
+            <div class="titlebar">
+              <h2 class="h2">Resumo do dia</h2>
+              <span class="small">Manhã • Tarde • Noite</span>
+            </div>
+            <div class="divider"></div>
+
+            <div class="tri">
+              ${slots.map(s => `
+                <div class="slot">
+                  <div class="slotTop">
+                    <div>
+                      <div class="slotName">${s.name}</div>
+                      <div class="small">${s.time ? toPtHour(s.time) : ""} • ${s.desc}</div>
+                    </div>
+                    <div class="slotIcon">${s.icon}</div>
+                  </div>
+
+                  <div class="slotTemp">${fmt(s.temp,0)}°</div>
+                  <div class="slotMeta">
+                    Chuva: ${fmt(s.pop,0)}% • Vento: ${fmt(s.wind,0)} km/h<br/>
+                    Umidade: ${fmt(s.hum,0)}%
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </section>
+        ` : ``}
 
         <div class="grid2">
           <!-- AGORA -->
