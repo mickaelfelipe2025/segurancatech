@@ -32,6 +32,23 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 .links a:hover{background:rgba(255,255,255,.08)}
 .footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
 .footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+
+/* ===== ADIÇÕES (sem mexer no tema) ===== */
+.hr{height:1px;background:var(--line);margin:14px 0}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px;line-height:1.5}
+.toc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.toc b{display:block;margin-bottom:8px;color:#0a1f44}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#0a1f44;font-weight:900;font-size:13px;text-decoration:none}
+.badge:hover{text-decoration:underline}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+.kit{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px}
+.kit .box{grid-column:span 6;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.kit .box strong{color:#0a1f44}
+@media (max-width:860px){.kit .box{grid-column:span 12}}
 </style></head><body>
 <header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
 <nav>
@@ -52,7 +69,32 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <h2>Como saber se um IP é perigoso</h2>
 <div class="meta">Leitura: 7–9 min • Atualizado: 16/02/2026</div>
 
+<!-- ✅ Complemento: sumário + objetivo -->
+<div class="callout">Objetivo deste guia: você vai aprender a diferenciar <strong>medo/ameaça</strong> de <strong>risco real</strong> e checar a reputação de um IP em poucos minutos.</div>
+
+<div class="toc" aria-label="Sumário do artigo">
+  <b>Sumário rápido</b>
+  <div class="badge-row">
+    <a class="badge" href="#oqueeip">O que é IP</a>
+    <a class="badge" href="#quandoeperigoso">Quando é perigoso</a>
+    <a class="badge" href="#check60">Checklist 60s</a>
+    <a class="badge" href="#ferramentas">Ferramentas</a>
+    <a class="badge" href="#interpretar">Interpretar resultados</a>
+    <a class="badge" href="#oquefazer">O que fazer</a>
+    <a class="badge" href="#faq">FAQ</a>
+  </div>
+</div>
+
+<!-- ✅ Imagem sugerida (opcional) -->
+<figure class="figure">
+  <img src="http://segurancatech.com.br/assets/img/como-saber-se-um-ip-e-perigoso/Ilustra%C3%A7%C3%A3o%20representando%20endere%C3%A7o%20IP%20e%20conex%C3%B5es%20de%20rede.jpg"
+</figure>
+
 <div class="callout warn">Importante: “ver seu IP” não significa que alguém te invadiu. O perigo está no <strong>comportamento</strong> desse IP (abuso/ataques) ou no seu dispositivo estar comprometido.</div>
+
+<div class="callout">
+💡 Em outras palavras: um IP não é perigoso por existir — ele se torna perigoso quando aparece em denúncias de abuso, tenta acessar serviços repetidamente ou está ligado a hospedagem de golpe/malware.
+</div>
 
 <h3>Vídeo (no topo): IP “na tela” é perigoso?</h3>
 
@@ -70,14 +112,19 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <hr style="margin:18px 0;border:none;border-top:1px solid #e6edf7"/>
 
-<h3>O que é um IP (bem direto)</h3>
+<h3 id="oqueeip">O que é um IP (bem direto)</h3>
 <p>IP é um endereço usado para identificar um dispositivo/rota na internet. Pode ser:</p>
 <ul>
 <li><strong>IP público:</strong> o endereço que seu provedor mostra para a internet (geralmente muda com o tempo).</li>
 <li><strong>IP privado:</strong> o endereço dentro da sua rede (ex.: 192.168.0.10). Esse não “aparece” pra internet.</li>
 </ul>
 
-<h3>Quando um IP é “perigoso” de verdade?</h3>
+<!-- ✅ Complemento: IP público, CGNAT e “IP compartilhado” sem aprofundar demais -->
+<div class="callout">
+<strong>Dica rápida:</strong> em muitos provedores existe <strong>CGNAT</strong> (IP compartilhado). Isso significa que várias pessoas podem “sair” para a internet com o mesmo IP público. Por isso, reputação de IP deve ser analisada com <strong>contexto</strong>.
+</div>
+
+<h3 id="quandoeperigoso">Quando um IP é “perigoso” de verdade?</h3>
 <p>Um IP vira um problema quando está associado a:</p>
 <ul>
 <li><strong>Varredura</strong> (tentando achar portas abertas)</li>
@@ -96,7 +143,7 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <li><strong>Cenário C (perigo real):</strong> logs mostram tentativas repetidas de acesso vindo do mesmo IP, ou ferramentas marcam como abuso. 🚫 agir</li>
 </ul>
 
-<h3>Checklist prático: como avaliar um IP em 60 segundos</h3>
+<h3 id="check60">Checklist prático: como avaliar um IP em 60 segundos</h3>
 <ul>
 <li>O IP aparece como <strong>“abusive/malicious”</strong> em bases públicas?</li>
 <li>Tem <strong>muitas denúncias recentes</strong> (últimos dias/semanas)?</li>
@@ -107,7 +154,16 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout">Dica: um IP pode ser “suspeito” e ainda assim ser apenas uma empresa/serviço comum. O que manda é a combinação: <strong>volume + repetição + denúncias + tipo de tentativa</strong>.</div>
 
-<h3>Ferramentas confiáveis para checar IP</h3>
+<!-- ✅ Complemento: checklist extra -->
+<div class="callout">
+<strong>Checklist extra (quando você quer ter certeza):</strong><br/>
+• O IP é de <strong>datacenter/VPS</strong> (hospedagem)? Isso aumenta chance de automação.<br/>
+• As tentativas ocorrem em <strong>horários contínuos</strong> (padrão robô)?<br/>
+• A URL/domínio associado ao IP aparece em golpes? (quando o caso envolve phishing).<br/>
+• Há picos (várias tentativas em pouco tempo) → típico de brute force.
+</div>
+
+<h3 id="ferramentas">Ferramentas confiáveis para checar IP</h3>
 <ul>
 <li><strong>AbuseIPDB</strong>: reputação e denúncias por abuso</li>
 <li><strong>VirusTotal</strong>: checa IP/domínio/URL e associações</li>
@@ -117,7 +173,26 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout">Você pode começar pelo seu próprio site: <strong>Ferramentas → Rastreio de IP</strong>. Ele já te coloca no caminho certo.</div>
 
-<h3>O que fazer se você achar um IP suspeito tentando te acessar</h3>
+<!-- ✅ Imagem sugerida (opcional) -->
+<figure class="figure">
+  <img src="http://segurancatech.com.br/assets/img/como-saber-se-um-ip-e-perigoso/Ilustra%C3%A7%C3%A3o%20de%20an%C3%A1lise%20de%20seguran%C3%A7a%20de%20rede.jpg"
+</figure>
+
+<!-- ✅ Complemento: como interpretar resultados sem paranoia -->
+<div class="hr"></div>
+<h3 id="interpretar">Como interpretar os resultados (sem cair em paranoia)</h3>
+<ul>
+  <li><strong>Muitas denúncias recentes</strong>: sinal forte de abuso (principalmente se o tipo bate com seu caso: brute force/spam/phishing).</li>
+  <li><strong>Poucas denúncias antigas</strong>: pode ser histórico antigo; confira se existe atividade atual (logs/repetição).</li>
+  <li><strong>IP de datacenter</strong>: comum em ataques automatizados, mas também pode ser serviço legítimo (CDN, monitoramento, bots bons).</li>
+  <li><strong>País/ASN “estranho”</strong>: não prova golpe sozinho, mas aumenta suspeita se vier junto com repetição e tentativas de senha.</li>
+</ul>
+
+<div class="callout warn">
+<strong>Erro comum:</strong> “Apareceu no Shodan, então é hacker”. Não é assim. Shodan mostra exposição/serviços, não “culpa”.
+</div>
+
+<h3 id="oquefazer">O que fazer se você achar um IP suspeito tentando te acessar</h3>
 <ul>
 <li>Se for roteador/ONU/câmera: <strong>troque a senha</strong> e desative acesso remoto desnecessário</li>
 <li>Ative <strong>2FA</strong> nas contas (WhatsApp, e-mail, redes sociais)</li>
@@ -128,8 +203,32 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout warn">Atenção: bloquear IP por impulso pode causar efeito colateral (serviços legítimos). Prefira confirmar com reputação + contexto + repetição.</div>
 
+<!-- ✅ Complemento: passo a passo enxuto (casa vs empresa) -->
+<div class="kit" aria-label="Ações rápidas por cenário">
+  <div class="box">
+    <strong>🏠 Casa (usuário comum)</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      1) Troque senhas (roteador e Wi-Fi)<br/>
+      2) Desative UPnP se não usa<br/>
+      3) Atualize firmware do roteador<br/>
+      4) Revise dispositivos conectados<br/>
+      5) Ative 2FA nas contas importantes
+    </span>
+  </div>
+  <div class="box">
+    <strong>🏢 Empresa / Provedor</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      1) Verifique logs (origem/porta/frequência)<br/>
+      2) Rate-limit / fail2ban / regras<br/>
+      3) Bloqueio temporário com monitoramento<br/>
+      4) Ajuste serviços expostos (RDP/SSH etc.)<br/>
+      5) Documente e acompanhe recorrência
+    </span>
+  </div>
+</div>
+
 <h3>Se você suspeita que o seu IP “está comprometido”</h3>
-<p>Às vezes o problema não é “alguém te atacando”, e sim um dispositivo na sua rede infectado se comunicando com botnet. Existem ferramentas que ajudam a checar esse tipo de comportamento. :contentReference[oaicite:1]{index=1}</p>
+<p>Às vezes o problema não é “alguém te atacando”, e sim um dispositivo na sua rede infectado se comunicando com botnet. Nesse caso, o que resolve é identificar o dispositivo, corrigir senhas e fazer varredura.</p>
 
 <ul>
 <li>Reinicie o roteador e observe se o problema volta</li>
@@ -137,6 +236,39 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <li>Faça varredura de malware no PC/celular</li>
 <li>Se necessário: troque a senha do Wi-Fi e do painel do roteador</li>
 </ul>
+
+<!-- ✅ Links internos úteis (retenção + SEO) -->
+<div class="callout">
+<strong>Ferramentas do Segurança Tech:</strong><br/>
+• <a href="../tools/rastreio-ip.html" style="color:#0a1f44;font-weight:900">Rastreio de IP</a> (consulte um IP agora)<br/>
+• <a href="../tools/meu-ip.html" style="color:#0a1f44;font-weight:900">Meu IP</a> • <a href="../tools/meu-asn.html" style="color:#0a1f44;font-weight:900">Meu ASN</a><br/>
+• <a href="./como-identificar-link-falso.html" style="color:#0a1f44;font-weight:900">Como identificar link falso</a> (se o caso envolver phishing)
+</div>
+
+<!-- ✅ FAQ -->
+<div class="hr"></div>
+<h3 id="faq">Perguntas frequentes (FAQ)</h3>
+<div class="faq">
+  <details>
+    <summary>Ver meu IP significa que fui hackeado?</summary>
+    <p>Não. IP público é uma informação normal na internet. O risco está em comportamento suspeito (tentativas repetidas, abuso reportado, hospedagem maliciosa), não em alguém “ver” seu IP.</p>
+  </details>
+
+  <details>
+    <summary>Um IP com denúncias sempre é perigoso?</summary>
+    <p>Depende. Muitas denúncias recentes e com tipo compatível (brute force, spam, phishing) aumentam muito a chance de risco. Denúncias antigas e poucas podem ser só histórico.</p>
+  </details>
+
+  <details>
+    <summary>Devo bloquear qualquer IP suspeito?</summary>
+    <p>Evite bloquear por impulso. Confirme repetição, contexto e reputação. Bloqueios podem afetar serviços legítimos (CDN, monitoramento, bots bons).</p>
+  </details>
+
+  <details>
+    <summary>IP de datacenter é sempre ataque?</summary>
+    <p>Não. Datacenters são usados para serviços legítimos e também para ataques automatizados. O que manda é o comportamento (tentativas, portas, repetição) + reputação.</p>
+  </details>
+</div>
 
 <div class="actions">
 <a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
