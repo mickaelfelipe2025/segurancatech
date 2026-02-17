@@ -32,6 +32,23 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 .links a:hover{background:rgba(255,255,255,.08)}
 .footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
 .footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+
+/* ===== ADIÇÕES (sem mexer no tema) ===== */
+.hr{height:1px;background:var(--line);margin:14px 0}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px;line-height:1.5}
+.toc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.toc b{display:block;margin-bottom:8px;color:#0a1f44}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#0a1f44;font-weight:900;font-size:13px;text-decoration:none}
+.badge:hover{text-decoration:underline}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+.kit{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px}
+.kit .box{grid-column:span 6;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.kit .box strong{color:#0a1f44}
+@media (max-width:860px){.kit .box{grid-column:span 12}}
 </style></head><body>
 <header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
 <nav>
@@ -52,9 +69,36 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <h2>Engenharia social: como os golpistas te manipulam</h2>
 <div class="meta">Leitura: 7–9 min • Atualizado: 16/02/2026</div>
 
+<!-- ✅ Complemento: objetivo + sumário -->
+<div class="callout">Objetivo deste guia: você vai reconhecer os <strong>gatilhos</strong> mais usados, entender o “roteiro” do golpe e aplicar um checklist rápido para não cair.</div>
+
+<div class="toc" aria-label="Sumário do artigo">
+  <b>Sumário rápido</b>
+  <div class="badge-row">
+    <a class="badge" href="#como-funciona">Como funciona</a>
+    <a class="badge" href="#gatilhos">7 gatilhos</a>
+    <a class="badge" href="#frases">Frases típicas</a>
+    <a class="badge" href="#defesa">Checklist de defesa</a>
+    <a class="badge" href="#caiu">Se você caiu</a>
+    <a class="badge" href="#faq">FAQ</a>
+  </div>
+</div>
+
+<!-- ✅ Imagem sugerida (opcional) -->
+<figure class="figure">
+  <!-- Salve em: segurancatech/img/engenharia-social-capa.jpg -->
+  <!-- <img src="../img/engenharia-social-capa.jpg" alt="Ilustração representando manipulação e segurança digital" loading="lazy"> -->
+  <figcaption><strong>Sugestão de imagem:</strong> uma capa sobre “segurança digital / golpes / manipulação”.</figcaption>
+</figure>
+
 <p>Engenharia social é a “arte” de manipular pessoas para conseguir informações, dinheiro ou acesso. Em vez de invadir sistemas, o golpista tenta <strong>invadir você</strong>: sua atenção, emoção e decisão.</p>
 
 <div class="callout warn">Regra de ouro: golpe bom não parece golpe. Parece urgência, oportunidade e “procedimento padrão”.</div>
+
+<!-- ✅ Complemento: por que funciona -->
+<div class="callout">
+<strong>Por que funciona?</strong> Porque o cérebro humano economiza energia usando “atalhos”: confiança, pressa e emoção. O golpista cria um cenário onde você age rápido e <strong>sem checar</strong>.
+</div>
 
 <h3>Vídeo (no topo): como a manipulação funciona</h3>
 
@@ -71,7 +115,7 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <hr style="margin:18px 0;border:none;border-top:1px solid #e6edf7"/>
 
-<h3>O que o golpista explora (ilustração mental em 3 passos)</h3>
+<h3 id="como-funciona">O que o golpista explora (ilustração mental em 3 passos)</h3>
 <ul>
 <li><strong>1) Gatilho emocional:</strong> medo, pressa, curiosidade, vantagem.</li>
 <li><strong>2) Pressão:</strong> “é agora”, “última chance”, “se não fizer vai perder”.</li>
@@ -80,7 +124,15 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout">Engenharia social é sobre controle do seu “modo automático”. O golpista quer que você aja sem checar.</div>
 
-<h3>Os 7 gatilhos mais usados (com exemplos reais)</h3>
+<!-- ✅ Complemento: sinais de que você está sendo “guiado” -->
+<div class="callout warn">
+<strong>Sinais de manipulação em tempo real:</strong><br/>
+• “Não desligue”, “não fale com ninguém”, “não confirme com o suporte”<br/>
+• “Se você demorar, vai perder/bloquear/cobrar multa”<br/>
+• “Eu vou te ajudar, só preciso do seu código”
+</div>
+
+<h3 id="gatilhos">Os 7 gatilhos mais usados (com exemplos reais)</h3>
 
 <ul>
 <li><strong>Urgência:</strong> “Seu WhatsApp será bloqueado em 30 minutos.”</li>
@@ -94,6 +146,22 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout warn">Se existe pressa, existe risco. Segurança de verdade dá tempo de conferir.</div>
 
+<!-- ✅ Complemento: como quebrar o gatilho (ação imediata) -->
+<div class="kit" aria-label="Como quebrar o gatilho">
+  <div class="box">
+    <strong>✅ Técnica 1: “Pausa de 10 segundos”</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      Pare. Respire. Leia o pedido de novo. Se o texto tenta acelerar você, trate como suspeito.
+    </span>
+  </div>
+  <div class="box">
+    <strong>✅ Técnica 2: “Canal oficial”</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      Feche a conversa. Abra o app oficial (banco/WhatsApp/e-mail) ou digite o site por conta própria.
+    </span>
+  </div>
+</div>
+
 <h3>Onde isso acontece mais (e por quê)</h3>
 <ul>
 <li><strong>WhatsApp:</strong> conversa rápida, confiança e pressão. Perfeito para golpe.</li>
@@ -102,7 +170,13 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <li><strong>Ligações:</strong> voz passa credibilidade — e acelera decisões.</li>
 </ul>
 
-<h3>Ilustração: frases típicas de golpe (decore e desconfie)</h3>
+<!-- ✅ Complemento: exemplo de roteiro (sem ensinar golpe, apenas reconhecer) -->
+<div class="callout">
+<strong>Roteiro típico do golpe:</strong> “Aviso” → “Ameaça/pressa” → “Link/código” → “Confirmação” → “Perdeu acesso/teve prejuízo”.  
+Se você reconhece o roteiro, você corta antes do passo do dano.
+</div>
+
+<h3 id="frases">Ilustração: frases típicas de golpe (decore e desconfie)</h3>
 <ul>
 <li>“Vou te enviar um código, me diga pra confirmar.”</li>
 <li>“É só um procedimento, rapidinho.”</li>
@@ -113,7 +187,16 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout">Quando alguém te impede de verificar (“não desligue”, “não chame ninguém”), isso é um sinal gigante de manipulação.</div>
 
-<h3>Como se defender (checklist prático de 30 segundos)</h3>
+<!-- ✅ Complemento: exemplos mais modernos -->
+<div class="callout">
+<strong>Outras frases muito comuns hoje:</strong><br/>
+• “Sua conta violou diretrizes, confirme sua identidade” (redes sociais)<br/>
+• “Taxa de entrega / taxa de liberação” (compras e encomendas)<br/>
+• “Atualize sua chave/pagamento” (bancos/serviços)<br/>
+• “Suporte técnico remoto” pedindo para instalar aplicativo
+</div>
+
+<h3 id="defesa">Como se defender (checklist prático de 30 segundos)</h3>
 <ul>
 <li><strong>Pare.</strong> Respire e saia do modo pressa.</li>
 <li><strong>Confirme pelo canal oficial:</strong> abra o app/site digitando você mesmo.</li>
@@ -124,7 +207,15 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout warn">Códigos de verificação são chaves. Quem tem o código, entra.</div>
 
-<h3>O que fazer se você caiu (sem pânico, mas rápido)</h3>
+<!-- ✅ Complemento: “3 perguntas” antes de agir -->
+<div class="callout">
+<strong>Antes de fazer qualquer coisa, responda:</strong><br/>
+1) Eu pedi esse contato/mensagem? (se não, suspeite)<br/>
+2) Estão pedindo pressa ou segredo? (suspeito)<br/>
+3) Existe forma de confirmar no canal oficial sem clicar? (faça isso)
+</div>
+
+<h3 id="caiu">O que fazer se você caiu (sem pânico, mas rápido)</h3>
 <ul>
 <li>Troque senhas imediatamente (e ative <strong>2FA</strong>).</li>
 <li>Revogue sessões/dispositivos logados (quando o serviço permitir).</li>
@@ -135,6 +226,22 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 
 <div class="callout">Quanto mais rápido você age, menor o prejuízo. O golpe vive de atraso e vergonha.</div>
 
+<!-- ✅ Complemento: ações rápidas por tipo -->
+<div class="kit" aria-label="Ações rápidas por tipo de golpe">
+  <div class="box">
+    <strong>📲 WhatsApp / Redes sociais</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      Troque senha do e-mail, ative 2FA, revise dispositivos conectados e avise contatos para ignorarem pedidos de dinheiro.
+    </span>
+  </div>
+  <div class="box">
+    <strong>🏦 Banco / Pagamento</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      Ligue no canal oficial imediatamente, bloqueie/conteste transações e guarde provas (prints, números, horários).
+    </span>
+  </div>
+</div>
+
 <h3>Mini-regra pra vida</h3>
 <ul>
 <li>Se pediram <strong>código</strong> → é golpe.</li>
@@ -142,6 +249,44 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <li>Se pediram <strong>segredo</strong> → é golpe.</li>
 <li>Se pediram <strong>clicar agora</strong> → é golpe.</li>
 </ul>
+
+<!-- ✅ Links internos úteis -->
+<div class="callout">
+<strong>Leituras e ferramentas do Segurança Tech:</strong><br/>
+• <a href="./como-identificar-link-falso.html" style="color:#0a1f44;font-weight:900">Como identificar link falso</a><br/>
+• <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Ferramenta: Identificador de links</a><br/>
+• <a href="./como-saber-se-um-ip-e-perigoso.html" style="color:#0a1f44;font-weight:900">Como saber se um IP é perigoso</a>
+</div>
+
+<!-- ✅ FAQ -->
+<div class="hr"></div>
+<h3 id="faq">Perguntas frequentes (FAQ)</h3>
+<div class="faq">
+  <details>
+    <summary>Engenharia social é “hackear”?</summary>
+    <p>Não. É manipular pessoas para conseguir acesso/dados/dinheiro. Em vez de invadir um sistema, o golpista tenta fazer você entregar o que ele precisa.</p>
+  </details>
+
+  <details>
+    <summary>Qual é o sinal mais forte de golpe?</summary>
+    <p>Pressa + pedido de código/senha + tentativa de impedir você de confirmar em canal oficial. Essa combinação quase sempre indica fraude.</p>
+  </details>
+
+  <details>
+    <summary>Recebi uma ligação dizendo que é do banco. O que faço?</summary>
+    <p>Desligue e ligue você mesmo no número oficial do banco (no cartão, app ou site oficial). Não use números passados na ligação.</p>
+  </details>
+
+  <details>
+    <summary>Por que pedem “código de 6 dígitos”?</summary>
+    <p>Porque esse código permite entrar em contas (WhatsApp, e-mail, redes sociais). É como entregar a chave da sua casa.</p>
+  </details>
+
+  <details>
+    <summary>O que eu faço para evitar cair de novo?</summary>
+    <p>Ative 2FA em tudo, revise privacidade no WhatsApp, não clique em links de mensagens inesperadas e sempre confirme no canal oficial.</p>
+  </details>
+</div>
 
 <div class="actions">
 <a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
