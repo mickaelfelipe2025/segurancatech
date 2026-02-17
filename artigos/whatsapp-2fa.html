@@ -47,14 +47,22 @@
     .btn{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;color:#0a1f44;text-decoration:none}
     .btn:hover{background:#f6f8fb}
     .btn-primary{border:0;background:#122c66;color:#fff}
+    .btn-primary:hover{filter:brightness(1.05)}
     footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
     .footer-wrap{max-width:980px;margin:0 auto}
     .footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
     .foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
     .links{display:grid;gap:10px}
     .links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+    .links a:hover{background:rgba(255,255,255,.08)}
     .footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
     .footnote a{color:#fff;font-weight:900;text-decoration:none}
+    .footnote a:hover{text-decoration:underline}
+
+    /* Complementos */
+    .faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+    .faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+    .hr{margin:18px 0;border:none;border-top:1px solid #e6edf7}
   </style>
 </head>
 <body>
@@ -82,17 +90,32 @@
   <article class="card">
     <h2>Como ativar verificação em duas etapas no WhatsApp</h2>
     <div class="meta"><span>🕒 Leitura: 6–9 min</span><span>📅 <span id="dateBR"></span></span><span>🏷️ Categoria: WhatsApp</span></div>
-    <div class="pill">✅ Imagens + vídeo + transcrição (SEO forte)</div>
-
+    
     <figure>
       <img class="img" src="../assets/img/verificacao-em-duas-etapas-no-whatapp/whatsapp-2fa-capa.png.jpg" alt="Ilustração sobre segurança no WhatsApp com verificação em duas etapas" loading="lazy">
       <figcaption>Ativar o PIN (2 etapas) é uma das melhores proteções contra clonagem.</figcaption>
     </figure>
 
+    <!-- Complemento: por que isso importa -->
+    <div class="callout warn">
+      A verificação em duas etapas do WhatsApp não é “código por SMS”. É um <strong>PIN extra</strong> que dificulta muito a clonagem,
+      principalmente no golpe do <strong>código de 6 dígitos</strong> e no falso suporte.
+    </div>
+
+    <div class="callout">
+      Se alguém te pedir <strong>código</strong>, <strong>PIN</strong> ou disser que é “suporte” com pressa… pare.
+      Leia também: <a href="./golpes-no-whatsapp-os-mais-comuns.html" style="color:#0a1f44;font-weight:900">Golpes no WhatsApp</a> •
+      <a href="./engenharia-social-como-os-golpistas-te-manipulam.html" style="color:#0a1f44;font-weight:900">Engenharia social</a>.
+    </div>
+
     <div class="toc">
       <a href="#passo">Passo a passo</a>
+      <a href="#pin">PIN forte</a>
+      <a href="#erros">Erros comuns</a>
       <a href="#video">Vídeo</a>
       <a href="#checklist">Checklist</a>
+      <a href="#se-caiu">Se suspeitar de clonagem</a>
+      <a href="#faq">FAQ</a>
       <a href="#transcricao">Transcrição</a>
     </div>
 
@@ -109,14 +132,41 @@
 
     <div class="callout warn">Nunca passe código/PIN pra ninguém. Suporte oficial não pede isso.</div>
 
+    <hr class="hr"/>
+
+    <h3 id="pin">Como criar um PIN forte (sem complicar)</h3>
+    <ul>
+      <li>Evite datas (aniversário, casamento), sequências (123456) e padrões (111111).</li>
+      <li>Use um PIN que você <strong>lembra</strong>, mas que outras pessoas não adivinham.</li>
+      <li>Não anote em bloco de notas “WhatsApp PIN: 123456”. Se for anotar, use um gerenciador de senhas.</li>
+    </ul>
+
+    <div class="callout">
+      Dica prática: se você usa o WhatsApp para trabalho/atendimento, trate seu WhatsApp como “conta bancária”.
+      Ele vale dinheiro.
+    </div>
+
+    <h3 id="erros">Erros comuns que fazem a pessoa perder a conta</h3>
+    <ul>
+      <li><strong>Ativar PIN e não colocar e-mail</strong>: se esquecer o PIN, você fica sem saída.</li>
+      <li><strong>Compartilhar código</strong> (SMS/6 dígitos): isso é login, não “confirmação”.</li>
+      <li><strong>Acreditar em falso suporte</strong>: WhatsApp não manda DM pedindo dados.</li>
+      <li><strong>PIN óbvio</strong>: golpistas tentam padrões e datas.</li>
+    </ul>
+
+    <div class="callout warn">
+      O e-mail de recuperação é obrigatório na prática. Sem ele, “esqueci o PIN” vira dor de cabeça séria.
+    </div>
+
     <h3 id="video">Vídeo (opcional)</h3>
     <div class="video">
-      <!-- Substitua SUBSTITUA_ID pelo ID do YouTube quando você tiver o link -->
-      <iframe src="https://www.youtube.com/embed/iQGNvHxUkfI?autoplay=1"
+      <iframe src="https://www.youtube.com/embed/iQGNvHxUkfI?autoplay=1&mute=1&rel=0&playsinline=1"
         title="Como ativar verificação em duas etapas no WhatsApp" loading="lazy"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>
     </div>
+
+    <div class="callout">Se o vídeo não tocar com som, é normal. Autoplay com áudio costuma ser bloqueado.</div>
 
     <h3 id="checklist">Checklist rápido</h3>
     <figure>
@@ -130,6 +180,49 @@
       <li>Desconfie de “suporte” pedindo código.</li>
       <li>Bloqueie tentativas e avise família.</li>
     </ul>
+
+    <!-- Complemento: checklist extra -->
+    <div class="callout">
+      <strong>Checklist extra (recomendado):</strong><br>
+      • Ative bloqueio de tela no celular (senha/biometria)<br>
+      • Atualize WhatsApp e sistema do aparelho<br>
+      • Evite instalar “WhatsApp modificado” (GB/Plus etc.)<br>
+      • Desconfie de links e use: <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Identificador de links</a>
+    </div>
+
+    <hr class="hr"/>
+
+    <h3 id="se-caiu">Se você suspeitar de clonagem (ação rápida)</h3>
+    <ul>
+      <li><strong>Se você ainda está logado:</strong> ative o PIN agora e revise e-mail de recuperação.</li>
+      <li><strong>Se caiu e perdeu acesso:</strong> tente entrar novamente com seu número e aguarde o SMS/ligação de verificação.</li>
+      <li><strong>Avise seus contatos</strong> (principalmente família e clientes): “não façam PIX, minha conta pode ter sido clonada”.</li>
+      <li><strong>Se houve golpe financeiro:</strong> contate o banco no canal oficial imediatamente.</li>
+    </ul>
+
+    <div class="callout warn">
+      Golpistas usam sua conta para pedir dinheiro aos seus contatos. Quanto mais rápido você avisa, menor o prejuízo.
+    </div>
+
+    <h3 id="faq">FAQ rápido</h3>
+    <div class="faq">
+      <details>
+        <summary>Verificação em duas etapas é a mesma coisa que “código por SMS”?</summary>
+        <p>Não. O SMS é a verificação inicial do número. A verificação em duas etapas adiciona um <strong>PIN extra</strong> que protege sua conta em cenários críticos.</p>
+      </details>
+      <details>
+        <summary>Se eu esquecer o PIN, perco a conta?</summary>
+        <p>Você pode recuperar, mas o <strong>e-mail de recuperação</strong> facilita muito. Por isso ele é tão importante.</p>
+      </details>
+      <details>
+        <summary>Suporte do WhatsApp pode pedir código ou PIN?</summary>
+        <p>Não. Se alguém pedir isso, trate como golpe.</p>
+      </details>
+      <details>
+        <summary>Esse PIN aparece toda hora?</summary>
+        <p>Ele pode ser solicitado periodicamente. É normal. A ideia é impedir que alguém “tome” sua conta sem você notar.</p>
+      </details>
+    </div>
 
     <h3 id="transcricao">Transcrição criada (roteiro educacional)</h3>
     <pre class="transcript">Fala pessoal! Hoje eu vou te mostrar como ativar a verificação em duas etapas no WhatsApp.
@@ -147,6 +240,15 @@ E lembra: golpista vive tentando pegar código e PIN. Suporte de verdade não pe
 Se alguém te chamar dizendo que é suporte e pedindo código: é golpe.
 
 Ativa isso hoje, e você já fica muito mais protegido.</pre>
+
+    <!-- Complemento: links internos no fim -->
+    <div class="actions">
+      <a class="btn btn-primary" href="../artigos.html">Voltar para Artigos</a>
+      <a class="btn" href="./golpes-no-whatsapp-os-mais-comuns.html">Ler: Golpes no WhatsApp</a>
+      <a class="btn" href="./como-identificar-link-falso.html">Ler: Link falso</a>
+      <a class="btn" href="../tools/links-falsos.html">Ferramenta: Identificador de links</a>
+    </div>
+
   </article>
 </div>
 
@@ -167,6 +269,7 @@ Ativa isso hoje, e você já fica muito mais protegido.</pre>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   const n=new Date(); document.getElementById("dateBR").textContent = String(n.getDate()).padStart(2,"0")+"/"+String(n.getMonth()+1).padStart(2,"0")+"/"+n.getFullYear();
+
   const btn=document.getElementById("toolsBtn"),menu=document.getElementById("toolsMenu");
   function closeMenu(){menu.style.display="none";btn.setAttribute("aria-expanded","false")}
   function toggleMenu(){const open=menu.style.display==="block";menu.style.display=open?"none":"block";btn.setAttribute("aria-expanded",String(!open))}
