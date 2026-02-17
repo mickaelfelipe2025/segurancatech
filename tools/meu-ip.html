@@ -1,96 +1,221 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rastreio de IP - Segurança Tech</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meu IP — Detalhes | Segurança Tech</title>
+  <meta name="color-scheme" content="light">
+
   <style>
-    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px}
+    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e8eef6}
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-    header{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
+    header.site{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
+    header.site h1{margin:0;font-size:22px}
+    header.site p{margin:6px 0 0;opacity:.92}
     nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
     nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px}
     nav a:hover{background:rgba(255,255,255,.10)}
     .container{max-width:980px;margin:0 auto;padding:22px 14px}
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    input{flex:1;min-width:220px;padding:12px 12px;border:1px solid #d7e1ef;border-radius:12px;font-size:16px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden}
+    .cardHead{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fbfdff}
+    .title{font-weight:950;font-size:14px}
+    .pill{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #d7e1ef;color:var(--muted);background:#fff;white-space:nowrap}
+    .pill.ok{background:#e8fff1;color:#0f7a3a;border-color:#c9f2da}
+    .pill.err{background:#ffecec;color:#b42318;border-color:#ffc9c9}
+    .content{padding:16px}
+    .grid{display:grid;grid-template-columns: 1.3fr .7fr;gap:14px}
+    @media (max-width:860px){.grid{grid-template-columns:1fr}}
+    .rowBtns{display:flex;gap:10px;flex-wrap:wrap}
     button{padding:12px 14px;border:0;border-radius:12px;background:#122c66;color:#fff;font-weight:800;cursor:pointer}
     button:hover{filter:brightness(1.05)}
-    pre{background:#0b1220;color:#e2e8f0;padding:14px;border-radius:14px;overflow:auto}
-    .muted{color:var(--muted);line-height:1.6}
+    button.secondary{background:#0a1f44}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    .bigip{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:34px;font-weight:900;letter-spacing:.6px;margin:0 0 6px;word-break:break-word}
+    .hint{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+    .kv{display:grid;grid-template-columns:160px 1fr;gap:10px 12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+    @media (max-width:520px){.kv{grid-template-columns:120px 1fr}}
+    .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.7px}
+    .v{font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;white-space:pre-wrap;word-break:break-word}
+    .note{margin-top:14px;color:var(--muted);font-size:12px;line-height:1.5}
+    .mini{display:grid;gap:14px}
+    .skeleton{height:12px;border-radius:999px;background:linear-gradient(90deg,#eef2ff,#f1f5f9,#eef2ff);background-size:200% 100%;animation:shimmer 1.2s infinite linear}
+    @keyframes shimmer{0%{background-position:0% 0}100%{background-position:200% 0}}
+    footer{margin-top:14px;color:var(--muted);font-size:12px;line-height:1.6}
+    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(255,255,255,.12);padding:10px 12px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
   </style>
 </head>
+
 <body>
-<header>
-  <h1>Rastreio de IP</h1>
-  <p>Consulta informações de um IP informado</p>
-</header>
+  <header class="site">
+    <h1>Meu IP</h1>
+    <p>Detalhes públicos do seu IP + informações do dispositivo</p>
+  </header>
 
-<nav>
-  <a href="../index.html">Home</a>
-  <a href="../sobre.html">Sobre</a>
-  <a href="../index.html">Ferramentas</a>
-</nav>
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../sobre.html">Sobre</a>
+    <a href="../index.html">Ferramentas</a>
+  </nav>
 
-<div class="container">
-  <div class="card">
-    <div class="row">
-      <input id="ip" placeholder="Digite o IP (ex: 8.8.8.8)"/>
-      <button id="btn">Consultar</button>
+  <div class="container">
+    <div class="grid">
+
+      <!-- Card principal -->
+      <section class="card">
+        <div class="cardHead">
+          <div class="title">IP Público</div>
+          <div id="statusPill" class="pill">Carregando…</div>
+        </div>
+
+        <div class="content">
+          <div class="rowBtns" style="justify-content:flex-end;margin-bottom:10px">
+            <button id="btnRefresh">Atualizar</button>
+            <button id="btnCopy" class="secondary">Copiar IP</button>
+          </div>
+
+          <p id="ip" class="bigip"><span class="skeleton" style="display:block;width:260px;height:34px;"></span></p>
+          <p id="ipHint" class="hint">Buscando dados do seu endereço IP…</p>
+
+          <div class="kv" id="kvMain" style="display:none">
+            <div class="k">Cidade / UF</div><div class="v" id="city"></div>
+            <div class="k">País</div><div class="v" id="country"></div>
+            <div class="k">ISP</div><div class="v" id="isp"></div>
+            <div class="k">ASN</div><div class="v" id="asn"></div>
+            <div class="k">Timezone</div><div class="v" id="tz"></div>
+            <div class="k">Geo</div><div class="v" id="geo"></div>
+          </div>
+
+          <p class="note">
+            Observação: detalhes como ISP/ASN/cidade dependem do que o provedor da API consegue resolver.
+          </p>
+
+          <footer>
+            Observação: esta página mostra apenas informações públicas. Localização é aproximada (pode variar com VPN/CGNAT).
+          </footer>
+        </div>
+      </section>
+
+      <!-- Coluna lateral -->
+      <aside class="mini">
+        <section class="card">
+          <div class="cardHead">
+            <div class="title">Dispositivo</div>
+            <div class="pill ok">Local</div>
+          </div>
+          <div class="content">
+            <div class="kv" style="margin-top:0;padding-top:0;border-top:0">
+              <div class="k">Data/Hora</div><div class="v" id="now"></div>
+              <div class="k">Idioma</div><div class="v" id="lang"></div>
+              <div class="k">Tela</div><div class="v" id="screen"></div>
+              <div class="k">User-Agent</div><div class="v" id="ua"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="cardHead">
+            <div class="title">Privacidade</div>
+            <div class="pill">Dica</div>
+          </div>
+          <div class="content">
+            <p class="hint" style="margin:0">
+              Se você estiver atrás de CGNAT/VPN, seu IP público pode mudar e a localização pode ficar “aproximada”.
+            </p>
+          </div>
+        </section>
+      </aside>
+
     </div>
-    <p class="muted">Use com responsabilidade. Localização é aproximada.</p>
-    <div id="out" class="muted" style="margin-top:10px"></div>
   </div>
-</div>
 
-<script>
-  const out = document.getElementById("out");
-  const ip = document.getElementById("ip");
+  <div class="toast" id="toast">Copiado!</div>
 
-  function isValidIP(v){
-    const s = (v||"").trim();
-    // IPv4 simples
-    const m = s.match(/^(\d{1,3}\.){3}\d{1,3}$/);
-    if(!m) return false;
-    return s.split(".").every(n => Number(n) >= 0 && Number(n) <= 255);
-  }
+  <script>
+    const $ = (id) => document.getElementById(id);
 
-  document.getElementById("btn").addEventListener("click", async () => {
-    const v = ip.value.trim();
-    if(!isValidIP(v)){
-      out.innerHTML = `<p style="color:#b42318"><strong>IP inválido.</strong> Digite um IPv4 válido (ex: 8.8.8.8).</p>`;
-      return;
+    function toast(msg){
+      const t = $("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 1400);
     }
 
-    out.textContent = "Consultando...";
-    try{
-      const r = await fetch(`https://ipapi.co/${encodeURIComponent(v)}/json/`);
-      if(!r.ok) throw new Error("Falha na consulta");
-      const d = await r.json();
-
-      out.innerHTML = `
-        <p><strong>IP:</strong> ${d.ip || v}</p>
-        <p><strong>Cidade/UF:</strong> ${(d.city||"—")} / ${(d.region||"—")}</p>
-        <p><strong>País:</strong> ${(d.country_name||d.country||"—")}</p>
-        <p><strong>Org/ISP:</strong> ${(d.org||"—")}</p>
-        <p><strong>ASN:</strong> ${(d.asn||"—")}</p>
-        <details style="margin-top:10px">
-          <summary style="cursor:pointer;font-weight:800">Ver JSON completo</summary>
-          <pre>${escapeHtml(JSON.stringify(d, null, 2))}</pre>
-        </details>
-      `;
-    }catch(e){
-      out.innerHTML = `<p style="color:#b42318"><strong>Erro:</strong> não foi possível consultar agora. Tente novamente.</p>`;
+    function setStatus(type, text){
+      const pill = $("statusPill");
+      pill.classList.remove("ok","err");
+      if(type) pill.classList.add(type);
+      pill.textContent = text;
     }
-  });
 
-  function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, s => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[s]));
-  }
-</script>
+    function setDeviceInfo(){
+      $("now").textContent = new Date().toLocaleString();
+      $("lang").textContent = navigator.language || "—";
+      $("screen").textContent = `${window.screen.width}×${window.screen.height} (devicePixelRatio ${window.devicePixelRatio || 1})`;
+      $("ua").textContent = navigator.userAgent || "—";
+    }
+
+    async function fetchJson(url){
+      const r = await fetch(url, { cache: "no-store" });
+      if(!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }
+
+    function safe(v){ return (v === undefined || v === null || v === "") ? "—" : String(v); }
+
+    async function loadIp(){
+      setDeviceInfo();
+      setStatus(null, "Carregando…");
+      $("kvMain").style.display = "none";
+      $("ip").innerHTML = '<span class="skeleton" style="display:block;width:260px;height:34px;"></span>';
+      $("ipHint").textContent = "Buscando dados do seu endereço IP…";
+
+      try{
+        const ipResp = await fetchJson("https://api.ipify.org?format=json");
+        const ip = ipResp.ip;
+
+        $("ip").textContent = ip;
+        $("ipHint").textContent = "Detalhes públicos (aproximados) do seu IP:";
+
+        const d = await fetchJson(`https://ipapi.co/${encodeURIComponent(ip)}/json/`);
+
+        $("city").textContent = `${safe(d.city)} / ${safe(d.region_code)}`;
+        $("country").textContent = `${safe(d.country_name)} (${safe(d.country_code)})`;
+        $("isp").textContent = safe(d.org);
+        $("asn").textContent = `${safe(d.asn)} ${d.asn ? "" : ""}`.trim();
+        $("tz").textContent = safe(d.timezone);
+        const lat = safe(d.latitude), lon = safe(d.longitude);
+        $("geo").textContent = (lat !== "—" && lon !== "—") ? `${lat}, ${lon}` : "—";
+
+        $("kvMain").style.display = "grid";
+        setStatus("ok", "OK");
+      }catch(err){
+        setStatus("err", "Falha");
+        $("ip").textContent = "—";
+        $("ipHint").textContent =
+          "Não consegui buscar seu IP agora (talvez bloqueio de rede/extensão). Clique em “Atualizar” e tente novamente.";
+        console.error(err);
+      }
+    }
+
+    $("btnRefresh").addEventListener("click", loadIp);
+
+    $("btnCopy").addEventListener("click", async () => {
+      const ip = $("ip").textContent.trim();
+      if(!ip || ip === "—"){ toast("Nada para copiar"); return; }
+      try{
+        await navigator.clipboard.writeText(ip);
+        toast("IP copiado!");
+      }catch{
+        toast("Não consegui copiar");
+      }
+    });
+
+    setInterval(()=>{ $("now").textContent = new Date().toLocaleString(); }, 10000);
+
+    loadIp();
+  </script>
 </body>
 </html>
