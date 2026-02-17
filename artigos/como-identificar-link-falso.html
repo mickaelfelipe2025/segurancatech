@@ -32,6 +32,27 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 .links a:hover{background:rgba(255,255,255,.08)}
 .footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
 .footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+
+/* ✅ ADIÇÃO: blocos extras (sem mudar tema) */
+.hr{height:1px;background:var(--line);margin:14px 0}
+.toc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.toc b{display:block;margin-bottom:8px;color:#0a1f44}
+.toc a{color:#0a1f44;font-weight:900;text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.kit{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px}
+.kit .box{grid-column:span 6;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.kit .box strong{color:#0a1f44}
+@media (max-width:860px){.kit .box{grid-column:span 12}}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px;line-height:1.5}
+.faq{margin-top:12px}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+.author{margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.author b{color:#0a1f44}
+.inline-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#0a1f44;font-weight:900;font-size:13px}
 </style></head><body>
 <header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
 <nav>
@@ -52,10 +73,31 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <h2>Como identificar link falso</h2>
 <div class="meta">Leitura: 6–8 min • Atualizado: 16/02/2026</div>
 
+<!-- ✅ ADIÇÃO: introdução prática + navegação interna -->
+<div class="callout">Objetivo deste guia: em <strong>20 segundos</strong> você vai conseguir olhar um link e decidir com segurança se é confiável ou se é golpe.</div>
+
+<div class="toc" aria-label="Sumário do artigo">
+  <b>Sumário rápido</b>
+  <div class="inline-links">
+    <a href="#dominio" class="badge">Domínio real</a>
+    <a href="#golpes" class="badge">Sinais clássicos</a>
+    <a href="#semclicar" class="badge">Verificar sem clicar</a>
+    <a href="#ja-cliquei" class="badge">Se já clicou</a>
+    <a href="#faq" class="badge">FAQ</a>
+  </div>
+</div>
+
 <p>Link falso é uma URL criada para te enganar. Ele pode abrir uma página clonada (igualzinha à original) ou um site malicioso que tenta roubar seus dados.</p>
 <div class="callout warn">Golpista não te vence no “texto”. Ele te vence no endereço.</div>
 
-<h3>Antes de tudo: encontre o domínio real</h3>
+<!-- ✅ ADIÇÃO: espaço ideal para imagem 1 -->
+<figure class="figure" aria-label="Imagem sugerida: anatomia de uma URL">
+  <!-- Coloque aqui uma imagem baixada (ex.: Anatomy-of-a-URL.jpg) -->
+  <!-- <img src="../img/anatomy-url.jpg" alt="Diagrama mostrando as partes de uma URL (protocolo, domínio e caminho)"> -->
+  <figcaption><strong>Sugestão de imagem:</strong> um diagrama simples mostrando protocolo, domínio e caminho (coloque aqui para o leitor “visualizar”).</figcaption>
+</figure>
+
+<h3 id="dominio">Antes de tudo: encontre o domínio real</h3>
 <p>O <strong>domínio</strong> é o “nome do site” (a parte que manda). Ele vem logo antes da primeira barra <strong>/</strong>.</p>
 
 <ul>
@@ -72,7 +114,19 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <li><strong>Caminho:</strong> /login</li>
 </ul>
 
-<h3>1) Domínio parecido (letras trocadas) é clássico</h3>
+<!-- ✅ ADIÇÃO: mini “kit de decisão” -->
+<div class="kit" aria-label="Kit rápido de decisão">
+  <div class="box">
+    <strong>✅ Regra 1:</strong> olhe o domínio primeiro<br/>
+    <span style="color:#475569;line-height:1.6">Ignore o “texto bonito” do golpe. A verdade está no domínio (a parte final antes da primeira /).</span>
+  </div>
+  <div class="box">
+    <strong>✅ Regra 2:</strong> se houver dúvida, não clique<br/>
+    <span style="color:#475569;line-height:1.6">Quando o link parece “esquisito”, o método seguro é: abrir o app oficial ou digitar o site oficial.</span>
+  </div>
+</div>
+
+<h3 id="golpes">1) Domínio parecido (letras trocadas) é clássico</h3>
 <p>Golpes usam pequenas trocas que passam batido no olho, principalmente no celular:</p>
 <ul>
 <li>Letra trocada: <strong>micros0ft.com</strong> (zero no lugar de “o”)</li>
@@ -81,6 +135,14 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 </ul>
 
 <div class="callout warn">Se você tiver que “pensar demais” pra acreditar no link, não clique.</div>
+
+<!-- ✅ ADIÇÃO: sinais que quase sempre aparecem em golpe -->
+<div class="callout">
+<strong>Sinais muito comuns em links falsos:</strong><br/>
+• “Conta bloqueada”, “urgente”, “última chance”, “multa”, “taxa”, “confirme agora”<br/>
+• Pedido de <strong>senha</strong>, <strong>código SMS</strong>, <strong>token</strong>, <strong>chave</strong> ou “verificação” fora do app oficial<br/>
+• Mensagem “boa demais”: prêmio, reembolso, bônus, desconto absurdo
+</div>
 
 <h3>2) Cuidado com subdomínio enganador</h3>
 <p>Golpistas colocam o nome do site verdadeiro antes do domínio falso pra confundir:</p>
@@ -93,10 +155,21 @@ footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%
 <li><strong>real:</strong> seguranca-login.site</li>
 </ul>
 
+<!-- ✅ ADIÇÃO: dica avançada (sem complicar) -->
+<div class="callout">
+<strong>Dica importante:</strong> no celular, às vezes o link aparece “cortado”. Sempre que puder, <strong>copie o link</strong> e cole em um bloco de notas para enxergar o domínio completo.
+</div>
+
 <h3>3) HTTPS ajuda, mas não garante</h3>
 <p>O cadeado (HTTPS) significa que a conexão é criptografada, mas <strong>site falso também pode ter cadeado</strong>. Então use o HTTPS como “bônus”, não como prova.</p>
 
 <div class="callout warn">Cadeado ≠ site verdadeiro. Domínio oficial ≠ golpe.</div>
+
+<!-- ✅ ADIÇÃO: espaço ideal para imagem 2 -->
+<figure class="figure" aria-label="Imagem sugerida: cadeado/https">
+  <!-- <img src="../img/padlock.svg" alt="Ícone de cadeado representando HTTPS"> -->
+  <figcaption><strong>Sugestão de imagem:</strong> um ícone de cadeado/HTTPS para reforçar a ideia “cuidado: cadeado não prova legitimidade”.</figcaption>
+</figure>
 
 <h3>4) Encurtadores: melhor evitar</h3>
 <p>Links como <strong>bit.ly</strong>, <strong>tinyurl</strong> e similares escondem o destino real. Se chegou por WhatsApp, e-mail ou SMS, desconfie.</p>
@@ -125,6 +198,30 @@ style="border-radius:12px"></iframe>
 
 <div class="callout warn">Se o vídeo não iniciar sozinho em alguns celulares, é normal: alguns navegadores bloqueiam autoplay. Por isso usamos <strong>mute=1</strong>, que é o padrão permitido.</div>
 
+<!-- ✅ ADIÇÃO: COMO VER O LINK SEM CLICAR (WhatsApp/Instagram/PC) -->
+<div class="hr"></div>
+<h3 id="semclicar">Como verificar um link <strong>sem clicar</strong> (celular e PC)</h3>
+
+<div class="callout"><strong>Regra de segurança:</strong> “pré-visualizar” é melhor do que abrir. Se você não consegue ver o destino real, trate como suspeito.</div>
+
+<ul>
+  <li><strong>No WhatsApp:</strong> pressione e segure a mensagem do link → toque em <strong>Copiar</strong> → cole em uma nota/bloco de notas e procure o <strong>domínio</strong> (a parte final antes da primeira “/”).</li>
+  <li><strong>No Instagram/Redes sociais:</strong> desconfie de “arrasta pra cima”/link na bio quando a conta é recente ou está com comportamento estranho. Prefira digitar o site oficial no navegador.</li>
+  <li><strong>No PC:</strong> passe o mouse sobre o link (sem clicar) e observe o endereço no canto do navegador. Se o domínio não for o oficial, é golpe.</li>
+</ul>
+
+<div class="callout">
+<strong>Quando o link vem de “suporte”:</strong> banco, operadora e serviços grandes raramente pedem senha/código via chat. Se pediram, <strong>encerre</strong> e procure o canal oficial.
+</div>
+
+<!-- ✅ ADIÇÃO: links internos para suas ferramentas (aumenta tempo no site) -->
+<div class="callout">
+<strong>Ferramentas do Segurança Tech que ajudam aqui:</strong><br/>
+• <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Identificador de links falsos</a><br/>
+• <a href="../tools/meu-ip.html" style="color:#0a1f44;font-weight:900">Meu IP (detalhes)</a> • <a href="../tools/rastreio-ip.html" style="color:#0a1f44;font-weight:900">Rastreio de IP</a><br/>
+• <a href="../tools/meu-asn.html" style="color:#0a1f44;font-weight:900">Meu ASN</a>
+</div>
+
 <h3>Checklist de 20 segundos (use antes de clicar)</h3>
 <ul>
 <li>Chegou do nada? <strong>(alerta)</strong></li>
@@ -134,13 +231,66 @@ style="border-radius:12px"></iframe>
 <li>Estão pedindo senha, código, token ou “confirmação”? <strong>(🚫 golpe)</strong></li>
 </ul>
 
-<h3>O que fazer se você já clicou</h3>
+<!-- ✅ ADIÇÃO: checklist expandido (sem substituir o seu) -->
+<div class="callout">
+<strong>Checklist extra (30–40s, quando você quer ter certeza):</strong><br/>
+• O link usa encurtador? (bit.ly/tinyurl) → <strong>suspeito</strong><br/>
+• O domínio tem números/letras estranhas? (ex.: “0” no lugar de “o”) → <strong>suspeito</strong><br/>
+• O site pede dados sensíveis fora do app oficial? → <strong>golpe</strong><br/>
+• A mensagem tenta te deixar com medo/pressa? → <strong>tática de engenharia social</strong>
+</div>
+
+<h3 id="ja-cliquei">O que fazer se você já clicou</h3>
 <ul>
 <li><strong>Não digite</strong> senha/código.</li>
 <li>Feche a página e <strong>limpe o histórico</strong> (opcional, mas recomendado).</li>
 <li>Se colocou senha: <strong>troque imediatamente</strong> e ative <strong>2FA</strong>.</li>
 <li>Se foi banco: <strong>entre no app oficial</strong> e verifique acessos/transações.</li>
 </ul>
+
+<!-- ✅ ADIÇÃO: mitigação mais completa -->
+<div class="callout warn">
+<strong>Se você digitou senha/código no site falso:</strong><br/>
+1) Troque a senha agora (de preferência em outro dispositivo).<br/>
+2) Ative a verificação em duas etapas (2FA).<br/>
+3) Revogue sessões/dispositivos conectados (quando o serviço permite).<br/>
+4) Se for banco: contate o suporte oficial e registre ocorrência, se necessário.
+</div>
+
+<!-- ✅ ADIÇÃO: bloco de credibilidade (EEAT) -->
+<div class="author" aria-label="Sobre o autor">
+  <b>Sobre o autor:</b> Eu sou <strong>Mickael Felipe</strong>, <strong>Supervisor Técnico de Operações</strong> em um provedor de internet. No dia a dia eu acompanho rotinas de rede, incidentes e atendimento técnico — e trago aqui dicas práticas para você reconhecer golpes e evitar cair em páginas falsas.
+</div>
+
+<!-- ✅ ADIÇÃO: FAQ (ajuda muito no SEO + AdSense) -->
+<div class="hr"></div>
+<h3 id="faq">Perguntas frequentes (FAQ)</h3>
+<div class="faq">
+  <details>
+    <summary>HTTPS (cadeado) significa que o site é confiável?</summary>
+    <p>Não. HTTPS só indica que a conexão é criptografada. Golpistas também conseguem colocar HTTPS. O que manda é o <strong>domínio oficial</strong> e o comportamento do site (pedido de dados sensíveis, urgência, etc.).</p>
+  </details>
+
+  <details>
+    <summary>Como eu descubro o domínio real quando o link é muito grande?</summary>
+    <p>Copie o link e cole em um bloco de notas para enxergar inteiro. O domínio é a parte principal antes da primeira “/” e geralmente fica no “final” do endereço quando há subdomínios enganadores.</p>
+  </details>
+
+  <details>
+    <summary>Encurtadores (bit.ly) são sempre golpe?</summary>
+    <p>Não são sempre, mas são um risco porque escondem o destino real. Se o link veio de mensagem inesperada, promoção boa demais ou “suporte”, trate como suspeito e prefira digitar o site oficial.</p>
+  </details>
+
+  <details>
+    <summary>O que é subdomínio e por que ele engana?</summary>
+    <p>Subdomínio é a parte antes do domínio principal (ex.: <strong>seguranca.exemplo.com</strong>). Golpistas colocam palavras “confiáveis” antes do domínio falso para confundir. Por isso, o que manda é o domínio no final.</p>
+  </details>
+
+  <details>
+    <summary>Se eu já cliquei, meu celular/PC está infectado?</summary>
+    <p>Nem sempre. Muitas vezes o golpe tenta apenas te fazer digitar dados. Mas se o site pediu download, extensão ou aplicativo, o risco aumenta. Feche, não instale nada e siga o passo a passo de troca de senha/2FA.</p>
+  </details>
+</div>
 
 <div class="actions">
 <a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
