@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Verificador de Senha | Segurança Tech</title>
+  <meta name="description" content="Verifique se uma senha apareceu em vazamentos (k-anonymity), veja a força e gere senhas fortes. Tudo local, sem salvar dados." />
+  <meta name="color-scheme" content="light">
+
+  <style>
+    :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e8eef6;--brand:#122c66;--ok:#0f7a3a;--warn:#8a5b00;--bad:#b42318}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    header.site{background:var(--header);color:#fff;padding:22px 16px;text-align:center}
+    header.site h1{margin:0;font-size:22px}
+    header.site p{margin:6px 0 0;opacity:.92}
+    nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+    nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.10)}
+    .wrap{max-width:860px;margin:0 auto;padding:22px 14px 60px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #d7e1ef;border-radius:999px;color:var(--muted);background:#fff;font-size:12px;white-space:nowrap}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+    .tabs{display:flex;gap:8px;margin-bottom:12px}
+    .tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 12px;font-weight:800;font-size:13px;color:var(--muted);cursor:pointer}
+    .tab.active{color:var(--text);border-color:rgba(18,44,102,.25);box-shadow:0 0 0 4px rgba(18,44,102,.10)}
+    label{display:block;margin:10px 0 8px;font-size:13px;color:var(--muted);font-weight:700}
+    input[type="password"], input[type="text"], input[type="number"]{width:100%;border:1px solid #d7e1ef;background:#fff;color:var(--text);border-radius:12px;padding:12px 12px;font-size:14px;outline:none}
+    input:focus{border-color:rgba(18,44,102,.35);box-shadow:0 0 0 4px rgba(18,44,102,.12)}
+    .row{display:flex;gap:10px;align-items:stretch;margin-top:8px}
+    @media (max-width:560px){.row{flex-direction:column}}
+    .btn{border:0;border-radius:12px;padding:11px 12px;font-weight:900;background:var(--brand);color:#fff;cursor:pointer;min-width:160px}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .btn.secondary{background:#fff;color:var(--text);border:1px solid var(--line);font-weight:800;min-width:unset}
+    .opts,.toggles{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:10px;color:var(--muted);font-size:13px}
+    .opts label,.toggles label{margin:0;font-weight:700;display:flex;gap:8px;align-items:center;cursor:pointer}
+    .meterWrap{margin-top:14px;border:1px solid var(--line);border-radius:999px;height:10px;overflow:hidden;background:#f1f5f9}
+    .meterBar{height:100%;width:0%;background:var(--brand);transition:width .2s ease}
+    .kpis{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .kpis .pill{background:#f8fafc}
+    .checklist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    @media (max-width:700px){.checklist{grid-template-columns:1fr}}
+    .check{border:1px solid var(--line);border-radius:12px;padding:10px 10px;display:flex;justify-content:space-between;gap:10px;background:#fff;font-size:13px;color:var(--muted)}
+    .check b{color:var(--text)}
+    .ok{color:var(--ok);font-weight:900}
+    .bad{color:var(--bad);font-weight:900}
+    .status{margin-top:12px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px}
+    .statusTitle{font-weight:950;margin:0 0 6px;font-size:14px}
+    .statusTitle.good{color:var(--ok)}
+    .statusTitle.warn{color:var(--warn)}
+    .statusTitle.bad{color:var(--bad)}
+    .mono{margin-top:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:11px;color:#475569;word-break:break-all;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+    .muted{color:var(--muted);font-size:12px;line-height:1.45}
+    .section{display:none}
+    .section.active{display:block}
+    .genGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width:560px){.genGrid{grid-template-columns:1fr}}
+    .toast{position:fixed;right:14px;bottom:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:12px;padding:10px 12px;font-size:13px;color:var(--text);display:none;max-width:360px}
+    .toast.show{display:block}
+    .footer{margin-top:14px;color:var(--muted);font-size:12px;line-height:1.6}
+  </style>
+</head>
+
+<body>
+  <header class="site">
+    <h1>Verificador de Senha</h1>
+    <p>Vazamento (k-anonymity) + força + gerador • Tudo local</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../sobre.html">Sobre</a>
+    <a href="../index.html">Ferramentas</a>
+  </nav>
+
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+      <div class="pill">🔒 Sem salvar dados</div>
+    </div>
+
+    <div class="card">
+      <div class="tabs">
+        <button id="tabCheck" class="tab active">Verificar</button>
+        <button id="tabGen" class="tab">Gerar senha</button>
+      </div>
+
+      <div id="secCheck" class="section active">
+        <label for="pw">Senha</label>
+        <div class="row">
+          <input id="pw" type="password" placeholder="Digite a senha para verificar" autocomplete="off" spellcheck="false" />
+          <button id="btnCheck" class="btn">Verificar</button>
+        </div>
+
+        <div class="opts">
+          <label><input id="show" type="checkbox" /> Mostrar</label>
+          <label><input id="autoClear" type="checkbox" checked /> Limpar após verificar</label>
+        </div>
+
+        <label style="margin-top:14px;">Força</label>
+        <div class="meterWrap"><div id="meterBar" class="meterBar"></div></div>
+
+        <div class="kpis">
+          <span class="pill">Nível: <b id="levelTxt">—</b></span>
+          <span class="pill">Entropia: <b id="entropyTxt">—</b></span>
+          <span class="pill">Tamanho: <b id="lenTxt">0</b></span>
+        </div>
+
+        <div class="checklist">
+          <div class="check"><span><b>14+ caracteres</b></span><span id="c_len14" class="bad">✗</span></div>
+          <div class="check"><span><b>Maiúscula</b></span><span id="c_upper" class="bad">✗</span></div>
+          <div class="check"><span><b>Minúscula</b></span><span id="c_lower" class="bad">✗</span></div>
+          <div class="check"><span><b>Número</b></span><span id="c_digit" class="bad">✗</span></div>
+          <div class="check"><span><b>Símbolo</b></span><span id="c_symbol" class="bad">✗</span></div>
+          <div class="check"><span><b>Sem espaços</b></span><span id="c_space" class="bad">✗</span></div>
+        </div>
+
+        <div id="status" class="status" style="display:none;">
+          <div id="statusTitle" class="statusTitle">—</div>
+          <div id="statusBody" class="muted"></div>
+          <div id="hashinfo" class="mono" style="display:none;"></div>
+        </div>
+
+        <div class="footer">
+          Dica: se aparecer vazada, troque por uma senha longa e única e ative 2FA.
+        </div>
+      </div>
+
+      <div id="secGen" class="section">
+        <div class="genGrid">
+          <div>
+            <label for="gLen">Tamanho</label>
+            <input id="gLen" type="number" min="8" max="64" value="18" />
+          </div>
+          <div>
+            <label for="gMinSymbols">Mínimo de símbolos</label>
+            <input id="gMinSymbols" type="number" min="0" max="10" value="2" />
+          </div>
+        </div>
+
+        <div class="toggles">
+          <label><input id="gUpper" type="checkbox" checked /> Maiúsculas</label>
+          <label><input id="gLower" type="checkbox" checked /> Minúsculas</label>
+          <label><input id="gDigits" type="checkbox" checked /> Números</label>
+          <label><input id="gSymbols" type="checkbox" checked /> Símbolos</label>
+          <label><input id="gNoAmb" type="checkbox" checked /> Evitar ambíguos</label>
+        </div>
+
+        <label for="out" style="margin-top:12px;">Senha gerada</label>
+        <div class="row">
+          <input id="out" type="text" readonly />
+          <button id="btnCopy" class="btn secondary">Copiar</button>
+        </div>
+
+        <div class="row" style="margin-top:10px;">
+          <button id="btnGen" class="btn">Gerar</button>
+          <button id="btnUse" class="btn secondary">Usar no verificador</button>
+        </div>
+
+        <div class="footer">
+          Tudo é gerado localmente no navegador. Nada é armazenado.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script>
+  /* SEU JS ORIGINAL INTACTO */
+  const $ = (id) => document.getElementById(id);
+
+  const tabCheck = $("tabCheck");
+  const tabGen   = $("tabGen");
+  const secCheck = $("secCheck");
+  const secGen   = $("secGen");
+
+  function setTab(which){
+    const isCheck = which === "check";
+    tabCheck.classList.toggle("active", isCheck);
+    tabGen.classList.toggle("active", !isCheck);
+    secCheck.classList.toggle("active", isCheck);
+    secGen.classList.toggle("active", !isCheck);
+  }
+  tabCheck.addEventListener("click", () => setTab("check"));
+  tabGen.addEventListener("click", () => setTab("gen"));
+
+  const toast = $("toast");
+  let toastTimer = null;
+  function pop(msg){
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>toast.classList.remove("show"), 1500);
+  }
+
+  const pwInput   = $("pw");
+  const btnCheck  = $("btnCheck");
+  const show      = $("show");
+  const autoClear = $("autoClear");
+
+  const meterBar  = $("meterBar");
+  const levelTxt  = $("levelTxt");
+  const entropyTxt= $("entropyTxt");
+  const lenTxt    = $("lenTxt");
+
+  const c_len14 = $("c_len14");
+  const c_upper = $("c_upper");
+  const c_lower = $("c_lower");
+  const c_digit = $("c_digit");
+  const c_symbol= $("c_symbol");
+  const c_space = $("c_space");
+
+  const status     = $("status");
+  const statusTitle= $("statusTitle");
+  const statusBody = $("statusBody");
+  const hashinfo   = $("hashinfo");
+
+  show.addEventListener("change", () => {
+    pwInput.type = show.checked ? "text" : "password";
+  });
+
+  pwInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") btnCheck.click();
+  });
+
+  function setStatus(kind, title, body, hashLine){
+    status.style.display = "block";
+    statusTitle.textContent = title;
+    statusTitle.className = "statusTitle " + (kind || "");
+    statusBody.innerHTML = body || "";
+    if (hashLine){
+      hashinfo.style.display = "block";
+      hashinfo.textContent = hashLine;
+    } else {
+      hashinfo.style.display = "none";
+      hashinfo.textContent = "";
+    }
+  }
+
+  function toHex(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let hex = "";
+    for (const b of bytes) hex += b.toString(16).padStart(2, "0");
+    return hex.toUpperCase();
+  }
+  async function sha1(text) {
+    const enc = new TextEncoder().encode(text);
+    const buf = await crypto.subtle.digest("SHA-1", enc);
+    return toHex(buf);
+  }
+  function parseRange(text) {
+    const map = new Map();
+    const lines = text.split(/\r?\n/);
+    for (const line of lines) {
+      if (!line) continue;
+      const [suffix, count] = line.split(":");
+      if (suffix && count) map.set(suffix.trim(), parseInt(count.trim(), 10));
+    }
+    return map;
+  }
+
+  function strength(pw){
+    const len = pw.length;
+    const hasUpper = /[A-Z]/.test(pw);
+    const hasLower = /[a-z]/.test(pw);
+    const hasDigit = /\d/.test(pw);
+    const hasSymbol= /[^A-Za-z0-9\s]/.test(pw);
+    const hasSpace = /\s/.test(pw);
+
+    let pool = 0;
+    if (hasLower) pool += 26;
+    if (hasUpper) pool += 26;
+    if (hasDigit) pool += 10;
+    if (hasSymbol) pool += 33;
+    if (hasSpace) pool += 1;
+
+    const log2 = (x)=>Math.log(x)/Math.log(2);
+    const entropy = (pool > 0 && len > 0) ? (len * log2(pool)) : 0;
+
+    let penalty = 0;
+    if (/^[A-Za-z]+$/.test(pw)) penalty += 10;
+    if (/^\d+$/.test(pw)) penalty += 15;
+    if (/(.)\1{2,}/.test(pw)) penalty += 10;
+    if (/1234|2345|3456|4567|5678|6789|0123/.test(pw)) penalty += 12;
+    if (/qwer|asdf|zxcv/i.test(pw)) penalty += 10;
+    if (len < 12) penalty += 12;
+    if (len < 8) penalty += 25;
+
+    const score = Math.max(0, Math.min(100, Math.round((entropy * 1.2) - penalty)));
+
+    let level = "Fraca";
+    if (score >= 80) level = "Muito forte";
+    else if (score >= 60) level = "Forte";
+    else if (score >= 40) level = "Média";
+
+    return {len, entropy, score, level, hasUpper, hasLower, hasDigit, hasSymbol, noSpace: !hasSpace};
+  }
+
+  function mark(el, ok){
+    el.textContent = ok ? "✓" : "✗";
+    el.className = ok ? "ok" : "bad";
+  }
+
+  function updateMeter(){
+    const pw = pwInput.value || "";
+    const st = strength(pw);
+
+    meterBar.style.width = `${st.score}%`;
+    levelTxt.textContent = pw.length ? st.level : "—";
+    entropyTxt.textContent = pw.length ? `${Math.round(st.entropy)} bits` : "—";
+    lenTxt.textContent = String(st.len);
+
+    mark(c_len14, st.len >= 14);
+    mark(c_upper, st.hasUpper);
+    mark(c_lower, st.hasLower);
+    mark(c_digit, st.hasDigit);
+    mark(c_symbol, st.hasSymbol);
+    mark(c_space, st.noSpace);
+  }
+  pwInput.addEventListener("input", updateMeter);
+  updateMeter();
+
+  async function checkPassword(){
+    const pw = pwInput.value || "";
+    if (!pw.length){
+      setStatus("warn", "Digite uma senha para verificar.", "Nada é enviado. O cálculo do hash é local.");
+      return;
+    }
+
+    btnCheck.disabled = true;
+    setStatus("warn", "Verificando…", "Calculando hash local e consultando o range…");
+
+    try{
+      const fullHash = await sha1(pw);
+      const prefix = fullHash.slice(0,5);
+      const suffix = fullHash.slice(5);
+
+      const res = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`, {
+        headers: { "Add-Padding": "true" }
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const body = await res.text();
+      const map = parseRange(body);
+      const count = map.get(suffix) || 0;
+
+      if (count > 0){
+        setStatus(
+          "bad",
+          "⚠️ Encontrada em vazamentos",
+          `Essa senha apareceu <b>${count.toLocaleString("pt-BR")}</b> vez(es). Troque agora por uma senha longa e única.`,
+          `SHA-1 local: ${fullHash} | Enviado: prefixo ${prefix}*****`
+        );
+      } else {
+        setStatus(
+          "good",
+          "✅ Não encontrada (bom sinal)",
+          "Não apareceu na base consultada. Mesmo assim, use senha longa e única + 2FA.",
+          `SHA-1 local: ${fullHash} | Enviado: prefixo ${prefix}*****`
+        );
+      }
+
+      if (autoClear.checked){
+        pwInput.value = "";
+        updateMeter();
+        pop("Campo limpo ✅");
+      }
+
+    }catch(err){
+      setStatus("warn", "Falha na consulta", `Erro: ${String(err.message || err)}. Tente novamente.`);
+    }finally{
+      btnCheck.disabled = false;
+    }
+  }
+  btnCheck.addEventListener("click", checkPassword);
+
+  const gLen        = $("gLen");
+  const gMinSymbols = $("gMinSymbols");
+  const gUpper      = $("gUpper");
+  const gLower      = $("gLower");
+  const gDigits     = $("gDigits");
+  const gSymbols    = $("gSymbols");
+  const gNoAmb      = $("gNoAmb");
+  const out         = $("out");
+  const btnGen      = $("btnGen");
+  const btnCopy     = $("btnCopy");
+  const btnUse      = $("btnUse");
+
+  const AMB = new Set(["O","0","I","l","1"]);
+
+  function randInt(max){
+    const a = new Uint32Array(1);
+    crypto.getRandomValues(a);
+    return a[0] % max;
+  }
+  function pick(s){ return s[randInt(s.length)]; }
+  function shuffle(arr){
+    for (let i=arr.length-1; i>0; i--){
+      const j = randInt(i+1);
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function buildPools(){
+    let upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let lower="abcdefghijklmnopqrstuvwxyz";
+    let digits="0123456789";
+    let sym="!@#$%^&*()-_=+[]{};:,.<>?/|~";
+
+    if (gNoAmb.checked){
+      upper=[...upper].filter(c=>!AMB.has(c)).join("");
+      lower=[...lower].filter(c=>!AMB.has(c)).join("");
+      digits=[...digits].filter(c=>!AMB.has(c)).join("");
+    }
+
+    const pools=[];
+    if (gUpper.checked) pools.push(upper);
+    if (gLower.checked) pools.push(lower);
+    if (gDigits.checked) pools.push(digits);
+    if (gSymbols.checked) pools.push(sym);
+
+    return {upper,lower,digits,sym,pools,all:pools.join("")};
+  }
+
+  function generate(){
+    const L = Math.max(8, Math.min(64, parseInt(gLen.value || "18",10)));
+    const minSym = Math.max(0, Math.min(10, parseInt(gMinSymbols.value || "0",10)));
+
+    const {upper,lower,digits,sym,pools,all} = buildPools();
+    if (!pools.length) return "";
+
+    const arr=[];
+    if (gUpper.checked) arr.push(pick(upper));
+    if (gLower.checked) arr.push(pick(lower));
+    if (gDigits.checked) arr.push(pick(digits));
+    if (gSymbols.checked){
+      for (let i=0;i<minSym;i++) arr.push(pick(sym));
+    }
+
+    while (arr.length < L) arr.push(pick(all));
+    return shuffle(arr).slice(0,L).join("");
+  }
+
+  function refresh(){
+    const pw = generate();
+    if (!pw){
+      out.value="";
+      pop("Selecione ao menos um conjunto.");
+      return;
+    }
+    out.value = pw;
+    pop("Senha gerada ✅");
+  }
+
+  btnGen.addEventListener("click", refresh);
+
+  btnCopy.addEventListener("click", async ()=>{
+    if (!out.value) return pop("Gere uma senha primeiro.");
+    try{
+      await navigator.clipboard.writeText(out.value);
+      pop("Copiado ✅");
+    }catch{
+      out.select();
+      document.execCommand("copy");
+      pop("Copiado ✅");
+    }
+  });
+
+  btnUse.addEventListener("click", ()=>{
+    if (!out.value) return pop("Gere uma senha primeiro.");
+    setTab("check");
+    pwInput.value = out.value;
+    updateMeter();
+    pop("Aplicada no verificador ✅");
+  });
+
+  refresh();
+</script>
+</body>
+</html>
