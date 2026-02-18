@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Wi-Fi Falso (Evil Twin): como funciona e como evitar — Segurança Tech</title>
+<meta name="description" content="Entenda o que é um Wi-Fi falso (Evil Twin Attack), como os criminosos interceptam seus dados e como se proteger em redes públicas."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://segurancatech.com.br/artigos/wifi-falso-evil-twin.html"/>
+
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}header h1{margin:0 0 6px;font-size:28px}header p{margin:0;opacity:.9}
+nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}nav a:hover{background:rgba(255,255,255,.10)}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px;line-height:1.5}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(234,240,255,.12)}
+</style></head><body>
+
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+
+<div class="container"><article class="card">
+
+<h2>Wi-Fi Falso (Evil Twin): como funciona e como evitar</h2>
+<div class="meta">Leitura: 9–12 min • Atualizado: 18/02/2026</div>
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin-bottom:14px">
+<iframe src="https://www.youtube.com/embed/6X0sF6Gd4L0" frameborder="0" allowfullscreen
+style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+</div>
+
+<div class="callout">
+Conectar em um Wi-Fi público pode parecer inofensivo, mas pode expor senhas, dados bancários e até suas redes sociais.
+</div>
+
+<figure class="figure">
+<img src="https://images.unsplash.com/photo-1593642532871-8b12e02d091c?auto=format&fit=crop&w=1200&q=60">
+<figcaption>Imagem ilustrativa livre: redes Wi-Fi disponíveis em ambiente público.</figcaption>
+</figure>
+
+<p>O ataque conhecido como <strong>Evil Twin</strong> (ou Wi-Fi falso) é uma técnica usada por criminosos para interceptar dados de pessoas conectadas em redes públicas como:</p>
+
+<ul>
+<li>Aeroportos</li>
+<li>Restaurantes</li>
+<li>Hotéis</li>
+<li>Shopping centers</li>
+<li>Rodoviárias</li>
+</ul>
+
+<p>Nesse tipo de ataque, o criminoso cria uma rede Wi-Fi com o mesmo nome de uma rede legítima, por exemplo:</p>
+
+<ul>
+<li>Shopping_Wifi</li>
+<li>Shopping_Wifi_Free</li>
+</ul>
+
+<p>Ao se conectar na rede falsa, todo o tráfego da vítima passa primeiro pelo dispositivo do atacante.</p>
+
+<div class="callout warn">
+Isso permite que ele veja dados enviados e recebidos pelo seu celular ou notebook.
+</div>
+
+<h3>O que pode ser roubado</h3>
+
+<ul>
+<li>Senhas</li>
+<li>Dados bancários</li>
+<li>Emails</li>
+<li>Conversas</li>
+<li>Dados de login</li>
+</ul>
+
+<figure class="figure">
+<img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1200&q=60">
+<figcaption>Imagem ilustrativa livre: tráfego de dados em rede.</figcaption>
+</figure>
+
+<h3>Como evitar</h3>
+
+<ul>
+<li>Evite Wi-Fi público</li>
+<li>Use VPN</li>
+<li>Prefira dados móveis</li>
+<li>Verifique o nome da rede</li>
+<li>Evite acessar banco</li>
+</ul>
+
+<div class="hr"></div>
+
+<h3>Perguntas Frequentes</h3>
+<div class="faq">
+<details>
+<summary>Wi-Fi público é sempre perigoso?</summary>
+<p>Nem sempre, mas redes abertas facilitam ataques.</p>
+</details>
+<details>
+<summary>VPN resolve?</summary>
+<p>Ajuda a criptografar seus dados.</p>
+</details>
+<details>
+<summary>Posso ser hackeado só por conectar?</summary>
+<p>Sim, dependendo da rede maliciosa.</p>
+</details>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech</div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
