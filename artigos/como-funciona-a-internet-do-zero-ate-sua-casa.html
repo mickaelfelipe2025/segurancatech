@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Guia Completo: Como funciona a internet do zero até sua casa (FTTH, DNS, NAT e IP) — Segurança Tech</title>
+<meta name="description" content="Guia completo para entender como a internet funciona desde os servidores até sua casa: fibra óptica (FTTH), IP, DNS, NAT e roteadores."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://segurancatech.com.br/artigos/como-funciona-a-internet-do-zero-ate-sua-casa.html"/>
+
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(234,240,255,.12)}
+</style></head><body>
+
+<header><h1>Segurança Tech</h1><p>Educação tecnológica aplicada à internet do dia a dia</p></header>
+
+<div class="container"><article class="card">
+
+<h2>Guia Completo: Como funciona a internet do zero até sua casa (FTTH, DNS, NAT e IP)</h2>
+<div class="meta">Leitura: 40–55 min • Atualizado: 18/02/2026</div>
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin-bottom:14px">
+<iframe src="https://www.youtube.com/embed/PaOOO2VdBoc?autoplay=1&mute=1" frameborder="0" allowfullscreen
+style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+</div>
+
+<div class="callout">
+Quando você abre um site, a informação percorre milhares de quilômetros em milissegundos. Este guia mostra exatamente como isso acontece.
+</div>
+
+<h3>1) O que realmente é a internet?</h3>
+
+<p>A internet não é uma “nuvem mágica”. Ela é, na prática, uma gigantesca rede de computadores interligados ao redor do mundo.</p>
+
+<p>Esses computadores podem ser:</p>
+
+<ul>
+<li>Servidores de sites</li>
+<li>Data centers</li>
+<li>Roteadores de backbone</li>
+<li>Equipamentos de provedores</li>
+<li>Dispositivos domésticos</li>
+</ul>
+
+<p>Todos se comunicam através de protocolos de rede.</p>
+
+<h3>2) O papel do provedor de internet</h3>
+
+<p>Seu provedor atua como intermediário entre sua casa e a rede global.</p>
+
+<p>Ele faz a ligação entre:</p>
+
+<ul>
+<li>Sua rede doméstica</li>
+<li>O backbone da internet</li>
+<li>Servidores externos</li>
+</ul>
+
+<h3>3) Como a fibra óptica (FTTH) entra nisso?</h3>
+
+<p>No modelo FTTH (Fiber To The Home), a conexão é feita diretamente por fibra óptica até sua residência.</p>
+
+<p>A fibra transmite dados através de pulsos de luz.</p>
+
+<p>Isso permite:</p>
+
+<ul>
+<li>Alta velocidade</li>
+<li>Baixa latência</li>
+<li>Maior estabilidade</li>
+</ul>
+
+<h3>4) O papel da ONU e do roteador</h3>
+
+<p>A ONU converte o sinal óptico em sinal elétrico.</p>
+
+<p>Depois disso, o roteador distribui a conexão dentro da casa.</p>
+
+<h3>5) O que é um endereço IP?</h3>
+
+<p>Cada dispositivo conectado precisa de um endereço único.</p>
+
+<p>Esse endereço é o IP.</p>
+
+<h3>6) DNS: traduzindo nomes em números</h3>
+
+<p>O DNS converte nomes de sites em endereços IP.</p>
+
+<h3>7) NAT: compartilhando o IP público</h3>
+
+<p>O NAT permite que vários dispositivos utilizem um único IP público.</p>
+
+<h3>8) O caminho até o servidor</h3>
+
+<p>Os dados passam por vários roteadores.</p>
+
+<h3>9) O retorno da informação</h3>
+
+<p>O servidor responde e os dados voltam.</p>
+
+<h3>10) O que pode dar errado?</h3>
+
+<ul>
+<li>Alta latência</li>
+<li>Packet Loss</li>
+<li>Falha de DNS</li>
+</ul>
+
+<h3>Checklist de conectividade</h3>
+
+<ul>
+<li>✅ ONU ligada</li>
+<li>✅ Roteador funcionando</li>
+<li>✅ DNS ativo</li>
+<li>✅ IP válido</li>
+</ul>
+
+<div class="hr"></div>
+
+<h3>Perguntas Frequentes (FAQ)</h3>
+<div class="faq">
+<details><summary>Fibra é melhor?</summary><p>Sim.</p></details>
+<details><summary>IP muda?</summary><p>Pode mudar.</p></details>
+<details><summary>DNS influencia?</summary><p>Sim.</p></details>
+<details><summary>NAT é necessário?</summary><p>Sim.</p></details>
+<details><summary>Roteador importa?</summary><p>Muito.</p></details>
+<details><summary>ONU pode falhar?</summary><p>Pode.</p></details>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a entender melhor como a internet funciona.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech</div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
