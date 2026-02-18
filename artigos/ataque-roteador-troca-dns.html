@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Analisei um caso real de ataque a roteador com troca de DNS — Segurança Tech</title>
+<meta name="description" content="Veja como criminosos invadem roteadores domésticos e alteram o DNS para redirecionar vítimas a sites falsos de bancos e redes sociais."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://segurancatech.com.br/artigos/ataque-roteador-troca-dns.html"/>
+
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(234,240,255,.12)}
+</style></head><body>
+
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+
+<div class="container"><article class="card">
+
+<h2>Analisei um caso real de ataque a roteador com troca de DNS</h2>
+<div class="meta">Leitura: 24–30 min • Atualizado: 18/02/2026</div>
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin-bottom:14px">
+<iframe src="https://www.youtube.com/embed/BaHl88ZQV5M?autoplay=1&mute=1" frameborder="0" allowfullscreen
+style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+</div>
+
+<div class="callout">
+Neste caso real, o cliente acessava o site do banco normalmente — mas era redirecionado para uma página falsa sem perceber.
+</div>
+
+<figure class="figure">
+<img src="https://images.unsplash.com/photo-1601972599720-bf7e0b65a7f6?auto=format&fit=crop&w=1200&q=60">
+<figcaption>Imagem ilustrativa livre: acesso à internet por roteador doméstico.</figcaption>
+</figure>
+
+<p>Este incidente ocorreu com um cliente residencial que relatou dificuldades para acessar o aplicativo do banco após uma atualização do roteador. Segundo ele, ao tentar acessar o site da instituição financeira pelo navegador, a página carregava normalmente — inclusive com o cadeado HTTPS.</p>
+
+<p>No entanto, após inserir login e senha, a página retornava um erro de autenticação. Minutos depois, o cliente recebeu uma ligação informando que havia sido realizada uma transferência via PIX que ele não reconhecia.</p>
+
+<h3>Investigação técnica</h3>
+
+<p>Durante a análise, foi identificado que o roteador do cliente havia sofrido alteração nas configurações de DNS. Em vez de utilizar servidores confiáveis, o equipamento estava configurado para utilizar um DNS malicioso.</p>
+
+<p>Isso permitia que o tráfego destinado ao site do banco fosse redirecionado para um servidor controlado pelo criminoso.</p>
+
+<h3>Como o ataque ocorreu</h3>
+
+<ul>
+<li>Roteador com senha padrão</li>
+<li>Acesso remoto habilitado</li>
+<li>Firmware desatualizado</li>
+<li>DNS alterado remotamente</li>
+</ul>
+
+<h3>Consequências</h3>
+
+<p>O cliente realizou login em uma página falsa acreditando estar no site oficial.</p>
+
+<div class="callout warn">
+O cadeado HTTPS não impediu o golpe.
+</div>
+
+<h3>Primeiras 24h</h3>
+
+<ul>
+<li>Resetar o roteador</li>
+<li>Alterar senha de acesso</li>
+<li>Trocar DNS manualmente</li>
+<li>Notificar banco</li>
+</ul>
+
+<h3>Plano de 7 dias</h3>
+
+<ul>
+<li>Atualizar firmware</li>
+<li>Desativar acesso remoto</li>
+<li>Monitorar contas</li>
+</ul>
+
+<h3>Prevenção</h3>
+
+<ul>
+<li>Trocar senha padrão</li>
+<li>Atualizar firmware</li>
+<li>Usar DNS confiável</li>
+</ul>
+
+<h3>Checklist</h3>
+
+<ul>
+<li>Senha forte</li>
+<li>Firmware atualizado</li>
+<li>Acesso remoto desativado</li>
+</ul>
+
+<div class="hr"></div>
+
+<h3>Perguntas Frequentes</h3>
+<div class="faq">
+<details><summary>Roteador pode ser invadido?</summary><p>Sim.</p></details>
+<details><summary>Reset resolve?</summary><p>Sim.</p></details>
+<details><summary>DNS pode ser alterado?</summary><p>Sim.</p></details>
+<details><summary>HTTPS protege?</summary><p>Nem sempre.</p></details>
+<details><summary>Banco é responsável?</summary><p>Depende.</p></details>
+<details><summary>Antivírus ajuda?</summary><p>Não.</p></details>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech</div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
