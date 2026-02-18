@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cliente da minha provedora caiu em phishing (caso real) — Segurança Tech</title>
+<meta name="description" content="Caso real: cliente caiu em phishing. Veja o que foi feito para conter o dano, recuperar contas, reforçar segurança e prevenir recorrência com checklist prático."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos/cliente-da-minha-provedora-caiu-em-phishing-caso-real.html"/>
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}header h1{margin:0 0 6px;font-size:28px}header p{margin:0;opacity:.9}
+nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}nav a:hover{background:rgba(255,255,255,.10)}
+.dropdown{position:relative}.dropbtn{background:transparent;color:#fff;border:0;font-weight:800;padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:16px}
+.dropbtn:hover{background:rgba(255,255,255,.10)}
+.dropdown-content{display:none;position:absolute;top:48px;left:0;min-width:270px;background:#fff;border-radius:14px;box-shadow:0 18px 40px rgba(2,6,23,.20);overflow:hidden;z-index:1000}
+.dropdown-content a{color:#0b1220;padding:12px 14px;display:block;text-decoration:none;font-weight:800;border-bottom:1px solid #eef2f7}
+.dropdown-content a:last-child{border-bottom:none}.dropdown-content a:hover{background:#f6f8fb}
+.dropdown-content small{display:block;font-weight:650;color:#64748b;margin-top:2px}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;color:#0a1f44;text-decoration:none}
+.btn:hover{background:#f6f8fb}.btn-primary{border:0;background:#122c66;color:#fff}.btn-primary:hover{filter:brightness(1.05)}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.foot-card h3,.foot-card h4{margin:0 0 8px}.foot-card p{margin:0;color:rgba(234,240,255,.85);line-height:1.6}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.links a:hover{background:rgba(255,255,255,.08)}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+.footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+
+.hr{height:1px;background:var(--line);margin:14px 0}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px;line-height:1.5}
+.toc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.toc b{display:block;margin-bottom:8px;color:#0a1f44}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#0a1f44;font-weight:900;font-size:13px;text-decoration:none}
+.badge:hover{text-decoration:underline}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+.kit{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px}
+.kit .box{grid-column:span 6;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.kit .box strong{color:#0a1f44}
+@media (max-width:860px){.kit .box{grid-column:span 12}}
+</style></head><body>
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+
+<nav>
+<a href="../index.html">Home</a><a href="../sobre.html">Sobre</a>
+<div class="dropdown"><button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">Ferramentas <span aria-hidden="true">▼</span></button>
+<div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+<a href="../tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+<a href="../tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+<a href="../tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
+<a href="../tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+<a href="../tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+<a href="../tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+</div></div>
+<a href="../artigos.html">Artigos</a><a href="../sobre.html#contato">Contato</a>
+</nav>
+
+<div class="container"><article class="card">
+<h2>Cliente da minha provedora caiu em phishing (caso real)</h2>
+<div class="meta">Leitura: 8–11 min • Atualizado: 17/02/2026</div>
+
+<div class="callout">Objetivo deste guia: mostrar o que fazer <strong>nas primeiras horas</strong> após um phishing, como conter o dano, recuperar contas e deixar o cliente mais protegido — com checklist que funciona para qualquer pessoa.</div>
+
+<div class="toc" aria-label="Sumário do artigo">
+  <b>Sumário rápido</b>
+  <div class="badge-row">
+    <a class="badge" href="#comoaconteceu">Como aconteceu</a>
+    <a class="badge" href="#sinais">Sinais que era phishing</a>
+    <a class="badge" href="#primeirahora">Primeira hora</a>
+    <a class="badge" href="#recuperar">Recuperar contas</a>
+    <a class="badge" href="#conter">Conter danos</a>
+    <a class="badge" href="#prevenir">Prevenir recorrência</a>
+    <a class="badge" href="#checklist">Checklist 2 min</a>
+    <a class="badge" href="#faq">FAQ</a>
+  </div>
+</div>
+
+<figure class="figure">
+  <img src="https://cdn.pixabay.com/photo/2021/08/25/12/45/phishing-6573326_640.png" alt="Ilustração de phishing e login fisgado">
+  <figcaption>Ilustração (livre): phishing “fisgando” credenciais — perfeito para abrir o assunto.</figcaption>
+</figure>
+
+<div class="callout warn">Aviso direto: phishing não é “vírus mágico”. É <strong>engenharia social</strong>. O golpista convence a vítima a entregar o que ele quer (senha, código, cartão, acesso).</div>
+
+<div class="actions" style="margin-top:10px">
+  <a class="btn btn-primary" href="../tools/links-falsos.html">Ferramenta: Identificar link falso</a>
+  <a class="btn" href="./como-identificar-link-falso.html">Artigo: Como identificar link falso</a>
+</div>
+
+<hr style="margin:18px 0;border:none;border-top:1px solid #e6edf7"/>
+
+<h3 id="comoaconteceu">Como aconteceu (o padrão mais comum)</h3>
+<p>O cliente recebeu um link com aparência “oficial” (banco, entrega, suporte, ou até “atualização de conta”). O texto tinha três elementos:</p>
+<ul>
+  <li><strong>Urgência:</strong> “última chance”, “prazo hoje”.</li>
+  <li><strong>Consequência:</strong> “bloqueio”, “multa”, “suspensão”.</li>
+  <li><strong>Solução fácil:</strong> “clique aqui e resolva”.</li>
+</ul>
+
+<p>Ao abrir, a página pedia login/senha e às vezes um código. É aí que o dano acontece: o usuário entrega o acesso, e o golpista entra primeiro no e-mail (para dominar todo o resto).</p>
+
+<h3 id="sinais">Sinais claros de que era phishing</h3>
+<ul>
+  <li>Domínio com cara “quase igual” ao real (troca de letras, hífen, sufixos estranhos).</li>
+  <li>Página pedindo informação demais (senha + código + CPF etc.).</li>
+  <li>Erros de português, botões quebrados, imagens desfocadas.</li>
+  <li>Pressa e ameaça (“agora ou perde”).</li>
+</ul>
+
+<div class="callout">Se o site “aperta” você emocionalmente, ele quer sua decisão rápida — e decisão rápida é inimiga da segurança.</div>
+
+<div class="hr"></div>
+<h3 id="primeirahora">O que fizemos na primeira hora (isso salva conta)</h3>
+<p>Quando é caso real, tempo importa. A sequência que funciona é:</p>
+<ul>
+  <li><strong>1) Garantir controle do e-mail</strong> (trocar senha + 2FA + revisar sessões).</li>
+  <li><strong>2) Trocar senhas dos serviços ligados</strong> (WhatsApp, Instagram, banco, etc.).</li>
+  <li><strong>3) Revogar sessões/dispositivos</strong> (logout em tudo).</li>
+  <li><strong>4) Avisar contatos</strong> (para evitar que o golpe se espalhe).</li>
+</ul>
+
+<div class="callout warn">Regra dura: se o e-mail caiu, “caiu tudo”. Quem tem e-mail consegue resetar senha de vários serviços. Por isso o e-mail é prioridade 1.</div>
+
+<h3 id="recuperar">Como recuperar contas (o básico que resolve a maioria)</h3>
+<ul>
+  <li>Trocar senha por uma forte (mín. 12 caracteres, sem padrão óbvio).</li>
+  <li>Ativar 2FA preferencialmente por aplicativo autenticador (quando possível).</li>
+  <li>Revisar “e-mails de recuperação” e “telefone de recuperação” (golpista troca isso).</li>
+  <li>Revisar filtros/encaminhamentos do e-mail (golpe clássico: encaminhar tudo pro criminoso).</li>
+</ul>
+
+<figure class="figure">
+  <img src="https://cdn.pixabay.com/photo/2018/05/11/12/59/phishing-3390518_640.jpg" alt="Ilustração sobre phishing e ataque">
+  <figcaption>Ilustração (livre): outra arte de phishing para colocar no meio do artigo (reforça visual e “enche” a página com qualidade).</figcaption>
+</figure>
+
+<h3 id="conter">Como conter danos (mesmo quando já vazou)</h3>
+<ul>
+  <li>Alertar o banco/serviço e acompanhar movimentações.</li>
+  <li>Trocar senhas repetidas (se ele usava a mesma senha em tudo).</li>
+  <li>Se houve instalação de app/arquivo: varredura antimalware.</li>
+  <li>Se foi WhatsApp: ativar verificação em duas etapas e revisar dispositivos vinculados.</li>
+</ul>
+
+<div class="kit" aria-label="Ações rápidas por cenário">
+  <div class="box">
+    <strong>📱 Se foi WhatsApp</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      1) Ativar verificação em 2 etapas<br/>
+      2) Nunca informar código SMS<br/>
+      3) Proteger e-mail associado<br/>
+      4) Avisar contatos (pedidos de dinheiro)<br/>
+      5) Revisar backups/vínculos
+    </span>
+  </div>
+  <div class="box">
+    <strong>📧 Se foi e-mail</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      1) Trocar senha imediatamente<br/>
+      2) 2FA no autenticador<br/>
+      3) Revogar sessões ativas<br/>
+      4) Remover encaminhamentos/filtros<br/>
+      5) Conferir recuperação (fone/e-mail)
+    </span>
+  </div>
+</div>
+
+<h3 id="prevenir">Como prevenir recorrência (o que realmente muda o jogo)</h3>
+<ul>
+  <li><strong>2FA</strong> em tudo que importa (principalmente e-mail e WhatsApp).</li>
+  <li><strong>Senha única</strong> por serviço (se der: gerenciador de senhas).</li>
+  <li>Treinar o “reflexo”: <strong>não clicar na urgência</strong>.</li>
+  <li>Verificar links antes: usar checagem por reputação e heurística.</li>
+</ul>
+
+<div class="callout">
+<strong>Ferramentas do Segurança Tech:</strong><br/>
+• <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Identificador de links falsos</a><br/>
+• <a href="../tools/rastreio-ip.html" style="color:#0a1f44;font-weight:900">Rastreio de IP</a> • <a href="../tools/meu-ip.html" style="color:#0a1f44;font-weight:900">Meu IP</a> • <a href="../tools/meu-asn.html" style="color:#0a1f44;font-weight:900">Meu ASN</a>
+</div>
+
+<h3 id="checklist">Checklist prático (2 minutos)</h3>
+<ul>
+  <li>✅ Troquei senha do e-mail e ativei 2FA</li>
+  <li>✅ Revoguei sessões/dispositivos conectados</li>
+  <li>✅ Verifiquei encaminhamentos/filtros no e-mail</li>
+  <li>✅ Troquei senhas reaproveitadas em outros serviços</li>
+  <li>✅ Avisei contatos e monitorei atividades estranhas</li>
+</ul>
+
+<div class="hr"></div>
+<h3 id="faq">Perguntas frequentes (FAQ)</h3>
+<div class="faq">
+  <details>
+    <summary>Phishing é vírus?</summary>
+    <p>Geralmente não. Phishing é golpe de enganação para você entregar acesso. Pode virar infecção se baixar/instalar algo, mas o núcleo do phishing é social.</p>
+  </details>
+  <details>
+    <summary>Se eu digitei a senha, o que faço primeiro?</summary>
+    <p>Proteja o e-mail primeiro: troca senha + 2FA + revogar sessões. Depois você corre para os demais serviços.</p>
+  </details>
+  <details>
+    <summary>Trocar senha resolve?</summary>
+    <p>Resolve muito, mas não tudo. Você também precisa revogar sessões e remover encaminhamentos/filtros no e-mail.</p>
+  </details>
+  <details>
+    <summary>Como não cair de novo?</summary>
+    <p>2FA + senha única + desconfiança de urgência. E use checadores de link antes de abrir.</p>
+  </details>
+</div>
+
+<div class="actions">
+<a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
+<a class="btn" href="./como-identificar-link-falso.html">Artigo: Link falso</a>
+<a class="btn" href="../tools/links-falsos.html">Ferramenta: Links falsos</a>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes e riscos comuns na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech • <a href="../ferramentas.html">Ferramentas</a> • <a href="../artigos.html">Artigos</a></div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+const btn=document.getElementById("toolsBtn"),menu=document.getElementById("toolsMenu");
+function closeMenu(){menu.style.display="none";btn.setAttribute("aria-expanded","false")}
+function toggleMenu(){const open=menu.style.display==="block";menu.style.display=open?"none":"block";btn.setAttribute("aria-expanded",String(!open))}
+btn.addEventListener("click",(e)=>{e.stopPropagation();toggleMenu()});
+document.addEventListener("click",()=>closeMenu());
+document.addEventListener("keydown",(e)=>{if(e.key==="Escape")closeMenu()});
+</script>
+</body></html>
