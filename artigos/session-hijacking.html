@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Session Hijacking: como criminosos roubam sua sessão e entram sem senha — Segurança Tech</title>
+<meta name="description" content="Entenda o que é Session Hijacking, como criminosos roubam cookies e sessões do navegador e conseguem acessar suas contas mesmo sem saber sua senha."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://segurancatech.com.br/artigos/session-hijacking.html"/>
+
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(234,240,255,.12)}
+</style></head><body>
+
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+
+<div class="container"><article class="card">
+
+<h2>Session Hijacking: como criminosos roubam sua sessão e entram sem senha</h2>
+<div class="meta">Leitura: 22–28 min • Atualizado: 18/02/2026</div>
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin-bottom:14px">
+<iframe src="https://www.youtube.com/embed/uhiISdVr6k8?autoplay=1&mute=1" frameborder="0" allowfullscreen
+style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+</div>
+
+<div class="callout">
+Se alguém roubar o cookie da sua sessão, pode entrar na sua conta como se fosse você — mesmo sem saber sua senha e mesmo com 2FA ativado.
+</div>
+
+<figure class="figure">
+<img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=60">
+<figcaption>Imagem ilustrativa livre: sessão e cookies usados para autenticação.</figcaption>
+</figure>
+
+<p>Quando você faz login em um site (como e-mail, rede social ou internet banking), o servidor cria uma sessão para manter você autenticado. Em vez de pedir sua senha a cada clique, o site usa um identificador chamado <strong>cookie de sessão</strong> (ou token de sessão). Esse cookie funciona como um “crachá digital”: enquanto ele for válido, o site assume que você já provou sua identidade.</p>
+
+<p>O <strong>Session Hijacking</strong> (sequestro de sessão) acontece quando um criminoso consegue copiar esse “crachá” e usá-lo em outro dispositivo. O resultado é assustador: o atacante entra na sua conta como se fosse você, sem precisar quebrar senha, sem precisar adivinhar PIN e, em muitos casos, sem esbarrar no 2FA (porque o 2FA normalmente é exigido no login — e a sessão já está autenticada).</p>
+
+<p>Esse tipo de ataque é muito comum em golpes que envolvem malware do tipo infostealer, extensões maliciosas de navegador, redes Wi-Fi inseguras, phishing com roubo de token e até páginas falsas que capturam cookies via engenharia social. O objetivo é sempre o mesmo: capturar a sessão ativa do usuário para assumir contas valiosas.</p>
+
+<h3>1) Entendendo a base: o que é sessão e por que ela vale ouro</h3>
+
+<p>Do ponto de vista técnico, a maioria dos sites modernos trabalha com três camadas:</p>
+<ul>
+  <li><strong>Credenciais</strong>: usuário/senha (e às vezes biometria, passkeys ou 2FA).</li>
+  <li><strong>Prova temporária</strong>: tokens/cookies que comprovam que você já autenticou (ex.: sessionid, JWT, refresh token, etc.).</li>
+  <li><strong>Controles adicionais</strong>: detecção de risco, geolocalização, device fingerprint, confirmação por e-mail, etc.</li>
+</ul>
+
+<p>Quando você faz login, o servidor emite um cookie. Esse cookie pode ser:</p>
+<ul>
+  <li><strong>Session cookie</strong> (expira quando fecha o navegador) ou</li>
+  <li><strong>Persistent cookie</strong> (fica salvo por dias/meses).</li>
+</ul>
+
+<p>Se um criminoso obtém esse cookie, ele pode importar no navegador dele e “virar você” naquela aplicação. Em redes sociais, isso significa postar, enviar mensagens e aplicar golpes. Em e-mail, significa redefinir senhas de outras contas. Em bancos e carteiras digitais, pode significar transferências, empréstimos e compras.</p>
+
+<div class="callout warn">
+O maior erro é achar que “2FA resolve tudo”. Ele ajuda muito, mas não impede um ladrão de sessão se o token já estiver autenticado.
+</div>
+
+<h3>2) Como o Session Hijacking acontece na prática (vetores mais comuns)</h3>
+
+<p>Existem vários caminhos para um criminoso roubar sua sessão. Os principais são:</p>
+
+<h4>a) Malware Infostealer (o campeão)</h4>
+<p>Infostealers roubam senhas, mas também roubam <strong>cookies</strong>, <strong>tokens</strong> e <strong>dados de preenchimento automático</strong>. O atacante não precisa da senha se conseguir o cookie certo. Muitos infostealers coletam dados de Chrome/Edge/Firefox e enviam para um painel do criminoso, que consegue “assumir” contas rapidamente.</p>
+
+<h4>b) Extensões maliciosas de navegador</h4>
+<p>Uma extensão com permissões perigosas (“ler e alterar dados em todos os sites”) pode capturar cookies e sessões. Ela pode ser divulgada como bloqueador de anúncios, “leitor de PDF”, “botão de desconto” ou “plugin de produtividade”.</p>
+
+<h4>c) Wi-Fi público e ataques intermediários</h4>
+<p>Se a rede estiver comprometida e o usuário cair em um cenário de interceptação, o atacante pode tentar coletar informações de sessão em situações específicas (especialmente quando existe falha de configuração no site, conteúdo misto ou downgrade de segurança). Hoje o HTTPS reduziu muito isso, mas não eliminou todas as possibilidades — principalmente quando o problema é o dispositivo da vítima (malware) e não o tráfego.</p>
+
+<h4>d) Phishing avançado com roubo de token</h4>
+<p>Alguns golpes não querem sua senha: querem sua <strong>sessão</strong>. Existem páginas que simulam login e, ao mesmo tempo, capturam tokens de autenticação. Em ambientes corporativos isso aparece muito com portais falsos de “Microsoft 365”, “Google Workspace” e “conta corporativa”.</p>
+
+<h4>e) Computadores compartilhados / Lan house / PC do trabalho sem política</h4>
+<p>Se você deixa sessão aberta em máquina compartilhada, o próximo usuário pode simplesmente aproveitar. Parece simples, mas é mais comum do que muita gente admite.</p>
+
+<h3>3) Cenário real: como uma conta “cai” sem ninguém descobrir</h3>
+
+<p>Vamos montar um cenário realista, no estilo que acontece todos os dias:</p>
+<ul>
+  <li>Você baixa um “instalador” de um programa popular (ou um “crack”, ou uma atualização falsa).</li>
+  <li>O arquivo instala um infostealer silencioso.</li>
+  <li>O malware copia cookies do Chrome e envia para um painel do criminoso.</li>
+  <li>O criminoso abre o painel, escolhe “Gmail / Instagram / Facebook / Mercado Livre / banco” e importa o cookie.</li>
+  <li>Ele entra sem senha. Em alguns casos, sem pedir 2FA porque a sessão já está validada.</li>
+</ul>
+
+<p>Em poucas horas, ele pode:</p>
+<ul>
+  <li>Alterar e-mail de recuperação.</li>
+  <li>Trocar telefone associado.</li>
+  <li>Ativar 2FA para <em>ele</em> (te trancando para fora).</li>
+  <li>Enviar mensagens para seus contatos pedindo PIX.</li>
+  <li>Usar o e-mail para resetar senha de bancos e e-commerce.</li>
+</ul>
+
+<p>E a vítima só descobre quando recebe notificações de “novo login” ou quando alguém avisa: “você está pedindo dinheiro no WhatsApp/Instagram?”.</p>
+
+<h3>4) Como os criminosos usam os dados roubados</h3>
+
+<p>Session Hijacking raramente é “só por diversão”. Geralmente é parte de um funil criminoso:</p>
+
+<ul>
+  <li><strong>Tomada de conta (Account Takeover)</strong>: assumem suas contas principais (e-mail e redes sociais).</li>
+  <li><strong>Escalada</strong>: usam o e-mail para recuperar outras contas (banco, marketplace, operadora).</li>
+  <li><strong>Fraude financeira</strong>: compras, empréstimos, anúncios pagos, golpes em contatos.</li>
+  <li><strong>Venda</strong>: contas com sessão ativa podem ser vendidas em fóruns clandestinos.</li>
+  <li><strong>Persistência</strong>: criam métodos para voltar (app autorizado, token de longo prazo, chaves salvas).</li>
+</ul>
+
+<p>Em golpes contra empresas, o alvo costuma ser:</p>
+<ul>
+  <li>Conta de e-mail corporativa (para fraude com boleto, “troca de conta bancária”, phishing interno).</li>
+  <li>Ferramentas de pagamento e anúncios (Facebook Ads/Google Ads) para gastar saldo.</li>
+  <li>Plataformas de atendimento (WhatsApp Business, CRMs) para acessar clientes.</li>
+</ul>
+
+<h3>5) Consequências práticas para a vítima</h3>
+
+<p>As consequências variam por gravidade, mas quase sempre incluem:</p>
+<ul>
+  <li><strong>Perda de acesso</strong>: criminoso muda senha e recuperação.</li>
+  <li><strong>Golpes em familiares e clientes</strong>: “manda PIX que eu devolvo”.</li>
+  <li><strong>Prejuízo financeiro</strong>: compras, empréstimos, transferências.</li>
+  <li><strong>Danos à reputação</strong>: sua conta usada para crimes e spam.</li>
+  <li><strong>Risco de efeito dominó</strong>: e-mail invadido abre portas para tudo.</li>
+</ul>
+
+<div class="callout warn">
+Em muitos casos, a vítima “faz tudo certo” com senha forte e 2FA, mas perde a conta porque o criminoso roubou a sessão pronta.
+</div>
+
+<h3>6) O que fazer imediatamente (primeiras 24h)</h3>
+
+<p>Aqui é onde você ganha ou perde a briga. As primeiras 24h definem se você vai recuperar a conta ou ficar travado por semanas.</p>
+
+<ul>
+  <li><strong>1) Saia de todas as sessões</strong> (em cada serviço importante): procure por “Sair de todos os dispositivos”.</li>
+  <li><strong>2) Troque a senha do e-mail primeiro</strong>: e-mail é a “chave mestra”.</li>
+  <li><strong>3) Revogue acessos de apps e dispositivos</strong>: remova “dispositivos confiáveis” e apps conectados.</li>
+  <li><strong>4) Ative 2FA por aplicativo</strong> (Authenticator) e guarde códigos de backup.</li>
+  <li><strong>5) Verifique regras e encaminhamentos do e-mail</strong>: criminosos criam filtros/forward para espionar.</li>
+  <li><strong>6) Escaneie o dispositivo</strong>: antivírus + verificação de extensões do navegador.</li>
+  <li><strong>7) Se houver banco envolvido</strong>: bloqueie app, avise o banco e ative alertas.</li>
+</ul>
+
+<p>Dica prática: se você suspeita de malware, a troca de senha no mesmo computador infectado pode ser inútil, porque o infostealer captura tudo de novo. O ideal é trocar senhas em um dispositivo limpo (celular confiável ou outro PC).</p>
+
+<h3>7) Plano de ação para os próximos 7 dias</h3>
+
+<ul>
+  <li><strong>Dia 1–2:</strong> revisar contas críticas (e-mail, WhatsApp, Instagram, banco, marketplaces) e revogar sessões.</li>
+  <li><strong>Dia 2–3:</strong> checar “aplicativos autorizados”, tokens e integrações (Google/Meta/Microsoft).</li>
+  <li><strong>Dia 3–4:</strong> revisar segurança do navegador (extensões, sincronização, perfis).</li>
+  <li><strong>Dia 4–5:</strong> atualizar sistema operacional, navegador e firmware do roteador.</li>
+  <li><strong>Dia 5–7:</strong> monitorar transações e sinais de recuperação fraudulenta (SMS/e-mails suspeitos).</li>
+</ul>
+
+<p>Se você gerencia uma empresa ou provedor, vale adicionar também:</p>
+<ul>
+  <li>Troca de senhas administrativas e painéis (ONU/OLT/CRM/ERP).</li>
+  <li>Revisão de acessos remotos e contas privilegiadas.</li>
+  <li>Revisão de logs de login em sistemas internos.</li>
+</ul>
+
+<h3>8) Como evitar esse tipo de golpe no futuro</h3>
+
+<p>Prevenção de Session Hijacking é uma mistura de higiene digital com boas práticas técnicas:</p>
+
+<ul>
+  <li><strong>Evite instalar softwares piratas</strong>: infostealer ama isso.</li>
+  <li><strong>Desconfie de “extensões milagrosas”</strong>: principalmente as que pedem acesso total.</li>
+  <li><strong>Use perfis separados no navegador</strong>: um para banco, outro para “uso geral”.</li>
+  <li><strong>Não deixe sessão aberta em PC compartilhado</strong>.</li>
+  <li><strong>Ative alertas de login</strong> sempre que o serviço permitir.</li>
+  <li><strong>Use 2FA por app</strong> + códigos de backup guardados offline.</li>
+  <li><strong>Mantenha o sistema atualizado</strong>: falhas de navegador e plugins também são exploradas.</li>
+</ul>
+
+<p>Um ponto técnico importante: se você usa sincronização do Chrome (Google Sync), um criminoso que entra na sua conta Google pode sincronizar cookies e senhas para o dispositivo dele. Por isso, reforçar a segurança do e-mail é obrigatório.</p>
+
+<h3>9) Checklist de segurança</h3>
+
+<ul>
+  <li>✅ 2FA por aplicativo (não SMS) nas contas principais</li>
+  <li>✅ Revisão de dispositivos logados (1x por mês)</li>
+  <li>✅ Extensões do navegador somente as necessárias</li>
+  <li>✅ Atualização automática do navegador ativada</li>
+  <li>✅ Perfil separado no navegador para banco</li>
+  <li>✅ Antivírus e proteção contra malware ativos</li>
+  <li>✅ Backup de códigos de recuperação guardado offline</li>
+</ul>
+
+<div class="hr"></div>
+
+<h3>Perguntas Frequentes (FAQ)</h3>
+<div class="faq">
+  <details><summary>Se eu trocar a senha, o invasor cai automaticamente?</summary>
+    <p>Nem sempre. Se a sessão estiver ativa e o serviço não invalidar tokens antigos, o invasor pode continuar logado. Por isso, além de trocar senha, use “Sair de todos os dispositivos” e revogue sessões/aplicativos conectados.</p>
+  </details>
+
+  <details><summary>2FA não impede Session Hijacking?</summary>
+    <p>2FA ajuda muito no login, mas pode não ser solicitado se o criminoso já tem uma sessão válida (cookie/token). Por isso, o foco é proteger o dispositivo e impedir o roubo de cookies.</p>
+  </details>
+
+  <details><summary>Quais sinais indicam roubo de sessão?</summary>
+    <p>Notificação de login em local estranho, mensagens enviadas sem você, alterações de e-mail/telefone de recuperação, “sessões ativas” desconhecidas e atividades em horários incomuns.</p>
+  </details>
+
+  <details><summary>Extensão de navegador pode causar isso?</summary>
+    <p>Sim. Extensões com permissões amplas conseguem ler conteúdo de páginas e, dependendo do caso, capturar dados sensíveis. Instale apenas extensões necessárias e de boa reputação.</p>
+  </details>
+
+  <details><summary>Wi-Fi público sozinho permite roubar cookies?</summary>
+    <p>Hoje o HTTPS dificulta muito o roubo direto no trânsito. Porém, Wi-Fi público aumenta o risco de cair em páginas falsas, aceitar certificados maliciosos, ou ser direcionado a redes e portais comprometidos. O maior risco costuma ser a combinação com engenharia social e dispositivo vulnerável.</p>
+  </details>
+
+  <details><summary>O que é melhor: salvar senha no navegador ou em gerenciador?</summary>
+    <p>Gerenciadores de senha dedicados tendem a ser melhores porque armazenam credenciais de forma mais controlada e com proteção por senha-mestra. Ainda assim, o ponto principal é manter o dispositivo limpo e atualizado.</p>
+  </details>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech</div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
