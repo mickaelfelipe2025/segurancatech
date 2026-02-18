@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>O que é Latência? Por que sua internet pode ser rápida e mesmo assim “lenta” — Segurança Tech</title>
+<meta name="description" content="Entenda o que é latência (ping), como ela afeta jogos, chamadas e streaming, e o que fazer para reduzir atrasos na sua rede doméstica."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://segurancatech.com.br/artigos/o-que-e-latencia.html"/>
+
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(234,240,255,.12)}
+</style></head><body>
+
+<header><h1>Segurança Tech</h1><p>Conhecimento prático para entender a internet e sua rede</p></header>
+
+<div class="container"><article class="card">
+
+<h2>O que é Latência? Por que sua internet pode ser rápida e mesmo assim “lenta”</h2>
+<div class="meta">Leitura: 24–30 min • Atualizado: 18/02/2026</div>
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin-bottom:14px">
+<iframe src="https://www.youtube.com/embed/Pw2MN9QgFZM?autoplay=1&mute=1" frameborder="0" allowfullscreen
+style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+</div>
+
+<div class="callout">
+Latência é o tempo que um dado leva para ir do seu dispositivo até um servidor e voltar. É o famoso “ping”.
+</div>
+
+<figure class="figure">
+<img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=1200&q=60">
+<figcaption>Imagem ilustrativa livre: atrasos na comunicação entre dispositivos causam alta latência.</figcaption>
+</figure>
+
+<p>Muita gente acredita que ter 300Mb, 500Mb ou até 1Gb de internet significa que tudo vai funcionar instantaneamente. Mas na prática, você pode ter uma conexão extremamente rápida e mesmo assim enfrentar travamentos em jogos, atrasos em chamadas de vídeo e comandos demorando para responder.</p>
+
+<p>O motivo quase sempre está relacionado à <strong>latência</strong>.</p>
+
+<h3>1) O que é latência na prática?</h3>
+
+<p>Latência é o tempo que um pacote de dados leva para sair do seu dispositivo, chegar ao destino (como um servidor) e retornar com a resposta.</p>
+
+<p>Ela é medida em milissegundos (ms).</p>
+
+<ul>
+<li>10ms = resposta quase instantânea</li>
+<li>50ms = aceitável para jogos</li>
+<li>100ms = perceptível</li>
+<li>200ms+ = atraso visível</li>
+</ul>
+
+<h3>2) Como ela afeta seu dia a dia?</h3>
+
+<ul>
+<li>Jogos online</li>
+<li>Chamadas de vídeo</li>
+<li>Streaming ao vivo</li>
+<li>Comandos em tempo real</li>
+<li>Controle remoto de dispositivos</li>
+</ul>
+
+<h3>3) Cenário real</h3>
+
+<p>Você aperta um botão no jogo e o personagem demora a reagir. Isso não tem relação com velocidade de download, mas com latência.</p>
+
+<h3>4) Como os dados trafegam</h3>
+
+<p>Cada solicitação feita na internet percorre vários roteadores até chegar ao destino.</p>
+
+<h3>5) Consequências práticas</h3>
+
+<ul>
+<li>Delay em jogos</li>
+<li>Eco em chamadas</li>
+<li>Travamentos</li>
+</ul>
+
+<h3>6) O que fazer imediatamente?</h3>
+
+<ul>
+<li>Usar cabo</li>
+<li>Reiniciar roteador</li>
+<li>Evitar downloads simultâneos</li>
+</ul>
+
+<h3>7) Plano de ação</h3>
+
+<ul>
+<li>Testar ping</li>
+<li>Checar interferência Wi-Fi</li>
+</ul>
+
+<h3>8) Como evitar?</h3>
+
+<ul>
+<li>Manter firmware atualizado</li>
+<li>Evitar redes congestionadas</li>
+</ul>
+
+<h3>9) Checklist</h3>
+
+<ul>
+<li>✅ Cabo de rede</li>
+<li>✅ Roteador atualizado</li>
+</ul>
+
+<div class="hr"></div>
+
+<h3>Perguntas Frequentes (FAQ)</h3>
+<div class="faq">
+
+<details><summary>Latência é a mesma coisa que velocidade?</summary>
+<p>Não.</p>
+</details>
+
+<details><summary>Wi-Fi aumenta latência?</summary>
+<p>Sim.</p>
+</details>
+
+<details><summary>Ping ideal?</summary>
+<p>Abaixo de 50ms.</p>
+</details>
+
+<details><summary>Streaming sofre?</summary>
+<p>Sim.</p>
+</details>
+
+<details><summary>Fibra ajuda?</summary>
+<p>Sim.</p>
+</details>
+
+<details><summary>VPN piora?</summary>
+<p>Pode piorar.</p>
+</details>
+
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a entender melhor como a internet funciona.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech</div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
