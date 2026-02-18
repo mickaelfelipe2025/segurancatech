@@ -1,81 +1,264 @@
 <!DOCTYPE html><html lang="pt-br"><head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Analisei um golpe real do WhatsApp e descobri o IP — Segurança Tech</title>
-<meta name="description" content="Veja como um golpe real do WhatsApp foi analisado e como descobrimos o IP do criminoso usando ferramentas públicas de segurança."/>
+<meta name="description" content="Caso real: analisei um golpe do WhatsApp, identifiquei o site usado pelos golpistas e cheguei ao IP/infra com ferramentas públicas (DNS/WHOIS/VT). Veja o passo a passo e o que fazer."/>
 <meta name="robots" content="index,follow"/>
 <link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos/analisei-um-golpe-real-do-whatsapp-e-descobri-o-ip.html"/>
-
 <style>
 :root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
-header h1{margin:0 0 6px;font-size:28px}
-header p{margin:0;opacity:.9}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}header h1{margin:0 0 6px;font-size:28px}header p{margin:0;opacity:.9}
 nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
-nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}
-nav a:hover{background:rgba(255,255,255,.10)}
-.container{max-width:980px;margin:0 auto;padding:22px 14px}
-.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-h2{margin:0 0 6px}
-.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}nav a:hover{background:rgba(255,255,255,.10)}
+.dropdown{position:relative}.dropbtn{background:transparent;color:#fff;border:0;font-weight:800;padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:16px}
+.dropbtn:hover{background:rgba(255,255,255,.10)}
+.dropdown-content{display:none;position:absolute;top:48px;left:0;min-width:270px;background:#fff;border-radius:14px;box-shadow:0 18px 40px rgba(2,6,23,.20);overflow:hidden;z-index:1000}
+.dropdown-content a{color:#0b1220;padding:12px 14px;display:block;text-decoration:none;font-weight:800;border-bottom:1px solid #eef2f7}
+.dropdown-content a:last-child{border-bottom:none}.dropdown-content a:hover{background:#f6f8fb}
+.dropdown-content small{display:block;font-weight:650;color:#64748b;margin-top:2px}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
 p,li{color:var(--muted);line-height:1.75}
 .callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
 .warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;color:#0a1f44;text-decoration:none}
+.btn:hover{background:#f6f8fb}.btn-primary{border:0;background:#122c66;color:#fff}.btn-primary:hover{filter:brightness(1.05)}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.foot-card h3,.foot-card h4{margin:0 0 8px}.foot-card p{margin:0;color:rgba(234,240,255,.85);line-height:1.6}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.links a:hover{background:rgba(255,255,255,.08)}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+.footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+
+/* ===== ADIÇÕES (sem mexer no tema) ===== */
+.hr{height:1px;background:var(--line);margin:14px 0}
 .figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 .figure img{display:block;width:100%;height:auto}
-footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
-.footer-wrap{max-width:980px;margin:0 auto}
-.footnote{text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
-</style>
-</head><body>
-
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px;line-height:1.5}
+.toc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.toc b{display:block;margin-bottom:8px;color:#0a1f44}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#0a1f44;font-weight:900;font-size:13px;text-decoration:none}
+.badge:hover{text-decoration:underline}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+.kit{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px}
+.kit .box{grid-column:span 6;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.kit .box strong{color:#0a1f44}
+@media (max-width:860px){.kit .box{grid-column:span 12}}
+</style></head><body>
 <header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
 
+<nav>
+<a href="../index.html">Home</a><a href="../sobre.html">Sobre</a>
+<div class="dropdown"><button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">Ferramentas <span aria-hidden="true">▼</span></button>
+<div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+<a href="../tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+<a href="../tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+<a href="../tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
+<a href="../tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+<a href="../tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+<a href="../tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+</div></div>
+<a href="../artigos.html">Artigos</a><a href="../sobre.html#contato">Contato</a>
+</nav>
+
 <div class="container"><article class="card">
-
 <h2>Analisei um golpe real do WhatsApp e descobri o IP</h2>
-<div class="meta">Leitura: 6–8 min • Atualizado: 17/02/2026</div>
+<div class="meta">Leitura: 8–11 min • Atualizado: 17/02/2026</div>
 
-<div class="callout">
-Este é um caso real de um cliente que quase teve sua conta sequestrada por um site falso.
+<div class="callout">Objetivo deste guia: te mostrar como um golpe do WhatsApp se “sustenta” na prática e como você consegue chegar na infraestrutura (domínio/IP/ASN) usando ferramentas públicas — <strong>sem paranoia</strong> e com <strong>passo a passo</strong>.</div>
+
+<div class="toc" aria-label="Sumário do artigo">
+  <b>Sumário rápido</b>
+  <div class="badge-row">
+    <a class="badge" href="#resumo">Resumo do caso</a>
+    <a class="badge" href="#sinais">Sinais do golpe</a>
+    <a class="badge" href="#preservar">Preservar provas</a>
+    <a class="badge" href="#descobririp">Como cheguei no IP</a>
+    <a class="badge" href="#interpretar">Interpretar IP/ASN</a>
+    <a class="badge" href="#oquefazer">O que fazer</a>
+    <a class="badge" href="#checklist">Checklist 90s</a>
+    <a class="badge" href="#faq">FAQ</a>
+  </div>
 </div>
 
 <figure class="figure">
-<img src="https://cdn.pixabay.com/photo/2017/01/10/19/05/smartphone-1977739_1280.png">
+  <img src="https://cdn.pixabay.com/photo/2025/07/25/08/51/cybersecurity-9734362_640.png" alt="Ilustração de alerta de link de phishing no celular">
+  <figcaption>Ilustração (livre): “phishing link detected” no celular. Use como imagem de abertura do caso.</figcaption>
 </figure>
 
-<h3>Como o golpe começou</h3>
-<p>O cliente recebeu uma mensagem dizendo que sua conta seria bloqueada em 24h.</p>
+<div class="callout warn">Importante: em golpes de WhatsApp, “descobrir o IP” quase nunca significa que você achou a casa do criminoso. Normalmente você encontra um <strong>servidor</strong> (VPS/CDN/proxy) usado no golpe — ainda assim, isso ajuda a <strong>denunciar</strong>, <strong>bloquear</strong> e <strong>entender</strong> a ameaça.</div>
 
-<div class="callout warn">
-"Atualize seus dados agora ou sua conta será desativada permanentemente"
+<div class="actions" style="margin-top:10px">
+  <a class="btn btn-primary" href="../tools/links-falsos.html">Ferramenta: Identificar link falso</a>
+  <a class="btn" href="../tools/rastreio-ip.html">Ferramenta: Rastreio de IP</a>
 </div>
 
-<h3>Investigando o site falso</h3>
+<hr style="margin:18px 0;border:none;border-top:1px solid #e6edf7"/>
 
+<h3 id="resumo">Resumo do caso (real, do jeito que acontece)</h3>
+<p>Um cliente recebeu uma mensagem no WhatsApp com urgência e ameaça:</p>
+<div class="callout warn">“Sua conta será bloqueada hoje. Confirme seus dados para continuar usando o WhatsApp.”</div>
+<p>O golpe tinha 3 peças clássicas:</p>
 <ul>
-<li>Analisei o domínio</li>
-<li>Fiz DNS Lookup</li>
-<li>Extraí o IP do servidor</li>
+  <li><strong>Pressa:</strong> “hoje/24h/agora”.</li>
+  <li><strong>Medo:</strong> “bloqueio”, “perda de conta”.</li>
+  <li><strong>Ação rápida:</strong> um link para “confirmar” algo.</li>
+</ul>
+<p>O link abria um site muito parecido com “página oficial”, pedindo: número, código, e às vezes até e-mail/senha. Isso é a porta de entrada para <strong>sequestro de conta</strong>, <strong>roubo de dinheiro</strong> e <strong>pedidos falsos</strong> para contatos.</p>
+
+<h3 id="sinais">Sinais que denunciaram o golpe em 10 segundos</h3>
+<ul>
+  <li>Link com domínio estranho (não era whatsapp.com, meta.com, etc.).</li>
+  <li>Muita urgência e linguagem agressiva (“último aviso”).</li>
+  <li>Página pedindo dados que o WhatsApp normalmente <strong>não pede assim</strong>.</li>
+  <li>“Suporte” via WhatsApp/Telegram com perfil genérico.</li>
+</ul>
+<div class="callout">Regra de ouro: se a mensagem quer que você clique com pressa, é porque o golpista não quer que você pense.</div>
+
+<h3 id="preservar">Antes de investigar: preserve provas (isso faz diferença)</h3>
+<p>Se você vai analisar ou orientar alguém, primeiro você precisa guardar o básico:</p>
+<ul>
+  <li><strong>Print</strong> da conversa (incluindo o número/perfil que enviou).</li>
+  <li><strong>Link completo</strong> (sem encurtar).</li>
+  <li>Se abriu no navegador: copie a URL final (às vezes muda por redirecionamento).</li>
+  <li>Se possível: anote dia/hora e o que foi digitado (se algo foi digitado).</li>
+</ul>
+<div class="callout warn">Não use “cliquei pra ver se era golpe”. Clique é exatamente o que o golpe precisa. Se precisar analisar, faça em ambiente isolado (ou só use verificação por link/IP sem abrir).</div>
+
+<div class="hr"></div>
+<h3 id="descobririp">Como eu cheguei no IP (sem mágica, sem hack)</h3>
+<p>O caminho é quase sempre esse:</p>
+<ul>
+  <li><strong>1) Identificar o domínio</strong> (o “nome” do site).</li>
+  <li><strong>2) Ver DNS</strong> (pra onde esse domínio aponta).</li>
+  <li><strong>3) Coletar IP</strong> (A/AAAA ou IP do servidor por trás).</li>
+  <li><strong>4) Checar reputação</strong> (Abuse/VirusTotal).</li>
+  <li><strong>5) Checar dono/ASN</strong> (WHOIS/RDAP).</li>
+</ul>
+
+<div class="callout"><strong>Dica prática:</strong> comece pelo seu site: <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Identificador de links falsos</a> e depois use <a href="../tools/rastreio-ip.html" style="color:#0a1f44;font-weight:900">Rastreio de IP</a> para aprofundar.</div>
+
+<h4>Passo 1 — “Qual é o IP desse domínio?”</h4>
+<p>Quando um domínio aponta direto para um servidor (VPS), é comum aparecer um registro A com um IPv4. Em alguns golpes, aparece Cloudflare/CDN e o IP vira do proxy (aí você não vê o “real” — e tudo bem).</p>
+
+<h4>Passo 2 — Checar se o IP já tem histórico</h4>
+<p>Eu verifico rapidamente:</p>
+<ul>
+  <li><strong>AbuseIPDB</strong> (denúncias e categoria: brute force, spam, etc.)</li>
+  <li><strong>VirusTotal</strong> (se aquele IP/domínio já apareceu associado a phishing)</li>
+  <li><strong>WHOIS/RDAP</strong> (empresa/ASN/bloco)</li>
 </ul>
 
 <figure class="figure">
-<img src="https://cdn.pixabay.com/photo/2016/11/29/09/32/analysis-1869610_1280.jpg">
+  <img src="https://cdn.pixabay.com/photo/2022/05/15/10/30/scam-7197219_640.png" alt="Ilustração de Scam Alert">
+  <figcaption>Ilustração (livre): “SCAM ALERT” — boa para marcar o ponto onde você confirma que era golpe.</figcaption>
 </figure>
 
-<h3>Resultado da análise</h3>
-<p>O IP estava hospedado em VPS estrangeira.</p>
+<h3 id="interpretar">Como interpretar o que você encontrou (sem cair em paranoia)</h3>
+<ul>
+  <li><strong>IP de datacenter/VPS</strong>: comum em phishing. Golpista sobe e derruba rápido.</li>
+  <li><strong>IP com denúncias recentes</strong>: pesa muito mais que denúncias antigas.</li>
+  <li><strong>ASN “conhecido” de hospedagem</strong>: não prova culpa, mas reforça automação.</li>
+  <li><strong>IP protegido por CDN</strong>: você vai ver o IP da CDN, não do servidor real. Ainda dá pra denunciar o domínio/URL.</li>
+</ul>
+<div class="callout warn"><strong>Erro comum:</strong> “Achei o IP, agora eu sei quem é”. Não. Você achou a <strong>infra</strong>. O objetivo é <strong>bloquear/denunciar</strong> e proteger a vítima.</div>
 
-<div class="callout warn">
-Após denúncia, o site foi removido.
+<h3 id="oquefazer">O que fazer quando o golpe já aconteceu</h3>
+<ul>
+  <li>Se digitou dados: <strong>trocar senhas</strong> imediatamente (e-mail primeiro).</li>
+  <li>Ativar <strong>2FA</strong> em WhatsApp, e-mail e redes sociais.</li>
+  <li>Revisar “dispositivos conectados” e sessões ativas.</li>
+  <li>Alertar contatos (o golpista vai tentar pedir PIX/“ajuda”).</li>
+  <li>Denunciar link/domínio (plataforma, provedor, Abuse/VirusTotal).</li>
+</ul>
+
+<div class="kit" aria-label="Ações rápidas por cenário">
+  <div class="box">
+    <strong>🧍 Usuário comum</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      1) Troque senha do e-mail<br/>
+      2) Ative 2FA<br/>
+      3) Revise sessões/logins<br/>
+      4) Avise contatos<br/>
+      5) Bloqueie e denuncie o número/link
+    </span>
+  </div>
+  <div class="box">
+    <strong>🏢 Provedor / Suporte</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      1) Oriente sem julgamento (rápido!)<br/>
+      2) Colete link/prints (provas)<br/>
+      3) Ajude a checar domínio/IP/ASN<br/>
+      4) Sugira BO/denúncia quando cabível<br/>
+      5) Faça campanha educativa (recorrência)
+    </span>
+  </div>
+</div>
+
+<h3 id="checklist">Checklist prático (90 segundos)</h3>
+<ul>
+  <li>✅ O link é de domínio estranho (não oficial)?</li>
+  <li>✅ O site pede código/senha/dados demais?</li>
+  <li>✅ O domínio é novo ou sem histórico?</li>
+  <li>✅ IP/ASN é de datacenter e tem denúncias recentes?</li>
+  <li>✅ Houve redirecionamento suspeito e “urgência” no texto?</li>
+</ul>
+
+<div class="callout">
+<strong>Ferramentas do Segurança Tech:</strong><br/>
+• <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Identificador de links falsos</a><br/>
+• <a href="../tools/rastreio-ip.html" style="color:#0a1f44;font-weight:900">Rastreio de IP</a> • <a href="../tools/meu-ip.html" style="color:#0a1f44;font-weight:900">Meu IP</a> • <a href="../tools/meu-asn.html" style="color:#0a1f44;font-weight:900">Meu ASN</a>
+</div>
+
+<div class="hr"></div>
+<h3 id="faq">Perguntas frequentes (FAQ)</h3>
+<div class="faq">
+  <details>
+    <summary>Descobrir o IP significa descobrir o criminoso?</summary>
+    <p>Normalmente não. Você encontra a infraestrutura (servidor/CDN/VPS). Isso é ótimo para denunciar e bloquear, mas não identifica uma pessoa.</p>
+  </details>
+  <details>
+    <summary>Se o site usa Cloudflare, não dá pra fazer nada?</summary>
+    <p>Dá sim: denunciar o domínio/URL, registrar evidências e checar reputação. O IP real pode ficar protegido, mas o golpe ainda pode cair.</p>
+  </details>
+  <details>
+    <summary>Se eu cliquei, já era?</summary>
+    <p>Clicar não é o fim do mundo, mas é sinal de alerta. O risco maior é digitar dados, instalar app ou conceder permissões. Faça o checklist e ajuste segurança.</p>
+  </details>
+  <details>
+    <summary>Qual a proteção mais forte contra golpe de WhatsApp?</summary>
+    <p>2FA no WhatsApp + e-mail bem protegido + desconfiar de urgência. E nunca informar código recebido por SMS.</p>
+  </details>
+</div>
+
+<div class="actions">
+<a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
+<a class="btn" href="./como-identificar-link-falso.html">Artigo: Link falso</a>
+<a class="btn" href="../tools/links-falsos.html">Ferramenta: Links falsos</a>
 </div>
 
 </article></div>
 
-<footer>
-<div class="footer-wrap">
-<div class="footnote">© 2026 Segurança Tech</div>
-</div>
-</footer>
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes e riscos comuns na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech • <a href="../ferramentas.html">Ferramentas</a> • <a href="../artigos.html">Artigos</a></div>
+</div></footer>
 
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+const btn=document.getElementById("toolsBtn"),menu=document.getElementById("toolsMenu");
+function closeMenu(){menu.style.display="none";btn.setAttribute("aria-expanded","false")}
+function toggleMenu(){const open=menu.style.display==="block";menu.style.display=open?"none":"block";btn.setAttribute("aria-expanded",String(!open))}
+btn.addEventListener("click",(e)=>{e.stopPropagation();toggleMenu()});
+document.addEventListener("click",()=>closeMenu());
+document.addEventListener("keydown",(e)=>{if(e.key==="Escape")closeMenu()});
+</script>
 </body></html>
