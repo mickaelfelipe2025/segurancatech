@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Como rastreei um site falso usando ASN — Segurança Tech</title>
+<meta name="description" content="Caso real: como identifiquei um site falso e usei ASN/WHOIS/RDAP e reputação para rastrear a infraestrutura. Guia prático com checklist e o que fazer."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos/como-rastreei-um-site-falso-usando-asn.html"/>
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}header h1{margin:0 0 6px;font-size:28px}header p{margin:0;opacity:.9}
+nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}nav a:hover{background:rgba(255,255,255,.10)}
+.dropdown{position:relative}.dropbtn{background:transparent;color:#fff;border:0;font-weight:800;padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:16px}
+.dropbtn:hover{background:rgba(255,255,255,.10)}
+.dropdown-content{display:none;position:absolute;top:48px;left:0;min-width:270px;background:#fff;border-radius:14px;box-shadow:0 18px 40px rgba(2,6,23,.20);overflow:hidden;z-index:1000}
+.dropdown-content a{color:#0b1220;padding:12px 14px;display:block;text-decoration:none;font-weight:800;border-bottom:1px solid #eef2f7}
+.dropdown-content a:last-child{border-bottom:none}.dropdown-content a:hover{background:#f6f8fb}
+.dropdown-content small{display:block;font-weight:650;color:#64748b;margin-top:2px}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;color:#0a1f44;text-decoration:none}
+.btn:hover{background:#f6f8fb}.btn-primary{border:0;background:#122c66;color:#fff}.btn-primary:hover{filter:brightness(1.05)}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.foot-card h3,.foot-card h4{margin:0 0 8px}.foot-card p{margin:0;color:rgba(234,240,255,.85);line-height:1.6}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.links a:hover{background:rgba(255,255,255,.08)}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+.footnote a{color:#fff;font-weight:900;text-decoration:none}.footnote a:hover{text-decoration:underline}
+
+.hr{height:1px;background:var(--line);margin:14px 0}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px;line-height:1.5}
+.toc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.toc b{display:block;margin-bottom:8px;color:#0a1f44}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#0a1f44;font-weight:900;font-size:13px;text-decoration:none}
+.badge:hover{text-decoration:underline}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+.kit{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px}
+.kit .box{grid-column:span 6;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.kit .box strong{color:#0a1f44}
+@media (max-width:860px){.kit .box{grid-column:span 12}}
+</style></head><body>
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+
+<nav>
+<a href="../index.html">Home</a><a href="../sobre.html">Sobre</a>
+<div class="dropdown"><button class="dropbtn" id="toolsBtn" type="button" aria-haspopup="true" aria-expanded="false">Ferramentas <span aria-hidden="true">▼</span></button>
+<div class="dropdown-content" id="toolsMenu" role="menu" aria-label="Ferramentas">
+<a href="../tools/info-pc.html">Info técnica do meu PC <small>Dados do navegador/dispositivo</small></a>
+<a href="../tools/links-falsos.html">Identificador de links falsos <small>Heurísticas + checklist</small></a>
+<a href="../tools/meu-asn.html">Meu ASN <small>ASN/ISP/Geo (via API pública)</small></a>
+<a href="../tools/meu-ip.html">Meu IP <small>IP público + detalhes</small></a>
+<a href="../tools/previsao-tempo.html">Previsão do tempo <small>Por localização ou coordenadas</small></a>
+<a href="../tools/rastreio-ip.html">Rastreio de IP <small>Consulta de IP informado</small></a>
+</div></div>
+<a href="../artigos.html">Artigos</a><a href="../sobre.html#contato">Contato</a>
+</nav>
+
+<div class="container"><article class="card">
+<h2>Como rastreei um site falso usando ASN</h2>
+<div class="meta">Leitura: 9–12 min • Atualizado: 17/02/2026</div>
+
+<div class="callout">Objetivo deste guia: te mostrar como o <strong>ASN</strong> vira uma lupa para entender de onde vem um site falso (infra, hospedagem, padrão de golpe) — e como usar isso para <strong>denunciar</strong> e <strong>evitar cair</strong>.</div>
+
+<div class="toc" aria-label="Sumário do artigo">
+  <b>Sumário rápido</b>
+  <div class="badge-row">
+    <a class="badge" href="#entender">O que é ASN</a>
+    <a class="badge" href="#caso">O caso real</a>
+    <a class="badge" href="#passos">Passo a passo</a>
+    <a class="badge" href="#sinaisinfra">Sinais de infra de golpe</a>
+    <a class="badge" href="#cdn">E quando tem CDN?</a>
+    <a class="badge" href="#oquefazer">O que fazer</a>
+    <a class="badge" href="#faq">FAQ</a>
+  </div>
+</div>
+
+<figure class="figure">
+  <img src="https://cdn.pixabay.com/photo/2019/11/19/08/44/map-4636843_1280.jpg" alt="Mapa com conexões e conceito de rede">
+  <figcaption>Ilustração (livre): bom visual para representar “rede / rotas / infraestrutura”.</figcaption>
+</figure>
+
+<div class="callout warn">Importante: ASN não é “nome do criminoso”. ASN é o “RG” de uma rede (ISP/datacenter). Ele ajuda a entender a <strong>infra</strong> por trás do domínio/IP e se o padrão é compatível com golpe.</div>
+
+<div class="actions" style="margin-top:10px">
+  <a class="btn btn-primary" href="../tools/meu-asn.html">Ferramenta: Meu ASN</a>
+  <a class="btn" href="../tools/links-falsos.html">Ferramenta: Links falsos</a>
+</div>
+
+<hr style="margin:18px 0;border:none;border-top:1px solid #e6edf7"/>
+
+<h3 id="entender">O que é ASN (bem direto, sem aula chata)</h3>
+<p><strong>ASN</strong> (Autonomous System Number) é um número que identifica uma rede na internet que opera com política própria de roteamento (BGP). Na prática, ele te diz:</p>
+<ul>
+  <li>Qual organização “carrega” aquele bloco de IPs na internet (ISP/datacenter/empresa)</li>
+  <li>Que tipo de rede é (muitas vezes dá pra inferir se é <strong>residencial</strong>, <strong>corporativa</strong> ou <strong>datacenter</strong>)</li>
+  <li>Onde normalmente essa infraestrutura está hospedada (país/operadora)</li>
+</ul>
+
+<div class="callout">Tradução: quando você descobre o IP de um site, o ASN te ajuda a responder: “isso está em provedor residencial comum ou em datacenter/VPS usado para automatização?”</div>
+
+<h3 id="caso">O caso real: site “bonitinho” por fora, golpe por dentro</h3>
+<p>O site imitava uma página de “suporte/atualização” (clássico), com layout convincente e promessa de “resolver rápido”. O ponto é que, por trás, ele precisava de:</p>
+<ul>
+  <li>um domínio (nome do site)</li>
+  <li>um servidor (onde o site fica hospedado)</li>
+  <li>um IP (endereço do servidor)</li>
+  <li>uma rede (o ASN do datacenter/ISP)</li>
+</ul>
+
+<h3 id="passos">Passo a passo: como usei ASN para rastrear a infraestrutura</h3>
+<h4>1) Peguei o domínio e verifiquei redirecionamentos</h4>
+<p>Sites de golpe adoram redirecionar (pra esconder o destino final). A primeira coisa é capturar a URL final e o domínio “principal”.</p>
+
+<h4>2) Resolvi o domínio para IP (DNS)</h4>
+<p>Se o domínio aponta direto para um IP, ótimo: você tem um alvo claro. Se aponta para CDN, você vai ver IP da CDN (e aí seu foco vira o domínio/URL e reputação).</p>
+
+<h4>3) Consultei WHOIS/RDAP para achar ASN e organização</h4>
+<p>Com o IP em mãos, a consulta de rede te dá informações como: ASN, org, bloco, e às vezes o “rastro” do datacenter.</p>
+
+<h4>4) Cruzei com reputação (Abuse/VirusTotal)</h4>
+<p>Não basta “achar o ASN”. O que fecha o diagnóstico é a combinação:</p>
+<ul>
+  <li>infra de datacenter +</li>
+  <li>domínio recente/descartável +</li>
+  <li>histórico em VT/abuse +</li>
+  <li>texto com urgência/ameaça</li>
+</ul>
+
+<figure class="figure">
+  <img src="https://cdn.pixabay.com/photo/2018/05/31/10/51/cyber-security-3443628_640.jpg" alt="Ilustração de cyber security e infraestrutura">
+  <figcaption>Ilustração (livre): representa “infra de segurança / monitoramento / rede”.</figcaption>
+</figure>
+
+<h3 id="sinaisinfra">Sinais clássicos de “infra de golpe” (sem achismo)</h3>
+<ul>
+  <li><strong>IP de datacenter/VPS</strong> (mais comum em phishing do que IP residencial)</li>
+  <li><strong>Domínio muito novo</strong> (dias/semanas)</li>
+  <li><strong>Troca frequente</strong> de IP/servidor (golpe “descartável”)</li>
+  <li><strong>Mesma rede (ASN) aparece em outros golpes</strong> (padrão repetido)</li>
+  <li><strong>Certificado estranho</strong> ou emitido pra nomes genéricos</li>
+</ul>
+
+<div class="callout warn">Cuidado: “datacenter” não é “culpado”. Datacenter hospeda tudo. O que te dá segurança é o conjunto: domínio novo + padrão de golpe + reputação + objetivo do site (coletar dados).</div>
+
+<h3 id="cdn">E quando o site usa CDN (Cloudflare e afins)?</h3>
+<p>Quando há CDN/proxy, o IP que você vê pode ser do intermediário. Nesse caso, você muda o objetivo:</p>
+<ul>
+  <li>focar na <strong>URL/domínio</strong> (não no IP)</li>
+  <li>checar reputação do domínio no VirusTotal</li>
+  <li>documentar provas e denunciar</li>
+</ul>
+<div class="callout">Mesmo com CDN, você ainda consegue derrubar golpe por denúncia bem feita e evidência bem coletada.</div>
+
+<h3 id="oquefazer">O que fazer quando você confirma que é site falso</h3>
+<ul>
+  <li>Não digite nada. Se digitou: troque senhas e ative 2FA (e-mail primeiro).</li>
+  <li>Denuncie o domínio/URL (plataforma + bases públicas).</li>
+  <li>Avise a pessoa que compartilhou (pra estancar a propagação).</li>
+  <li>Use seu <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Identificador de links falsos</a> para orientar rápido quem te procura no WhatsApp.</li>
+</ul>
+
+<div class="kit" aria-label="Ações rápidas por cenário">
+  <div class="box">
+    <strong>🧍 Vítima (já clicou)</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      1) Trocar senha do e-mail<br/>
+      2) Ativar 2FA (WhatsApp/e-mail)<br/>
+      3) Revogar sessões/dispositivos<br/>
+      4) Avisar contatos<br/>
+      5) Denunciar o link
+    </span>
+  </div>
+  <div class="box">
+    <strong>🛠️ Investigação básica</strong><br/>
+    <span style="color:#475569;line-height:1.6">
+      1) Guardar prints/URL final<br/>
+      2) Ver DNS/IP (se existir)<br/>
+      3) Checar ASN/WHOIS/RDAP<br/>
+      4) Ver reputação (VT/Abuse)<br/>
+      5) Documentar e denunciar
+    </span>
+  </div>
+</div>
+
+<div class="callout">
+<strong>Ferramentas do Segurança Tech:</strong><br/>
+• <a href="../tools/meu-asn.html" style="color:#0a1f44;font-weight:900">Meu ASN</a> • <a href="../tools/rastreio-ip.html" style="color:#0a1f44;font-weight:900">Rastreio de IP</a><br/>
+• <a href="../tools/links-falsos.html" style="color:#0a1f44;font-weight:900">Identificador de links falsos</a> • <a href="../tools/meu-ip.html" style="color:#0a1f44;font-weight:900">Meu IP</a>
+</div>
+
+<div class="hr"></div>
+<h3 id="faq">Perguntas frequentes (FAQ)</h3>
+<div class="faq">
+  <details>
+    <summary>ASN serve pra achar “quem criou o golpe”?</summary>
+    <p>Não diretamente. Serve pra entender a infraestrutura (rede/datacenter/ISP) e reforçar evidência para denúncia e bloqueio.</p>
+  </details>
+  <details>
+    <summary>Se o ASN é “famoso”, então é golpe?</summary>
+    <p>Não. O que importa é o conjunto de sinais (domínio novo, coleta de dados, reputação, redirecionamentos, texto de urgência).</p>
+  </details>
+  <details>
+    <summary>Vale a pena bloquear IP de site falso?</summary>
+    <p>Em redes corporativas, pode ajudar como medida temporária. Para usuário comum, o mais importante é não interagir, trocar credenciais se vazou e denunciar.</p>
+  </details>
+  <details>
+    <summary>Por que golpes mudam de IP toda hora?</summary>
+    <p>Porque a infraestrutura é descartável: quando derrubam um servidor/domínio, eles sobem outro rapidamente.</p>
+  </details>
+</div>
+
+<div class="actions">
+<a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
+<a class="btn" href="./como-identificar-link-falso.html">Artigo: Link falso</a>
+<a class="btn" href="../tools/meu-asn.html">Ferramenta: Meu ASN</a>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes e riscos comuns na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech • <a href="../ferramentas.html">Ferramentas</a> • <a href="../artigos.html">Artigos</a></div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+const btn=document.getElementById("toolsBtn"),menu=document.getElementById("toolsMenu");
+function closeMenu(){menu.style.display="none";btn.setAttribute("aria-expanded","false")}
+function toggleMenu(){const open=menu.style.display==="block";menu.style.display=open?"none":"block";btn.setAttribute("aria-expanded",String(!open))}
+btn.addEventListener("click",(e)=>{e.stopPropagation();toggleMenu()});
+document.addEventListener("click",()=>closeMenu());
+document.addEventListener("keydown",(e)=>{if(e.key==="Escape")closeMenu()});
+</script>
+</body></html>
