@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Golpe do Suporte Falso: como funciona e como evitar — Segurança Tech</title>
+<meta name="description" content="Entenda como funciona o golpe do falso suporte técnico (WhatsApp, Instagram e bancos) e veja como se proteger na prática."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://segurancatech.com.br/artigos/golpe-suporte-falso.html"/>
+
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}header h1{margin:0 0 6px;font-size:28px}header p{margin:0;opacity:.9}
+nav{background:var(--nav);padding:10px 12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:999}
+nav a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;border-radius:10px;display:inline-block}nav a:hover{background:rgba(255,255,255,.10)}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;color:#0a1f44;text-decoration:none}
+.btn:hover{background:#f6f8fb}.btn-primary{border:0;background:#122c66;color:#fff}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(234,240,255,.12)}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px;line-height:1.5}
+.toc{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#0a1f44;font-weight:900;font-size:13px;text-decoration:none}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+</style></head><body>
+
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+
+<div class="container"><article class="card">
+
+<h2>Golpe do Suporte Falso: como funciona e como evitar</h2>
+<div class="meta">Leitura: 9–12 min • Atualizado: 18/02/2026</div>
+
+<!-- VIDEO NO TOPO -->
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin-bottom:14px">
+<iframe src="https://www.youtube.com/embed/r1tJ5z2R9yE" frameborder="0" allowfullscreen
+style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+</div>
+
+<div class="callout">
+Objetivo deste guia: te explicar como funciona o <strong>golpe do suporte falso</strong> e como identificar quando alguém está tentando invadir sua conta fingindo ser atendimento oficial.
+</div>
+
+<div class="toc">
+<b>Sumário rápido</b>
+<div class="badge-row">
+<a class="badge" href="#def">O que é</a>
+<a class="badge" href="#func">Como funciona</a>
+<a class="badge" href="#sinais">Sinais</a>
+<a class="badge" href="#evitar">Como evitar</a>
+<a class="badge" href="#caiu">Se você caiu</a>
+<a class="badge" href="#faq">FAQ</a>
+</div>
+</div>
+
+<figure class="figure">
+<img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1200&q=60">
+<figcaption>Imagem ilustrativa livre (Unsplash): golpista fingindo atendimento online.</figcaption>
+</figure>
+
+<h3 id="def">O que é o golpe do suporte falso?</h3>
+
+<p>O golpe do suporte falso é uma técnica de engenharia social onde criminosos fingem ser atendentes oficiais de empresas como bancos, WhatsApp, Instagram, Mercado Livre, operadoras de internet e até mesmo serviços de streaming.</p>
+
+<p>O objetivo deles é simples: fazer você acreditar que existe algum problema urgente com sua conta e te convencer a fornecer dados como:</p>
+
+<ul>
+<li>Código de verificação</li>
+<li>Senha</li>
+<li>Email</li>
+<li>Número do cartão</li>
+<li>Acesso remoto ao celular ou computador</li>
+</ul>
+
+<p>Na maioria dos casos, eles afirmam que sua conta foi denunciada, será bloqueada ou está em risco de invasão.</p>
+
+<h3 id="func">Como esse golpe funciona na prática</h3>
+
+<p>O golpe normalmente segue um roteiro muito bem planejado:</p>
+
+<ul>
+<li>O criminoso entra em contato pelo WhatsApp ou Instagram.</li>
+<li>Ele se apresenta como “Suporte Oficial”.</li>
+<li>Informa que sua conta corre risco.</li>
+<li>Pede que você confirme um código enviado por SMS.</li>
+<li>Esse código, na verdade, é a tentativa de login dele.</li>
+</ul>
+
+<p>Ao informar esse código, você permite que ele entre na sua conta e tome controle total dela.</p>
+
+<div class="callout warn">
+Empresas verdadeiras nunca pedem código de verificação pelo chat.
+</div>
+
+<h3 id="sinais">Principais sinais de golpe</h3>
+
+<ul>
+<li>Mensagem urgente</li>
+<li>Ameaça de bloqueio</li>
+<li>Pedido de código</li>
+<li>Contato inesperado</li>
+<li>Número comum fingindo ser empresa</li>
+</ul>
+
+<figure class="figure">
+<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=60">
+<figcaption>Imagem ilustrativa livre (Unsplash): alerta de segurança digital.</figcaption>
+</figure>
+
+<h3 id="evitar">Como evitar esse golpe</h3>
+
+<p>Você pode se proteger seguindo essas regras simples:</p>
+
+<ul>
+<li>Nunca informe códigos SMS.</li>
+<li>Ative verificação em duas etapas.</li>
+<li>Desconfie de mensagens urgentes.</li>
+<li>Sempre procure atendimento oficial.</li>
+<li>Bloqueie contatos suspeitos.</li>
+</ul>
+
+<h3 id="caiu">Se você caiu no golpe</h3>
+
+<ul>
+<li>Troque sua senha imediatamente.</li>
+<li>Ative 2FA.</li>
+<li>Avise seus contatos.</li>
+<li>Entre em contato com o suporte oficial.</li>
+<li>Registre ocorrência.</li>
+</ul>
+
+<div class="hr"></div>
+
+<h3 id="faq">Perguntas Frequentes</h3>
+<div class="faq">
+<details><summary>O suporte oficial pode me chamar?</summary>
+<p>Não. Empresas legítimas raramente iniciam contato pedindo dados.</p>
+</details>
+<details><summary>O código SMS é seguro?</summary>
+<p>Sim, mas nunca deve ser informado para terceiros.</p>
+</details>
+</div>
+
+<div class="actions">
+<a class="btn btn-primary" href="../artigos.html">Voltar aos Artigos</a>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech</div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
