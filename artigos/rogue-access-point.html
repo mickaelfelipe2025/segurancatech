@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rogue Access Point: o Wi-Fi falso que rouba seus dados em shoppings, aeroportos e cafés — Segurança Tech</title>
+<meta name="description" content="Saiba como funciona o Rogue Access Point (Wi-Fi falso), como criminosos te enganam para conectar e como proteger seus dados e contas."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://segurancatech.com.br/artigos/rogue-access-point.html"/>
+
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(234,240,255,.12)}
+</style></head><body>
+
+<header><h1>Segurança Tech</h1><p>Artigos práticos para você se proteger de golpes</p></header>
+
+<div class="container"><article class="card">
+
+<h2>Rogue Access Point: o Wi-Fi falso que rouba seus dados em shoppings, aeroportos e cafés</h2>
+<div class="meta">Leitura: 22–28 min • Atualizado: 18/02/2026</div>
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin-bottom:14px">
+<iframe src="https://www.youtube.com/embed/uTW1Qtw0eww?autoplay=1&mute=1" frameborder="0" allowfullscreen
+style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+</div>
+
+<div class="callout">
+Um Wi-Fi falso com nome parecido (“Free Airport Wi-Fi”) pode capturar seus logins, redirecionar você para páginas clonadas e até instalar malware.
+</div>
+
+<figure class="figure">
+<img src="https://images.unsplash.com/photo-1544198365-8b3d6ab76b1b?auto=format&fit=crop&w=1200&q=60">
+<figcaption>Imagem ilustrativa livre: redes públicas e pontos de acesso próximos.</figcaption>
+</figure>
+
+<p>O <strong>Rogue Access Point</strong> (ponto de acesso malicioso) é um dos golpes mais perigosos em ambientes públicos porque explora um comportamento comum: conectar no primeiro Wi-Fi que parece “oficial”. Em shoppings, aeroportos, hotéis e cafés, é normal ver várias redes com nomes parecidos. O criminoso se aproveita disso para criar um ponto de acesso com um SSID semelhante ao verdadeiro, atraindo vítimas sem esforço.</p>
+
+<p>Diferente de um simples “Wi-Fi ruim”, um Rogue AP pode ser montado com um notebook e um adaptador Wi-Fi, com um roteador portátil, ou até com um celular em modo hotspot. Em minutos, o atacante cria uma rede com nome chamativo (“Airport Free Wi-Fi”, “Shopping_Guest”, “Hotel Wi-Fi 5G”) e posiciona o equipamento perto de áreas de grande circulação. O objetivo é que o seu dispositivo conecte automaticamente — ou que você escolha a rede errada.</p>
+
+<p>Depois que a vítima conecta, o atacante pode aplicar vários tipos de ataque: <strong>captura de tráfego</strong>, <strong>redirecionamento para páginas falsas</strong>, <strong>interceptação de DNS</strong>, <strong>injeção de scripts</strong> e até <strong>instalação de malware</strong> através de downloads “oferecidos” no portal da rede.</p>
+
+<h3>1) Por que o Rogue Access Point funciona tão bem</h3>
+
+<p>Esse golpe é eficiente porque combina três fatores:</p>
+<ul>
+  <li><strong>Pressa:</strong> as pessoas querem internet rápida e aceitam qualquer rede.</li>
+  <li><strong>Ambiente:</strong> local público, muitos SSIDs, sinal oscilando.</li>
+  <li><strong>Confiança:</strong> o nome da rede parece legítimo (“Hotel”, “Airport”, “Guest”).</li>
+</ul>
+
+<p>Além disso, muitos aparelhos têm a opção de “conectar automaticamente” em redes conhecidas. Se você já conectou em um Wi-Fi chamado “Hotel_Guest” algum dia, e um criminoso cria uma rede com o mesmo nome, seu celular pode tentar reconectar sozinho. Isso é especialmente perigoso quando a rede é aberta (sem senha) ou usa senhas fracas e compartilhadas.</p>
+
+<div class="callout warn">
+O maior risco não é “alguém ver você navegando”. É você entregar login e senha em um portal falso — ou ter sua sessão/cookies roubados.
+</div>
+
+<h3>2) Como o ataque funciona tecnicamente (passo a passo)</h3>
+
+<p>Existem diferentes implementações, mas o “roteiro” costuma seguir essa lógica:</p>
+
+<h4>a) Criação do ponto de acesso</h4>
+<p>O atacante configura um AP com SSID atrativo e sinal forte. Em muitos casos ele aumenta a potência ou posiciona próximo para parecer “o melhor Wi-Fi disponível”.</p>
+
+<h4>b) Portal cativo falso (Captive Portal)</h4>
+<p>Muitas redes públicas abrem uma tela pedindo “aceitar termos” ou “fazer login”. O criminoso imita isso: ele cria uma página idêntica ao padrão de aeroportos/hotéis e pede e-mail, senha, CPF ou login do Google/Facebook.</p>
+
+<p>Isso é a parte mais perigosa: o usuário acha normal e digita dados reais. Em segundos, o criminoso captura credenciais e pode usar em outros serviços.</p>
+
+<h4>c) Manipulação de DNS e redirecionamento</h4>
+<p>Mesmo sem portal, o atacante pode controlar o DNS da vítima e redirecionar sites específicos para clones (banco, e-mail, marketplace). Você digita o endereço correto e cai no falso.</p>
+
+<h4>d) Proxy/MITM e captura de sessão</h4>
+<p>Em cenários mais avançados, o atacante tenta operar como “ponte” entre você e a internet, passando seu tráfego por um proxy. Isso permite observar padrões de acesso, detectar logins e, dependendo de falhas, capturar tokens de sessão.</p>
+
+<h4>e) Injeção e download malicioso</h4>
+<p>O portal pode “oferecer” algo como “atualização de Wi-Fi”, “certificado necessário”, “app do aeroporto” ou “pacote de internet”. Se a vítima instalar, o criminoso ganha um malware persistente (incluindo infostealers).</p>
+
+<h3>3) Cenário real: aeroporto, rede com nome igual e portal perfeito</h3>
+
+<p>Você está em um aeroporto, celular com 15% de bateria, precisa mandar uma mensagem e consultar o banco. Você procura Wi-Fi e vê:</p>
+
+<ul>
+  <li>✈️ <strong>Airport_Free_WiFi</strong></li>
+  <li>✈️ <strong>Airport Free Wi-Fi</strong></li>
+  <li>✈️ <strong>AIRPORT_GUEST</strong></li>
+</ul>
+
+<p>Você escolhe a primeira. Abre um portal pedindo “entrar com e-mail” ou “Google”. Você pensa: “normal” e digita. Pronto: o atacante ganhou seu e-mail e senha.</p>
+
+<p>Em seguida, ele tenta login no seu e-mail. Se você usa a mesma senha em outros serviços, ele tenta banco, redes sociais e marketplaces. Se você tem 2FA por SMS, ele tenta aplicar um segundo golpe: SIM Swap ou clonagem de WhatsApp para capturar códigos.</p>
+
+<p>Mesmo que ele não consiga invadir tudo, ele pode usar sua conta de rede social para aplicar golpe em seus contatos, pedindo PIX, ou vender sua conta.</p>
+
+<h3>4) Como os criminosos usam os dados roubados</h3>
+
+<p>Os dados capturados em Rogue AP são usados de várias formas:</p>
+<ul>
+  <li><strong>Credenciais (e-mail/senha):</strong> para invadir contas e resetar outras senhas.</li>
+  <li><strong>Cookies/sessões:</strong> para acessar contas sem senha (session hijacking).</li>
+  <li><strong>Dados pessoais:</strong> CPF, telefone, endereço para fraudes e abertura de contas.</li>
+  <li><strong>Dados corporativos:</strong> e-mail de trabalho, VPN, portais internos (risco alto).</li>
+</ul>
+
+<p>O atacante pode também criar uma base de vítimas do local: “quem conectou nessa rede hoje”. Isso vira lista para golpes posteriores, por WhatsApp, SMS e e-mail, com alto grau de personalização: “Vimos que você usou o Wi-Fi do aeroporto…” (engenharia social pesada).</p>
+
+<h3>5) Consequências práticas para a vítima</h3>
+
+<p>As consequências mais comuns são:</p>
+<ul>
+  <li><strong>Conta de e-mail invadida</strong> e usada para resetar outras senhas.</li>
+  <li><strong>Redes sociais sequestradas</strong> e usadas para golpes em amigos/seguidores.</li>
+  <li><strong>Marketplace comprometido</strong> com compras e anúncios indevidos.</li>
+  <li><strong>Banco exposto</strong> por login em portal falso ou captura de sessão.</li>
+  <li><strong>Vazamento de dados</strong> (documentos, fotos, conversas, arquivos em nuvem).</li>
+</ul>
+
+<p>Para empresas, o estrago pode ser maior: credenciais de e-mail corporativo e VPN podem permitir invasão interna, roubo de base de clientes e até ataque de ransomware.</p>
+
+<div class="callout warn">
+Se você conectou em Wi-Fi público e digitou senha em algum portal, trate como “credencial exposta” e aja rápido.
+</div>
+
+<h3>6) O que fazer imediatamente (primeiras 24h)</h3>
+
+<ul>
+  <li><strong>1) Desconecte do Wi-Fi</strong> e esqueça a rede no dispositivo.</li>
+  <li><strong>2) Troque a senha do e-mail</strong> (primeiro) em um dispositivo confiável.</li>
+  <li><strong>3) Troque senhas reutilizadas</strong> em redes sociais, marketplace e banco.</li>
+  <li><strong>4) Revogue sessões</strong> (“sair de todos os dispositivos”) nos principais serviços.</li>
+  <li><strong>5) Ative 2FA por aplicativo</strong> e salve códigos de backup offline.</li>
+  <li><strong>6) Verifique apps e extensões</strong> instaladas no período (remova o suspeito).</li>
+  <li><strong>7) Monitore o banco</strong> e ative alertas de transação.</li>
+</ul>
+
+<p>Se você caiu em um portal que pediu “instalar certificado” ou “baixar aplicativo”, considere o dispositivo comprometido. Nesses casos, a medida mais segura é backup do essencial e restauração/limpeza completa.</p>
+
+<h3>7) Plano de ação para os próximos 7 dias</h3>
+
+<ul>
+  <li><strong>Dia 1:</strong> troca de senhas + revogação de sessões.</li>
+  <li><strong>Dia 2:</strong> revisão de recuperação de conta (e-mail alternativo, telefone).</li>
+  <li><strong>Dia 3:</strong> auditoria de dispositivos logados e apps conectados.</li>
+  <li><strong>Dia 4:</strong> verificação completa do dispositivo (antivírus/anti-malware).</li>
+  <li><strong>Dia 5:</strong> revisão de transações bancárias e compras online.</li>
+  <li><strong>Dia 6–7:</strong> monitorar tentativas de login e mensagens suspeitas.</li>
+</ul>
+
+<p>Se você usa contas de trabalho, avise o setor responsável (ou, no seu caso, como você trabalha com telecom, trate como incidente): revisar logs, resetar senhas administrativas e verificar acessos remotos.</p>
+
+<h3>8) Como evitar esse tipo de golpe no futuro</h3>
+
+<ul>
+  <li><strong>Prefira 4G/5G</strong> para banco e contas críticas.</li>
+  <li><strong>Desative “conectar automaticamente”</strong> em redes públicas.</li>
+  <li><strong>Evite redes abertas</strong> (sem senha). Se precisar, use VPN.</li>
+  <li><strong>Não digite senha em portal de Wi-Fi</strong> que você não confia 100%.</li>
+  <li><strong>Cheque o nome oficial da rede</strong> com funcionários do local.</li>
+  <li><strong>Use 2FA por aplicativo</strong> e não por SMS.</li>
+  <li><strong>Use gerenciador de senhas</strong> para não digitar senha manualmente em qualquer tela.</li>
+</ul>
+
+<p>Uma dica forte: crie um hábito simples — <strong>se o Wi-Fi pedir login de Google/Facebook, desconfie</strong>. Redes públicas geralmente pedem “aceitar termos” ou um código do estabelecimento, não sua senha pessoal.</p>
+
+<h3>9) Checklist de segurança</h3>
+
+<ul>
+  <li>✅ “Conectar automaticamente” desativado para redes públicas</li>
+  <li>✅ VPN instalada e pronta (para emergências)</li>
+  <li>✅ 2FA por aplicativo ativado nas contas principais</li>
+  <li>✅ Alertas bancários ativados</li>
+  <li>✅ Senhas únicas para cada serviço</li>
+  <li>✅ Revisão mensal de dispositivos logados</li>
+</ul>
+
+<div class="hr"></div>
+
+<h3>Perguntas Frequentes (FAQ)</h3>
+<div class="faq">
+  <details><summary>Como saber se um Wi-Fi é falso?</summary>
+    <p>O principal sinal é a existência de várias redes com nomes muito parecidos. Também desconfie de redes com nome “Free” e sinal forte demais. O ideal é confirmar o nome da rede com funcionários do local.</p>
+  </details>
+
+  <details><summary>Se o site tem cadeado (HTTPS), estou seguro?</summary>
+    <p>O cadeado ajuda, mas não é garantia total. Você pode ser redirecionado para um site falso com certificado válido, ou cair em um portal de Wi-Fi que captura credenciais antes de você chegar ao site.</p>
+  </details>
+
+  <details><summary>VPN resolve o problema?</summary>
+    <p>VPN reduz bastante riscos de interceptação e manipulação de tráfego, mas não protege se você digitar sua senha em um portal falso ou instalar um aplicativo malicioso.</p>
+  </details>
+
+  <details><summary>Hotspot do celular é mais seguro que Wi-Fi público?</summary>
+    <p>Na maioria dos casos, sim. Usar seu 4G/5G reduz muito a chance de cair em um Rogue Access Point, desde que seu aparelho esteja limpo e atualizado.</p>
+  </details>
+
+  <details><summary>O criminoso consegue ver tudo que eu faço?</summary>
+    <p>Depende do tipo de ataque. Em redes falsas, ele pode ver quais sites você tenta acessar e pode manipular DNS/portais. Conteúdo protegido por HTTPS é mais difícil de “ler”, mas o objetivo do golpista geralmente é capturar logins via portal ou redirecionamento.</p>
+  </details>
+
+  <details><summary>Quais contas devo proteger primeiro se eu cair nesse golpe?</summary>
+    <p>E-mail em primeiro lugar, depois bancos e redes sociais. O e-mail é a chave para resetar senha do resto. Em seguida, revogue sessões e ative 2FA por aplicativo.</p>
+  </details>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a evitar golpes na internet.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech</div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
