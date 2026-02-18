@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>O que é DNS e por que ele é essencial para a internet funcionar? — Segurança Tech</title>
+<meta name="description" content="Entenda o que é DNS, como ele funciona na prática e por que ele é indispensável para acessar qualquer site na internet."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://segurancatech.com.br/artigos/o-que-e-dns.html"/>
+
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(234,240,255,.12)}
+</style></head><body>
+
+<header><h1>Segurança Tech</h1><p>Conhecimento técnico para usar a internet com mais inteligência</p></header>
+
+<div class="container"><article class="card">
+
+<h2>O que é DNS e por que ele é essencial para a internet funcionar?</h2>
+<div class="meta">Leitura: 25–30 min • Atualizado: 18/02/2026</div>
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin-bottom:14px">
+<iframe src="https://www.youtube.com/embed/YMmIRoJjICw?autoplay=1&mute=1" frameborder="0" allowfullscreen
+style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+</div>
+
+<div class="callout">
+Se o DNS parar de funcionar agora, a internet praticamente "desaparece" para você — mesmo que sua conexão esteja perfeita.
+</div>
+
+<figure class="figure">
+<img src="https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=1200&q=60">
+<figcaption>Imagem ilustrativa livre: servidores DNS são responsáveis por traduzir nomes de domínio.</figcaption>
+</figure>
+
+<p>Você já parou para pensar como o seu computador sabe exatamente onde encontrar um site quando você digita, por exemplo, "google.com" no navegador?</p>
+
+<p>A maioria das pessoas acredita que basta ter conexão com a internet para acessar qualquer site. Porém, existe um componente extremamente importante que trabalha silenciosamente nos bastidores para que tudo funcione como deveria: o DNS.</p>
+
+<p>O DNS, ou Domain Name System, é um dos pilares fundamentais da internet moderna. Sem ele, acessar qualquer site seria praticamente impossível para usuários comuns, pois seria necessário memorizar longas sequências de números chamadas endereços IP.</p>
+
+<h3>1) O risco de não entender como o DNS funciona</h3>
+
+<p>Embora o DNS esteja sempre presente no uso diário da internet, ele é invisível para a maioria dos usuários. Isso faz com que muitas pessoas enfrentem problemas de conexão sem saber a causa real.</p>
+
+<p>Por exemplo:</p>
+
+<ul>
+<li>Internet conectada, mas nenhum site abre</li>
+<li>Aplicativos que não carregam conteúdo</li>
+<li>Jogos online que não conectam</li>
+<li>Streaming que apresenta erro de servidor</li>
+</ul>
+
+<p>Muitas vezes, o problema não está na sua internet, mas sim na resolução de nomes feita pelo DNS.</p>
+
+<h3>2) O que é DNS na prática?</h3>
+
+<p>O DNS funciona como uma agenda telefônica da internet.</p>
+
+<p>Enquanto nós humanos preferimos acessar sites usando nomes fáceis de memorizar, como:</p>
+
+<ul>
+<li>youtube.com</li>
+<li>facebook.com</li>
+<li>segurancatech.com.br</li>
+</ul>
+
+<p>Os computadores se comunicam através de endereços IP, que são sequências numéricas como:</p>
+
+<ul>
+<li>142.250.219.206</li>
+<li>157.240.1.35</li>
+<li>172.217.29.174</li>
+</ul>
+
+<p>O papel do DNS é traduzir automaticamente o nome do site em um endereço IP correspondente.</p>
+
+<p>Sem essa tradução, o navegador não saberia para qual servidor enviar a sua solicitação.</p>
+
+<h3>3) Como funciona o processo de resolução DNS?</h3>
+
+<p>Quando você digita um endereço no navegador, acontece o seguinte processo:</p>
+
+<ul>
+<li>Seu computador envia uma requisição para o servidor DNS configurado</li>
+<li>O servidor DNS verifica se já possui o endereço IP correspondente</li>
+<li>Se não tiver, ele consulta outros servidores DNS na internet</li>
+<li>O endereço IP correto é retornado</li>
+<li>Seu navegador se conecta ao servidor do site</li>
+</ul>
+
+<p>Tudo isso acontece em milissegundos.</p>
+
+<h3>4) Tipos de servidores DNS existentes</h3>
+
+<ul>
+<li>DNS Recursivo</li>
+<li>DNS Raiz</li>
+<li>DNS Autoritativo</li>
+</ul>
+
+<p>Cada um possui uma função específica no processo de resolução de nomes.</p>
+
+<h3>5) Consequências práticas de falhas no DNS</h3>
+
+<ul>
+<li>Sites não carregam</li>
+<li>Aplicativos param de funcionar</li>
+<li>Jogos online desconectam</li>
+<li>Serviços de streaming falham</li>
+</ul>
+
+<h3>6) O que fazer imediatamente ao enfrentar falhas de DNS?</h3>
+
+<ul>
+<li>Reiniciar o roteador</li>
+<li>Limpar cache DNS</li>
+<li>Alterar servidor DNS manualmente</li>
+</ul>
+
+<h3>7) Plano de ação para os próximos 7 dias</h3>
+
+<ul>
+<li>Configurar DNS alternativo</li>
+<li>Monitorar estabilidade</li>
+<li>Atualizar firmware do roteador</li>
+</ul>
+
+<h3>8) Como evitar problemas de DNS no futuro</h3>
+
+<ul>
+<li>Manter sistema atualizado</li>
+<li>Utilizar DNS confiáveis</li>
+<li>Evitar configurações desconhecidas</li>
+</ul>
+
+<h3>9) Checklist de conectividade</h3>
+
+<ul>
+<li>✅ DNS configurado corretamente</li>
+<li>✅ Firmware atualizado</li>
+<li>✅ Roteador reiniciado periodicamente</li>
+</ul>
+
+<div class="hr"></div>
+
+<h3>Perguntas Frequentes (FAQ)</h3>
+<div class="faq">
+
+<details><summary>DNS afeta velocidade da internet?</summary>
+<p>Sim, um DNS lento pode aumentar o tempo de carregamento de sites.</p>
+</details>
+
+<details><summary>Posso alterar o DNS manualmente?</summary>
+<p>Sim, tanto no computador quanto no roteador.</p>
+</details>
+
+<details><summary>DNS é seguro?</summary>
+<p>Sim, quando configurado corretamente.</p>
+</details>
+
+<details><summary>DNS interfere em jogos online?</summary>
+<p>Pode interferir no tempo de resposta.</p>
+</details>
+
+<details><summary>DNS funciona em redes móveis?</summary>
+<p>Sim.</p>
+</details>
+
+<details><summary>Preciso pagar por DNS?</summary>
+<p>Não, existem opções gratuitas.</p>
+</details>
+
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a entender melhor como a internet funciona.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech</div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
