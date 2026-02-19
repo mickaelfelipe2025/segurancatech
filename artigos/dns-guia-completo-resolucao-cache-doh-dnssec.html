@@ -1,0 +1,411 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Guia Completo: DNS por dentro (resolução, cache, TTL, DoH/DoT e DNSSEC) — Segurança Tech</title>
+<meta name="description" content="Guia completo e aprofundado sobre DNS: como a resolução funciona, cache e TTL, tipos de registros, DoH/DoT, DNSSEC e um passo a passo de diagnóstico quando sites não abrem."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://segurancatech.com.br/artigos/dns-guia-completo-resolucao-cache-doh-dnssec.html"/>
+
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--nav:#122c66;--header:#0a1f44;--text:#0b1220;--muted:#475569;--shadow:0 10px 22px rgba(2,6,23,.10);--radius:14px;--line:#e6edf7;}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+header{background:var(--header);color:#fff;padding:26px 16px;text-align:center}
+.container{max-width:980px;margin:0 auto;padding:22px 14px}.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+h2{margin:0 0 6px}h3{margin:18px 0 8px}h4{margin:14px 0 6px}
+.meta{color:#64748b;font-weight:800;font-size:13px;margin-bottom:10px}
+p,li{color:var(--muted);line-height:1.75}
+.callout{margin:14px 0;padding:12px 14px;border-radius:12px;background:#e9f1ff;color:#0a1f44;font-weight:900}
+.warn{background:#fff7ed;color:#7c2d12;font-weight:900;border:1px solid #fed7aa}
+.figure{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figure img{display:block;width:100%;height:auto}
+.figure figcaption{padding:10px 12px;color:#64748b;font-weight:800;font-size:13px}
+.hr{height:1px;background:var(--line);margin:14px 0}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 2px}
+.btn{display:inline-block;padding:10px 12px;border-radius:12px;background:var(--nav);color:#fff;text-decoration:none;font-weight:900;box-shadow:0 6px 14px rgba(2,6,23,.10)}
+.btn.secondary{background:#0a1f44}
+.btn.light{background:#1f3a7a}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-weight:900;font-size:12px;background:#e9f1ff;color:#0a1f44;border:1px solid #cfe0ff}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.kv .box{border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px}
+.kv .box b{color:#0a1f44}
+pre{white-space:pre-wrap;word-wrap:break-word;background:#0b1220;color:#eaf2ff;border-radius:12px;padding:12px;border:1px solid rgba(2,6,23,.12);overflow:auto}
+code{background:#f1f5f9;border:1px solid #e2e8f0;padding:2px 6px;border-radius:8px;color:#0b1220}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;margin:10px 0}
+.faq summary{cursor:pointer;font-weight:900;color:#0a1f44}
+footer{margin-top:18px;background:linear-gradient(180deg,#0a1f44 0%,#071a3a 100%);color:#eaf0ff;padding:26px 14px}
+.footer-wrap{max-width:980px;margin:0 auto}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.foot-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+.links{display:grid;gap:10px}.links a{color:#fff;text-decoration:none;font-weight:900;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:block}
+.footnote{max-width:980px;margin:14px auto 0;text-align:center;color:rgba(234,240,255,.75);font-size:13px;padding-top:14px;border-top:1px solid rgba(234,240,255,.12)}
+</style></head><body>
+
+<header><h1>Segurança Tech</h1><p>Conhecimento técnico aplicado à internet do dia a dia</p></header>
+
+<div class="container"><article class="card">
+
+<h2>Guia Completo: DNS por dentro (resolução, cache, TTL, DoH/DoT e DNSSEC)</h2>
+<div class="meta">Leitura: 55–80 min • Atualizado: 18/02/2026</div>
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin-bottom:14px">
+<iframe src="https://www.youtube.com/embed/72snZctFFtA?autoplay=1&mute=1" frameborder="0" allowfullscreen
+style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+</div>
+
+<div class="callout">
+Se “a internet está conectada” mas sites não abrem, o culpado muitas vezes não é o link — é DNS. Neste guia você vai entender DNS por dentro e aprender um diagnóstico que resolve 90% dos casos sem chute.
+</div>
+
+<div class="btnrow">
+  <a class="btn" href="como-funciona-um-roteador-guia-completo.html">Guia: Roteador por dentro</a>
+  <a class="btn light" href="o-que-e-dhcp.html">Abrir: DHCP</a>
+  <a class="btn secondary" href="o-que-e-nat.html">Abrir: NAT</a>
+  <a class="btn" href="o-que-e-latencia.html">Abrir: Latência</a>
+  <a class="btn light" href="o-que-e-packet-loss.html">Abrir: Packet Loss</a>
+  <a class="btn secondary" href="o-que-e-ipv6.html">Abrir: IPv6</a>
+</div>
+
+<figure class="figure">
+  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=60" alt="Infraestrutura de rede e servidores DNS">
+  <figcaption>Imagem ilustrativa livre: DNS é a “lista telefônica” da internet — sem ele, nomes não viram IP.</figcaption>
+</figure>
+
+<h3>1) O que é DNS (sem romantizar): o tradutor que a internet usa o tempo todo</h3>
+
+<p>DNS significa <strong>Domain Name System</strong>. Ele existe por um motivo simples: pessoas lembram nomes, computadores usam números. Você lembra <code>segurancatech.com.br</code>. Seu dispositivo precisa do endereço IP do servidor que hospeda o site.</p>
+
+<p>DNS é o sistema responsável por responder perguntas como:</p>
+<ul>
+  <li>“Qual é o IP do domínio <code>segurancatech.com.br</code>?”</li>
+  <li>“Esse domínio tem IPv6?”</li>
+  <li>“Para onde vai o e-mail desse domínio?”</li>
+  <li>“Existe um subdomínio chamado <code>api</code> ou <code>www</code>?”</li>
+</ul>
+
+<p>Se DNS falha, o link pode estar perfeito e mesmo assim você vê sintomas como:</p>
+<ul>
+  <li>Sites não abrem por nome, mas ping em IP funciona;</li>
+  <li>Apps específicos quebram (YouTube ok, banco não; ou o contrário);</li>
+  <li>Rede “parece conectada”, porém “sem internet” no celular;</li>
+  <li>Erros do tipo <span class="badge">DNS_PROBE_FINISHED_NXDOMAIN</span> / <span class="badge">SERVFAIL</span>.</li>
+</ul>
+
+<div class="callout warn">
+DNS é “infra silenciosa”: quando funciona, ninguém nota. Quando quebra, parece que a internet inteira caiu — e o usuário fica girando em círculos.
+</div>
+
+<h3>2) Peças do DNS: quem faz o quê?</h3>
+
+<p>Para dominar DNS, você precisa separar os papéis. O que confunde as pessoas é achar que “DNS é uma coisa só”. Na prática, existem vários atores:</p>
+
+<div class="kv">
+  <div class="box"><b>Cliente (stub resolver)</b><br>Seu celular/PC. Ele faz a pergunta “qual o IP?” e envia para um servidor DNS configurado.</div>
+  <div class="box"><b>Resolvedor recursivo</b><br>O DNS do provedor, do roteador, ou um público (1.1.1.1, 8.8.8.8). Ele “vai atrás” da resposta.</div>
+  <div class="box"><b>Servidores raiz</b><br>Topo da hierarquia. Eles dizem onde encontrar os servidores do TLD (.com, .br, etc).</div>
+  <div class="box"><b>Servidores do TLD</b><br>Respondem onde estão os servidores autoritativos de um domínio específico.</div>
+  <div class="box"><b>Servidor autoritativo</b><br>Fonte final da verdade para o domínio. Ele guarda os registros A/AAAA/CNAME/MX e responde oficialmente.</div>
+  <div class="box"><b>Cache</b><br>Armazenamento temporário de respostas para acelerar e reduzir carga.</div>
+</div>
+
+<p>Quando você entende isso, você consegue diagnosticar: o problema está no cliente? No resolutor do provedor? Na autoridade do domínio? No caminho? Em cache velho? Em DNSSEC?</p>
+
+<h3>3) O caminho completo da resolução (o “filme” real da internet)</h3>
+
+<p>Vamos montar o fluxo de verdade, do zero, quando você abre um domínio pela primeira vez (sem cache):</p>
+
+<h4>3.1) Seu dispositivo pergunta para o DNS configurado</h4>
+<p>Seu PC/celular pega o DNS automaticamente via DHCP (normalmente o roteador repassa o DNS do provedor, ou o próprio roteador faz forwarder). É aqui que erros de DHCP/DNS começam a aparecer.</p>
+
+<div class="btnrow">
+  <a class="btn light" href="o-que-e-dhcp.html">Se DHCP estiver ruim, DNS também cai →</a>
+  <a class="btn secondary" href="como-funciona-um-roteador-guia-completo.html">Entenda a base (roteador) →</a>
+</div>
+
+<h4>3.2) O resolvedor recursivo faz o “trabalho pesado”</h4>
+<p>Se ele não tem resposta em cache, ele consulta:</p>
+<ul>
+  <li>Servidores <strong>raiz</strong> → “onde está o .com?”</li>
+  <li>Servidores <strong>TLD</strong> (.com) → “onde está o DNS autoritativo do domínio?”</li>
+  <li>Servidor <strong>autoritativo</strong> → “qual o A/AAAA do domínio?”</li>
+</ul>
+
+<p>Quando encontra a resposta, ele devolve para seu dispositivo e grava em cache por um tempo determinado por um valor chamado <strong>TTL</strong>.</p>
+
+<h4>3.3) O navegador abre a conexão com o IP encontrado</h4>
+<p>DNS termina aqui. O resto envolve TCP/TLS/HTTP. Por isso dá para ter “DNS ok” e mesmo assim o site estar fora. Mas quando DNS está ruim, normalmente nem chega nessa etapa.</p>
+
+<figure class="figure">
+  <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1200&q=60" alt="Infraestrutura de rede e tráfego entre clientes e servidores">
+  <figcaption>Imagem ilustrativa livre: DNS é consulta + resposta; a navegação em si vem depois (HTTP/HTTPS).</figcaption>
+</figure>
+
+<h3>4) TTL e cache: por que “mudou o IP e não atualiza” ou “para mim abre, para você não”</h3>
+
+<p><strong>TTL (Time To Live)</strong> é o tempo (em segundos) que uma resposta pode ficar em cache. Exemplo: TTL 300 significa 5 minutos. TTL 3600 significa 1 hora.</p>
+
+<p>Cache existe por boas razões:</p>
+<ul>
+  <li>acelera a navegação;</li>
+  <li>reduz consultas repetidas aos servidores autoritativos;</li>
+  <li>melhora estabilidade em picos;</li>
+  <li>barateia a operação de infraestrutura.</li>
+</ul>
+
+<p>Mas cache também gera situações que confundem:</p>
+<ul>
+  <li><strong>“Migrei o site e alguns ainda veem o antigo”</strong> → caches com TTL alto ainda não expiraram.</li>
+  <li><strong>“No meu 4G funciona, no Wi-Fi não”</strong> → resolutores diferentes com caches diferentes.</li>
+  <li><strong>“No PC abre, no celular não”</strong> → cache local do sistema/navegador.</li>
+</ul>
+
+<div class="callout">
+Quando você muda DNS, não é “instantâneo universal”. É instantâneo para quem consulta após o cache expirar. Por isso planejamento de TTL antes de migração é ouro.
+</div>
+
+<h3>5) Tipos de registros DNS (o que cada um faz de verdade)</h3>
+
+<p>DNS não serve apenas para “domínio → IP”. Ele guarda vários tipos de informação. Os mais importantes:</p>
+
+<ul>
+  <li><strong>A</strong>: aponta domínio para um IPv4 (ex.: 104.21.x.x).</li>
+  <li><strong>AAAA</strong>: aponta domínio para um IPv6.</li>
+  <li><strong>CNAME</strong>: cria um “apelido” (um nome aponta para outro nome).</li>
+  <li><strong>MX</strong>: define servidores de e-mail do domínio.</li>
+  <li><strong>TXT</strong>: textos usados para verificação e políticas (SPF, DKIM, DMARC, validações).</li>
+  <li><strong>NS</strong>: servidores autoritativos do domínio.</li>
+  <li><strong>SRV</strong>: localiza serviços específicos (com porta e prioridade), usado em alguns sistemas.</li>
+</ul>
+
+<h4>5.1) A vs CNAME: o erro clássico</h4>
+<p>Um erro comum é misturar A e CNAME na mesma raiz de host, ou criar CNAME onde não deve. Em muitos DNS managers, o host “@” (raiz) tem restrições. Em geral, seu provedor DNS explica o que é permitido.</p>
+
+<h4>5.2) AAAA (IPv6) e dual-stack: por que alguns usuários têm rota diferente</h4>
+<p>Se você tem AAAA, clientes com IPv6 podem preferir IPv6 (dependendo do sistema). Isso muda o caminho até o servidor. Às vezes IPv4 está ok e IPv6 está ruim (ou vice-versa). Resultado: “para mim abre, para você não”.</p>
+
+<div class="btnrow">
+  <a class="btn secondary" href="o-que-e-ipv6.html">Entenda IPv6 e por que muda rotas →</a>
+</div>
+
+<h3>6) DNS do provedor vs DNS público: quando faz sentido trocar?</h3>
+
+<p>DNS do provedor geralmente é mais “próximo” da sua rede, o que pode ser bom para latência. Mas em alguns cenários, DNS público pode ser mais estável, rápido ou com recursos extras.</p>
+
+<p>Quando faz sentido testar outro DNS:</p>
+<ul>
+  <li>o DNS atual está instável (SERVFAIL intermitente);</li>
+  <li>há lentidão perceptível na primeira abertura de sites;</li>
+  <li>há cache “envenenado” ou inconsistências temporárias;</li>
+  <li>você quer filtrar malware/ads (alguns serviços oferecem isso);</li>
+  <li>você precisa contornar falhas locais (sem “gambiarra permanente”).</li>
+</ul>
+
+<div class="callout warn">
+Trocar DNS pode “resolver” sintomas, mas nem sempre resolve a causa raiz. Se o problema for perda de pacotes ou latência no link, trocar DNS não salva — só mascara.
+</div>
+
+<h3>7) DoH e DoT: DNS criptografado (o que é e o que muda)</h3>
+
+<p>Tradicionalmente, DNS usa porta 53 (UDP/TCP) sem criptografia. Isso permite que redes e provedores vejam consultas (quais domínios você resolve). Para melhorar privacidade e integridade, surgiram:</p>
+
+<ul>
+  <li><strong>DoT (DNS over TLS)</strong>: DNS dentro de TLS (porta 853).</li>
+  <li><strong>DoH (DNS over HTTPS)</strong>: DNS dentro de HTTPS (porta 443).</li>
+</ul>
+
+<p>Na prática:</p>
+<ul>
+  <li>DoH “parece” tráfego web, o que dificulta inspeção/bloqueio simples;</li>
+  <li>DoT é mais explícito e fácil de identificar como DNS criptografado;</li>
+  <li>Ambos aumentam privacidade, mas podem complicar políticas corporativas.</li>
+</ul>
+
+<p>Em casa, DoH pode ajudar a evitar interferência e melhorar privacidade. Em empresa, pode quebrar controles de DNS internos (split DNS). Então a decisão deve considerar o cenário.</p>
+
+<h3>8) DNSSEC: autenticidade de respostas (e por que às vezes quebra)</h3>
+
+<p><strong>DNSSEC</strong> adiciona assinaturas criptográficas para garantir que a resposta DNS é autêntica (não foi alterada no caminho). Ele aumenta segurança contra certos ataques, mas exige configuração correta.</p>
+
+<p>Problemas típicos com DNSSEC:</p>
+<ul>
+  <li>assinatura expirada (rotinas de rotação falharam);</li>
+  <li>cadeia quebrada (DS/keys inconsistentes);</li>
+  <li>provedor DNS autoritativo com erro de publicação;</li>
+  <li>resolutor que valida DNSSEC recusando respostas inválidas (SERVFAIL).</li>
+</ul>
+
+<div class="callout">
+Quando DNSSEC está quebrado, o domínio pode “sumir” para resolutores que validam. Para outros, pode parecer normal. É o tipo de bug que vira pesadelo se você não entende cache/validação.
+</div>
+
+<h3>9) Cenários reais (os mais comuns no suporte técnico)</h3>
+
+<h4>9.1) “Wi-Fi conecta, mas diz ‘Sem internet’”</h4>
+<p>Muitas vezes o teste de conectividade do sistema falha por DNS. O dispositivo até consegue pingar um IP, mas não resolve o domínio de teste.</p>
+
+<p>Diagnóstico rápido:</p>
+<ul>
+  <li>o dispositivo recebeu DNS via DHCP?</li>
+  <li>esse DNS responde rápido?</li>
+  <li>trocar DNS temporariamente resolve?</li>
+</ul>
+
+<h4>9.2) “Alguns sites abrem, outros não”</h4>
+<p>Isso pode ser:</p>
+<ul>
+  <li>DNS com respostas erradas/incompletas;</li>
+  <li>IPv6 quebrado (AAAA preferido, mas rota ruim);</li>
+  <li>cache velho após migração;</li>
+  <li>MTU/fragmentação (parece DNS, mas não é).</li>
+</ul>
+
+<h4>9.3) “Para mim abre, para você não” (clássico de TTL/cache)</h4>
+<p>Se um usuário usa DNS do provedor e outro usa DNS público, cada um pode estar vendo respostas diferentes temporariamente, devido a cache e TTL.</p>
+
+<h3>10) Diagnóstico profissional: como achar a causa sem “mexer em tudo”</h3>
+
+<p>Esse é o roteiro que separa suporte amador de suporte técnico de verdade.</p>
+
+<h4>10.1) Etapa 1 — Conectividade IP (antes de culpar DNS)</h4>
+<ul>
+  <li>O dispositivo tem IP válido (não 169.254)?</li>
+  <li>Gateway está correto?</li>
+  <li>Você consegue acessar um IP (ex.: abrir um site por IP, quando possível)?</li>
+</ul>
+
+<h4>10.2) Etapa 2 — Teste DNS direto</h4>
+<p>Você quer saber: o DNS está respondendo? E respondendo certo?</p>
+
+<pre>
+Windows (PowerShell):
+nslookup segurancatech.com.br
+
+Linux/macOS:
+dig segurancatech.com.br
+dig AAAA segurancatech.com.br
+</pre>
+
+<p>Se <code>nslookup</code>/<code>dig</code> demora ou falha com SERVFAIL/timeouts, você tem pista forte.</p>
+
+<h4>10.3) Etapa 3 — Compare resolutores</h4>
+<p>Teste com um DNS diferente para validar hipótese:</p>
+
+<pre>
+Exemplo (dig com servidor específico):
+dig @1.1.1.1 segurancatech.com.br
+dig @8.8.8.8 segurancatech.com.br
+</pre>
+
+<p>Se um funciona e outro não, o problema pode ser o resolutor (ou o caminho até ele), não o domínio.</p>
+
+<h4>10.4) Etapa 4 — Verifique IPv6 vs IPv4</h4>
+<p>Se AAAA responde e o cliente usa IPv6, mas a rota IPv6 está ruim, você verá falhas “misteriosas”. Teste separadamente. Se necessário, uma solução temporária é priorizar IPv4 até corrigir a rota IPv6 (isso é diagnóstico, não “gambiarra eterna”).</p>
+
+<div class="btnrow">
+  <a class="btn" href="o-que-e-ipv6.html">Guia: IPv6 (entenda preferências e rotas) →</a>
+</div>
+
+<h3>11) O que fazer imediatamente (primeiras 24 horas) quando parece “problema de DNS”</h3>
+
+<ul>
+  <li><strong>1) Não mexa em 10 coisas</strong>. Comece confirmando IP/gateway/DNS recebidos via DHCP.</li>
+  <li><strong>2) Reinicie roteador</strong> (limpa cache/local resolver em muitos modelos) e reconecte o dispositivo.</li>
+  <li><strong>3) Teste outro DNS no dispositivo</strong> (temporário) para validar se o resolutor atual está com falha.</li>
+  <li><strong>4) Se for rede com repetidor/mesh</strong>, confirme que existe <strong>um DHCP</strong> só, e que ele distribui DNS correto.</li>
+  <li><strong>5) Se for domínio seu</strong>, revise TTL, registros e propagação; não faça mudanças em cadeia sem controle.</li>
+  <li><strong>6) Documente</strong>: horário, erro, resolutor usado, se falha em IPv4/IPv6. Isso acelera correção real.</li>
+</ul>
+
+<div class="callout warn">
+Se você está em suporte: “trocar DNS” pode ser um bom teste, mas não finalize o chamado sem entender a causa. DNS ruim pode ser sintoma de perda/latência no link.
+</div>
+
+<h3>12) Plano de ação (7 dias) para estabilizar e evitar recorrência</h3>
+
+<ul>
+  <li><strong>Dia 1:</strong> mapear onde falha (Wi-Fi/cabo, só alguns dispositivos, só alguns horários).</li>
+  <li><strong>Dia 2:</strong> padronizar DHCP (um servidor) e garantir distribuição consistente de DNS.</li>
+  <li><strong>Dia 3:</strong> definir estratégia: DNS do provedor vs público, e se DoH/DoT será usado (consciente).</li>
+  <li><strong>Dia 4:</strong> revisar IPv6: se tiver AAAA e IPv6 ativo, garanta que a rota IPv6 está estável.</li>
+  <li><strong>Dia 5:</strong> otimizar cache/TTL para domínios próprios (reduzir TTL antes de migrações, evitar TTL absurdo).</li>
+  <li><strong>Dia 6:</strong> se usar DNSSEC, revisar cadeia e automação de rotação (evitar expiração).</li>
+  <li><strong>Dia 7:</strong> checklist final + documentação: quais DNS, onde configurado (roteador/dispositivo), e plano de rollback.</li>
+</ul>
+
+<h3>13) Boas práticas (DNS “redondo” para casa, empresa e projetos)</h3>
+
+<ul>
+  <li><strong>Padronize</strong>: escolha um DNS primário e secundário confiáveis.</li>
+  <li><strong>Evite misturar aleatoriamente</strong> DNS no roteador e DNS manual em dispositivos sem motivo.</li>
+  <li><strong>Planeje migrações</strong>: reduza TTL com antecedência.</li>
+  <li><strong>Use cache com consciência</strong>: cache é bom, mas TTL precisa ser coerente.</li>
+  <li><strong>Se usar DoH/DoT</strong>, faça sabendo o impacto em redes com controles internos.</li>
+  <li><strong>Monitore</strong>: quedas rápidas e intermitentes geralmente apontam para link/latência, não “DNS ruim” puro.</li>
+</ul>
+
+<div class="btnrow">
+  <a class="btn" href="como-funciona-um-roteador-guia-completo.html">Voltar: Roteador por dentro →</a>
+  <a class="btn light" href="o-que-e-latencia.html">Voltar: Latência →</a>
+  <a class="btn secondary" href="o-que-e-packet-loss.html">Voltar: Packet Loss →</a>
+</div>
+
+<h3>14) Checklist final (DNS saudável e previsível)</h3>
+
+<ul>
+  <li>✅ DHCP entrega DNS correto e consistente</li>
+  <li>✅ Existem pelo menos 2 resolutores configurados (primário/secundário)</li>
+  <li>✅ Testes com nslookup/dig retornam rápido e sem SERVFAIL</li>
+  <li>✅ TTL planejado (sem valores absurdos em domínios que mudam)</li>
+  <li>✅ IPv6 revisado (AAAA ok e rota ok)</li>
+  <li>✅ Se houver DNSSEC, cadeia válida e rotação funcionando</li>
+  <li>✅ Se usar DoH/DoT, impacto avaliado (principalmente em redes internas)</li>
+</ul>
+
+<div class="hr"></div>
+
+<h3>Perguntas Frequentes (FAQ)</h3>
+<div class="faq">
+  <details><summary>DNS é a mesma coisa que internet?</summary>
+    <p>Não. DNS é uma parte do “processo” de acessar serviços. Você pode ter internet funcionando (rota, link, IP) e DNS quebrado, o que impede abrir sites por nome.</p>
+  </details>
+
+  <details><summary>Por que alguns sites abrem e outros não?</summary>
+    <p>Pode ser DNS retornando respostas erradas, cache/TTL, preferência por IPv6 com rota ruim, ou até problemas de MTU que parecem DNS. O diagnóstico separando A/AAAA e testando resolutores diferentes ajuda muito.</p>
+  </details>
+
+  <details><summary>Trocar DNS sempre resolve?</summary>
+    <p>Não. Trocar DNS pode resolver quando o resolutor atual está instável, mas se a causa for perda de pacotes ou latência no link, trocar DNS só “disfarça” o problema.</p>
+  </details>
+
+  <details><summary>O que é TTL e por que demora para “propagar”?</summary>
+    <p>TTL é o tempo que uma resposta DNS pode ficar em cache. “Propagação” é, na prática, esperar caches expirarem. Reduzir TTL antes de migrar ajuda muito.</p>
+  </details>
+
+  <details><summary>DoH/DoT deixa a internet mais rápida?</summary>
+    <p>Nem sempre. Pode melhorar confiabilidade e privacidade, mas a velocidade depende do resolvedor e da rota. Em redes corporativas, pode atrapalhar DNS interno.</p>
+  </details>
+
+  <details><summary>DNSSEC é obrigatório?</summary>
+    <p>Não é obrigatório para todos os projetos, mas aumenta segurança e autenticidade das respostas. Exige manutenção correta; se quebrar, pode derrubar a resolução em resolutores que validam.</p>
+  </details>
+
+  <details><summary>Como sei se o problema é DNS ou Wi-Fi?</summary>
+    <p>Teste por cabo (se possível) e use nslookup/dig. Se por cabo também falha, é menos provável ser Wi-Fi. Se só falha no Wi-Fi, pode ser perda/interferência afetando o handshake de DNS.</p>
+  </details>
+
+  <details><summary>IPv6 influencia DNS?</summary>
+    <p>Influencia porque o DNS pode retornar AAAA (IPv6). Se o cliente preferir IPv6 e a rota estiver ruim, você terá falhas mesmo com IPv4 funcionando.</p>
+  </details>
+</div>
+
+</article></div>
+
+<footer><div class="footer-wrap"><div class="footer-grid">
+<div class="foot-card"><h3>Segurança Tech</h3><p>Educação e ferramentas gratuitas para ajudar você a entender melhor como a internet funciona.</p></div>
+<div class="foot-card"><h4>Links importantes</h4><div class="links">
+<a href="../sobre.html">Sobre</a><a href="../politica-de-privacidade.html">Política de Privacidade</a><a href="../termos-de-uso.html">Termos de Uso</a>
+</div></div></div>
+<div class="footnote">© <span id="year"></span> Segurança Tech</div>
+</div></footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body></html>
