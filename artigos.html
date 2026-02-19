@@ -7,7 +7,7 @@
 
   <meta name="description" content="Artigos práticos para você se proteger de golpes: phishing, links falsos, IP/ASN e segurança no WhatsApp." />
   <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://mickaelfelipe2025.github.io/segurancatech/artigos.html" />
+  <link rel="canonical" href="https://segurancatech.com.br/artigos.html" />
 
   <style>
     :root{
@@ -421,347 +421,48 @@
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
 
   // =========================
-  // ✅ LISTA DE ARTIGOS (corrigida e completa)
+  // ✅ LISTA DE ARTIGOS (36 arquivos)
   // =========================
   const ARTIGOS = [
-    {
-      title: "O que é phishing (e como não cair)",
-      desc: "Entenda o golpe mais comum e aprenda a reconhecer sinais antes de clicar.",
-      category: "Golpes",
-      tags: ["phishing", "contas", "senhas"],
-      minutes: "8–12 min",
-      dateISO: "2026-02-15",
-      url: "artigos/o-que-e-phishing.html"
-    },
-    {
-      title: "O que é phishing (versão alternativa do arquivo)",
-      desc: "Mesmo tema, arquivo diferente: útil caso você mantenha duas versões/atualizações do artigo.",
-      category: "Golpes",
-      tags: ["phishing", "golpes"],
-      minutes: "6–10 min",
-      dateISO: "2026-02-15",
-      url: "artigos/o-o-que-e-phishing.html"
-    },
-    {
-      title: "Como identificar link falso",
-      desc: "Checklist prático: domínio, URL, subdomínios e encurtadores.",
-      category: "Links",
-      tags: ["links", "url", "golpe"],
-      minutes: "8–12 min",
-      dateISO: "2026-02-15",
-      url: "artigos/como-identificar-link-falso.html"
-    },
-    {
-      title: "Como saber se um IP é perigoso",
-      desc: "Reputação, origem (ASN) e contexto real — sem paranoia.",
-      category: "IP e Rede",
-      tags: ["ip", "reputação", "abuso"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-15",
-      url: "artigos/como-saber-se-um-ip-e-perigoso.html"
-    },
-    {
-      title: "O que é ASN? (Vídeo + Imagens + Transcrição)",
-      desc: "Artigo completo com vídeo no meio do texto, imagens ilustrativas, checklist e transcrição para SEO.",
-      category: "IP e Rede",
-      tags: ["asn", "ip", "rede", "bgp"],
-      minutes: "10–15 min",
-      dateISO: "2026-02-15",
-      url: "artigos/o-que-e-asn-video.html"
-    },
-    {
-      title: "Golpes no WhatsApp: os mais comuns",
-      desc: "Clonagem, falso suporte, Pix e como se proteger em 2 passos.",
-      category: "WhatsApp",
-      tags: ["whatsapp", "clonagem", "pix"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-15",
-      url: "artigos/golpes-no-whatsapp-os-mais-comuns.html"
-    },
-    {
-      title: "Como ativar verificação em duas etapas no WhatsApp",
-      desc: "Passo a passo com imagens, checklist e transcrição (modelo SEO forte).",
-      category: "WhatsApp",
-      tags: ["whatsapp", "2fa", "pin", "segurança"],
-      minutes: "8–12 min",
-      dateISO: "2026-02-15",
-      url: "artigos/whatsapp-2fa.html"
-    },
-    {
-      title: "Engenharia social: como os golpistas te manipulam",
-      desc: "As técnicas mentais usadas em golpes e como se defender.",
-      category: "Golpes",
-      tags: ["engenharia social", "manipulação", "urgência"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-15",
-      url: "artigos/engenharia-social-como-os-golpistas-te-manipulam.html"
-    },
+    // já existentes
+    { title:"O que é phishing (e como não cair)", desc:"Entenda o golpe mais comum e aprenda a reconhecer sinais antes de clicar.", category:"Golpes", tags:["phishing","contas","senhas"], minutes:"8–12 min", dateISO:"2026-02-15", url:"artigos/o-que-e-phishing.html" },
+    { title:"O que é phishing (versão alternativa do arquivo)", desc:"Versão alternativa/atualização do artigo de phishing.", category:"Golpes", tags:["phishing","golpes"], minutes:"6–10 min", dateISO:"2026-02-15", url:"artigos/o-o-que-e-phishing.html" },
+    { title:"Como identificar link falso", desc:"Checklist prático: domínio, URL, subdomínios e encurtadores.", category:"Links", tags:["links","url","golpe"], minutes:"8–12 min", dateISO:"2026-02-15", url:"artigos/como-identificar-link-falso.html" },
+    { title:"Como saber se um IP é perigoso", desc:"Reputação, origem (ASN) e contexto real — sem paranoia.", category:"IP e Rede", tags:["ip","reputação","abuso"], minutes:"10–14 min", dateISO:"2026-02-15", url:"artigos/como-saber-se-um-ip-e-perigoso.html" },
+    { title:"O que é ASN? (Vídeo + Imagens + Transcrição)", desc:"Artigo completo com vídeo no meio do texto, imagens ilustrativas, checklist e transcrição para SEO.", category:"IP e Rede", tags:["asn","ip","rede","bgp"], minutes:"10–15 min", dateISO:"2026-02-15", url:"artigos/o-que-e-asn-video.html" },
+    { title:"Golpes no WhatsApp: os mais comuns", desc:"Clonagem, falso suporte, Pix e como se proteger em 2 passos.", category:"WhatsApp", tags:["whatsapp","clonagem","pix"], minutes:"10–14 min", dateISO:"2026-02-15", url:"artigos/golpes-no-whatsapp-os-mais-comuns.html" },
+    { title:"Como ativar verificação em duas etapas no WhatsApp", desc:"Passo a passo com checklist e boas práticas.", category:"WhatsApp", tags:["whatsapp","2fa","pin","segurança"], minutes:"8–12 min", dateISO:"2026-02-15", url:"artigos/whatsapp-2fa.html" },
+    { title:"Engenharia social: como os golpistas te manipulam", desc:"As técnicas mentais usadas em golpes e como se defender.", category:"Golpes", tags:["engenharia social","manipulação","urgência"], minutes:"10–14 min", dateISO:"2026-02-15", url:"artigos/engenharia-social-como-os-golpistas-te-manipulam.html" },
+    { title:"Como rastreei um site falso usando ASN", desc:"Investigação prática: do link à infraestrutura (com segurança).", category:"Casos reais", tags:["asn","ip","denúncia"], minutes:"12–18 min", dateISO:"2026-02-17", url:"artigos/como-rastreei-um-site-falso-usando-asn.html" },
+    { title:"Cliente da minha provedora caiu em phishing (caso real)", desc:"O que fazer nas primeiras horas: conter dano, recuperar contas e reforçar proteção.", category:"Casos reais", tags:["phishing","incidente","provedor"], minutes:"12–18 min", dateISO:"2026-02-17", url:"artigos/cliente-da-minha-provedora-caiu-em-phishing-caso-real.html" },
+    { title:"Analisei um golpe real do WhatsApp e descobri o IP", desc:"Como o golpe se sustenta e como chegar na infraestrutura.", category:"Casos reais", tags:["whatsapp","ip","investigação"], minutes:"12–18 min", dateISO:"2026-02-17", url:"artigos/analisei-um-golpe-real-do-whatsapp-e-descobri-o-ip.html" },
 
-    // ====== Casos reais / Investigação
-    {
-      title: "Como rastreei um site falso usando ASN",
-      desc: "Do link ao provedor/infra: como você pode investigar e denunciar com segurança.",
-      category: "Casos reais",
-      tags: ["asn", "ip", "denúncia"],
-      minutes: "12–18 min",
-      dateISO: "2026-02-17",
-      url: "artigos/como-rastreei-um-site-falso-usando-asn.html"
-    },
-    {
-      title: "Cliente da minha provedora caiu em phishing (caso real)",
-      desc: "O que fazer nas primeiras horas após um phishing: conter dano, recuperar contas e reforçar proteção.",
-      category: "Casos reais",
-      tags: ["phishing", "incidente", "provedor"],
-      minutes: "12–18 min",
-      dateISO: "2026-02-17",
-      url: "artigos/cliente-da-minha-provedora-caiu-em-phishing-caso-real.html"
-    },
-    {
-      title: "Analisei um golpe real do WhatsApp e descobri o IP",
-      desc: "Como um golpe se sustenta na prática e como chegar na infraestrutura por trás.",
-      category: "Casos reais",
-      tags: ["whatsapp", "ip", "investigação"],
-      minutes: "12–18 min",
-      dateISO: "2026-02-17",
-      url: "artigos/analisei-um-golpe-real-do-whatsapp-e-descobri-o-ip.html"
-    },
-
-    // ====== Rede / Internet
-    {
-      title: "Como funciona a internet: do zero até a sua casa",
-      desc: "Um guia claro do caminho dos dados: provedor, backbone, roteamento, fibra e Wi-Fi no final.",
-      category: "IP e Rede",
-      tags: ["internet", "rede", "provedor"],
-      minutes: "12–18 min",
-      dateISO: "2026-02-18",
-      url: "artigos/como-funciona-a-internet-do-zero-ate-sua-casa.html"
-    },
-    {
-      title: "DNS: guia completo (resolução, cache, DoH e DNSSEC)",
-      desc: "Do básico ao avançado: como o DNS resolve nomes, onde falha e como proteger sua navegação.",
-      category: "IP e Rede",
-      tags: ["dns", "doh", "dnssec"],
-      minutes: "12–18 min",
-      dateISO: "2026-02-18",
-      url: "artigos/dns-guia-completo-resolucao-cache-doh-dnssec.html"
-    },
-    {
-      title: "DNS hijacking: o que é, como identificar e como se proteger",
-      desc: "Quando o DNS é desviado, você pode ir para sites falsos mesmo digitando o endereço correto.",
-      category: "IP e Rede",
-      tags: ["dns", "hijacking", "golpes"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/dns-hijacking.html"
-    },
-    {
-      title: "O que é DHCP?",
-      desc: "Como o DHCP entrega IP automaticamente, onde dá problema e como diagnosticar rápido.",
-      category: "IP e Rede",
-      tags: ["dhcp", "ip", "rede"],
-      minutes: "8–12 min",
-      dateISO: "2026-02-18",
-      url: "artigos/o-que-e-dhcp.html"
-    },
-    {
-      title: "O que é DNS?",
-      desc: "O ‘catálogo’ da internet: como funciona, como falha e como melhorar segurança e privacidade.",
-      category: "IP e Rede",
-      tags: ["dns", "resolução", "internet"],
-      minutes: "8–12 min",
-      dateISO: "2026-02-18",
-      url: "artigos/o-que-e-dns.html"
-    },
-    {
-      title: "O que é IPv6?",
-      desc: "Por que existe, o que muda no dia a dia e como convive com IPv4 em redes modernas.",
-      category: "IP e Rede",
-      tags: ["ipv6", "ipv4", "internet"],
-      minutes: "9–13 min",
-      dateISO: "2026-02-18",
-      url: "artigos/o-que-e-ipv6.html"
-    },
-    {
-      title: "O que é latência?",
-      desc: "O que causa atraso, como medir e como melhorar (Wi-Fi, rota e provedor).",
-      category: "IP e Rede",
-      tags: ["latencia", "ping", "rede"],
-      minutes: "8–12 min",
-      dateISO: "2026-02-18",
-      url: "artigos/o-que-e-latencia.html"
-    },
-    {
-      title: "O que é NAT?",
-      desc: "Entenda NAT, CGNAT e impacto em jogos, câmeras, portas e serviços.",
-      category: "IP e Rede",
-      tags: ["nat", "cgnat", "roteador"],
-      minutes: "9–13 min",
-      dateISO: "2026-02-18",
-      url: "artigos/o-que-e-nat.html"
-    },
-    {
-      title: "O que é packet loss?",
-      desc: "Perda de pacotes: por que acontece, como medir e o que fazer para estabilizar a conexão.",
-      category: "IP e Rede",
-      tags: ["packetloss", "rede", "conexao"],
-      minutes: "8–12 min",
-      dateISO: "2026-02-18",
-      url: "artigos/o-que-e-packet-loss.html"
-    },
-
-    // ====== Wi-Fi / Ataques
-    {
-      title: "Ataque Man-in-the-Middle no Wi-Fi: como funciona e como se proteger",
-      desc: "Entenda o MITM em redes Wi-Fi, sinais comuns e medidas práticas para evitar interceptação de tráfego.",
-      category: "Wi-Fi",
-      tags: ["mitm", "wifi", "seguranca"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/ataque-man-in-the-middle-wifi.html"
-    },
-    {
-      title: "Rogue Access Point: quando o Wi-Fi é uma armadilha",
-      desc: "Como APs falsos enganam, como identificar e como se proteger em locais públicos.",
-      category: "Wi-Fi",
-      tags: ["rogue", "wifi", "seguranca"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/rogue-access-point.html"
-    },
-    {
-      title: "Wi-Fi falso (Evil Twin): como evitar redes clonadas",
-      desc: "Como o Evil Twin engana, quais sinais observar e boas práticas em Wi-Fi público.",
-      category: "Wi-Fi",
-      tags: ["evil twin", "wifi", "golpe"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/wifi-falso-evil-twin.html"
-    },
-
-    // ====== Roteadores
-    {
-      title: "Ataque no roteador: troca de DNS e como identificar",
-      desc: "O que acontece quando alteram seu DNS no roteador e como checar, corrigir e impedir reincidência.",
-      category: "Roteadores",
-      tags: ["dns", "roteador", "hijacking"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/ataque-roteador-troca-dns.html"
-    },
-    {
-      title: "Como funciona um roteador: guia completo",
-      desc: "WAN/LAN, NAT, DHCP, DNS, firewall e boas práticas para configuração segura.",
-      category: "Roteadores",
-      tags: ["roteador", "nat", "dhcp"],
-      minutes: "12–18 min",
-      dateISO: "2026-02-18",
-      url: "artigos/como-funciona-um-roteador-guia-completo.html"
-    },
-
-    // ====== Golpes / Fraudes
-    {
-      title: "Como funciona o golpe do suporte falso",
-      desc: "Do contato inicial ao ‘acesso remoto’: como os golpistas operam e como bloquear a abordagem.",
-      category: "Golpes",
-      tags: ["suporte falso", "engenharia social", "acesso remoto"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/como-funciona-o-golpe-do-suporte-falso.html"
-    },
-    {
-      title: "Golpe do boleto alterado em e-mail corporativo",
-      desc: "Como a fraude acontece, sinais práticos e o que validar antes de pagar para evitar prejuízo.",
-      category: "Golpes",
-      tags: ["boleto", "email", "fraude"],
-      minutes: "9–13 min",
-      dateISO: "2026-02-18",
-      url: "artigos/golpe-boleto-alterado-email-corporativo.html"
-    },
-    {
-      title: "Golpe do boleto falso: como identificar e evitar",
-      desc: "Sinais de boleto fraudado, validações essenciais e cuidados na hora do pagamento.",
-      category: "Golpes",
-      tags: ["boleto", "fraude", "pagamento"],
-      minutes: "9–13 min",
-      dateISO: "2026-02-18",
-      url: "artigos/golpe-do-boleto-falso.html"
-    },
-    {
-      title: "Golpe do Pix agendado: como funciona e como se proteger",
-      desc: "Entenda a engenharia do golpe e como confirmar transferências sem cair em pressão.",
-      category: "Golpes",
-      tags: ["pix", "fraude", "urgencia"],
-      minutes: "8–12 min",
-      dateISO: "2026-02-18",
-      url: "artigos/golpe-pix-agendado.html"
-    },
-    {
-      title: "Golpe do QR Code falso: o risco escondido no ‘escaneie aqui’",
-      desc: "Como QR Codes maliciosos levam a links/pagamentos falsos e como validar antes de abrir.",
-      category: "Golpes",
-      tags: ["qrcode", "links", "pagamento"],
-      minutes: "8–12 min",
-      dateISO: "2026-02-18",
-      url: "artigos/golpe-qr-code-falso.html"
-    },
-    {
-      title: "SIM Swap: o golpe que toma seu número e suas contas",
-      desc: "Como acontece a troca de chip, sinais de alerta e como se blindar com operadora e 2FA.",
-      category: "Golpes",
-      tags: ["sim swap", "2fa", "contas"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/sim-swap.html"
-    },
-
-    // ====== Malware / Acesso remoto
-    {
-      title: "Invasão via TeamViewer: como acontece e como bloquear",
-      desc: "Acesso remoto pode virar armadilha: sinais, prevenção e o que fazer se alguém já acessou.",
-      category: "Dispositivos",
-      tags: ["teamviewer", "acesso remoto", "seguranca"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/invasao-via-teamviewer.html"
-    },
-    {
-      title: "Malware Infostealer: o que é e como se proteger",
-      desc: "Como ladrões de credenciais atuam, principais vetores e como reduzir risco no dia a dia.",
-      category: "Malware",
-      tags: ["infostealer", "malware", "senhas"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/malware-infostealer.html"
-    },
-    {
-      title: "O que é ransomware?",
-      desc: "Como funciona o sequestro de arquivos, prevenção e o que fazer se for vítima.",
-      category: "Malware",
-      tags: ["ransomware", "backup", "golpe"],
-      minutes: "10–16 min",
-      dateISO: "2026-02-18",
-      url: "artigos/o-que-e-ransomware.html"
-    },
-
-    // ====== Contas / Sessão / Vazamentos
-    {
-      title: "Session hijacking: como sua conta pode cair sem roubar a senha",
-      desc: "Cookies e sessão: como atacantes aproveitam e como você reduz o risco de captura.",
-      category: "Contas",
-      tags: ["sessao", "cookies", "contas"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/session-hijacking.html"
-    },
-    {
-      title: "Vazamento de dados: o que fazer (passo a passo)",
-      desc: "Checklist prático para agir rápido: trocas de senha, 2FA, alertas e monitoramento.",
-      category: "Contas",
-      tags: ["vazamento", "senhas", "2fa"],
-      minutes: "10–14 min",
-      dateISO: "2026-02-18",
-      url: "artigos/vazamento-de-dados-o-que-fazer.html"
-    }
+    // novos arquivos da sua lista (com metadata segura)
+    { title:"Ataque Man-in-the-Middle no Wi-Fi", desc:"Como o MITM acontece e como se proteger em redes Wi-Fi.", category:"Wi-Fi", tags:["mitm","wifi","segurança"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/ataque-man-in-the-middle-wifi.html" },
+    { title:"Ataque no roteador: troca de DNS", desc:"DNS alterado no roteador: sinais, correção e prevenção.", category:"Roteadores", tags:["dns","roteador","hijacking"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/ataque-roteador-troca-dns.html" },
+    { title:"Como funciona a internet: do zero até a sua casa", desc:"O caminho do tráfego: provedor, backbone, roteamento e Wi-Fi.", category:"IP e Rede", tags:["internet","rede","provedor"], minutes:"12–18 min", dateISO:"2026-02-18", url:"artigos/como-funciona-a-internet-do-zero-ate-sua-casa.html" },
+    { title:"Como funciona o golpe do suporte falso", desc:"Da abordagem ao acesso remoto: como bloquear e reagir.", category:"Golpes", tags:["suporte falso","acesso remoto","engenharia social"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/como-funciona-o-golpe-do-suporte-falso.html" },
+    { title:"Como funciona um roteador: guia completo", desc:"WAN/LAN, NAT, DHCP, DNS, firewall e boas práticas.", category:"Roteadores", tags:["roteador","nat","dhcp"], minutes:"12–18 min", dateISO:"2026-02-18", url:"artigos/como-funciona-um-roteador-guia-completo.html" },
+    { title:"DNS: guia completo (resolução, cache, DoH e DNSSEC)", desc:"DNS do básico ao avançado: onde falha e como proteger.", category:"IP e Rede", tags:["dns","doh","dnssec"], minutes:"12–18 min", dateISO:"2026-02-18", url:"artigos/dns-guia-completo-resolucao-cache-doh-dnssec.html" },
+    { title:"DNS hijacking: o que é e como se proteger", desc:"Quando o DNS é desviado e você cai em páginas falsas.", category:"IP e Rede", tags:["dns","hijacking","golpes"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/dns-hijacking.html" },
+    { title:"Golpe: boleto alterado em e-mail corporativo", desc:"Como a fraude acontece e o que validar antes de pagar.", category:"Golpes", tags:["boleto","email","fraude"], minutes:"9–13 min", dateISO:"2026-02-18", url:"artigos/golpe-boleto-alterado-email-corporativo.html" },
+    { title:"Golpe do boleto falso", desc:"Sinais práticos e validações essenciais no pagamento.", category:"Golpes", tags:["boleto","fraude","pagamento"], minutes:"9–13 min", dateISO:"2026-02-18", url:"artigos/golpe-do-boleto-falso.html" },
+    { title:"Golpe do Pix agendado", desc:"Como funciona e como confirmar sem cair em pressão.", category:"Golpes", tags:["pix","fraude","urgência"], minutes:"8–12 min", dateISO:"2026-02-18", url:"artigos/golpe-pix-agendado.html" },
+    { title:"Golpe do QR Code falso", desc:"QR Codes maliciosos: links/pagamentos falsos e prevenção.", category:"Golpes", tags:["qrcode","links","pagamento"], minutes:"8–12 min", dateISO:"2026-02-18", url:"artigos/golpe-qr-code-falso.html" },
+    { title:"Invasão via TeamViewer", desc:"Acesso remoto como armadilha: prevenção e resposta.", category:"Dispositivos", tags:["teamviewer","acesso remoto","segurança"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/invasao-via-teamviewer.html" },
+    { title:"Malware Infostealer", desc:"Como roubam senhas e cookies e como reduzir risco.", category:"Malware", tags:["infostealer","malware","senhas"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/malware-infostealer.html" },
+    { title:"O que é DHCP?", desc:"DHCP na prática: entrega de IP, falhas comuns e diagnóstico.", category:"IP e Rede", tags:["dhcp","ip","rede"], minutes:"8–12 min", dateISO:"2026-02-18", url:"artigos/o-que-e-dhcp.html" },
+    { title:"O que é DNS?", desc:"Como o DNS funciona e como melhorar segurança e privacidade.", category:"IP e Rede", tags:["dns","internet","resolução"], minutes:"8–12 min", dateISO:"2026-02-18", url:"artigos/o-que-e-dns.html" },
+    { title:"O que é IPv6?", desc:"O que muda no IPv6 e por que ele existe.", category:"IP e Rede", tags:["ipv6","ipv4","internet"], minutes:"9–13 min", dateISO:"2026-02-18", url:"artigos/o-que-e-ipv6.html" },
+    { title:"O que é latência?", desc:"Por que o ping aumenta e como melhorar (Wi-Fi/rota/ISP).", category:"IP e Rede", tags:["latência","ping","rede"], minutes:"8–12 min", dateISO:"2026-02-18", url:"artigos/o-que-e-latencia.html" },
+    { title:"O que é NAT?", desc:"NAT/CGNAT e impactos em portas, jogos e câmeras.", category:"IP e Rede", tags:["nat","cgnat","roteador"], minutes:"9–13 min", dateISO:"2026-02-18", url:"artigos/o-que-e-nat.html" },
+    { title:"O que é packet loss?", desc:"Perda de pacotes: causas, como medir e o que fazer.", category:"IP e Rede", tags:["packet loss","rede","conexão"], minutes:"8–12 min", dateISO:"2026-02-18", url:"artigos/o-que-e-packet-loss.html" },
+    { title:"O que é ransomware?", desc:"Sequestro de arquivos: prevenção, backup e resposta.", category:"Malware", tags:["ransomware","backup","golpe"], minutes:"10–16 min", dateISO:"2026-02-18", url:"artigos/o-que-e-ransomware.html" },
+    { title:"Rogue Access Point", desc:"Wi-Fi armadilha: como identificar AP falso e se proteger.", category:"Wi-Fi", tags:["rogue ap","wifi","segurança"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/rogue-access-point.html" },
+    { title:"Session hijacking", desc:"Sequestro de sessão: cookies, riscos e mitigação.", category:"Contas", tags:["sessão","cookies","contas"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/session-hijacking.html" },
+    { title:"SIM Swap", desc:"Golpe que toma seu número e suas contas: como se blindar.", category:"Golpes", tags:["sim swap","2fa","contas"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/sim-swap.html" },
+    { title:"Vazamento de dados: o que fazer", desc:"Checklist: trocas de senha, 2FA, alertas e monitoramento.", category:"Contas", tags:["vazamento","senhas","2fa"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/vazamento-de-dados-o-que-fazer.html" },
+    { title:"Wi-Fi falso (Evil Twin)", desc:"Como evitar redes clonadas em locais públicos.", category:"Wi-Fi", tags:["evil twin","wifi","golpe"], minutes:"10–14 min", dateISO:"2026-02-18", url:"artigos/wifi-falso-evil-twin.html" }
   ];
 
   // Util
@@ -773,11 +474,23 @@
   const countTotal = $("countTotal");
   const countShown = $("countShown");
 
-  function formatBR(iso){
-    const [y,m,d] = iso.split("-").map(Number);
-    const dd = String(d).padStart(2,"0");
-    const mm = String(m).padStart(2,"0");
-    return `${dd}/${mm}/${y}`;
+  // ✅ Agora aceita YYYY-MM-DD e DD/MM/YYYY (não derruba a página)
+  function formatBR(dateStr){
+    if(!dateStr) return "—";
+
+    // já está em BR?
+    if(/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) return dateStr;
+
+    // ISO?
+    if(/^\d{4}-\d{2}-\d{2}$/.test(dateStr)){
+      const [y,m,d] = dateStr.split("-").map(Number);
+      const dd = String(d).padStart(2,"0");
+      const mm = String(m).padStart(2,"0");
+      return `${dd}/${mm}/${y}`;
+    }
+
+    // fallback seguro (não quebra)
+    return String(dateStr);
   }
 
   function buildCategories(){
@@ -790,10 +503,11 @@
     });
   }
 
+  // ✅ Copiar link com domínio atual (segurancatech.com.br / github pages / etc.)
   function normalizeUrl(u){
-    // mantém absoluto; relativo vira absoluto pelo base do site
     if(/^https?:\/\//i.test(u)) return u;
-    return `https://mickaelfelipe2025.github.io/segurancatech/${u.replace(/^\/+/,"")}`;
+    const base = (location && location.origin) ? location.origin : "https://segurancatech.com.br";
+    return `${base}/${String(u).replace(/^\/+/,"")}`;
   }
 
   function render(){
@@ -803,12 +517,10 @@
 
     let list = ARTIGOS.slice();
 
-    // filtro categoria
     if(selectedCat !== "all"){
       list = list.filter(a => a.category === selectedCat);
     }
 
-    // busca
     if(term){
       list = list.filter(a => {
         const hay = `${a.title} ${a.desc} ${a.category} ${(a.tags||[]).join(" ")}`.toLowerCase();
@@ -816,18 +528,20 @@
       });
     }
 
-    // ordenação
     if(mode === "new"){
-      list.sort((a,b)=> (b.dateISO.localeCompare(a.dateISO)) || a.title.localeCompare(b.title,"pt-BR"));
+      // ✅ Ordena por data sem quebrar: usa string ISO quando possível; senão empurra pro final
+      list.sort((a,b)=>{
+        const da = (String(a.dateISO||"").match(/^\d{4}-\d{2}-\d{2}$/) ? a.dateISO : "0000-00-00");
+        const db = (String(b.dateISO||"").match(/^\d{4}-\d{2}-\d{2}$/) ? b.dateISO : "0000-00-00");
+        return (db.localeCompare(da)) || a.title.localeCompare(b.title,"pt-BR");
+      });
     }else{
       list.sort((a,b)=> a.title.localeCompare(b.title,"pt-BR"));
     }
 
-    // stats
     countTotal.textContent = String(ARTIGOS.length);
     countShown.textContent = String(list.length);
 
-    // render cards
     grid.innerHTML = "";
 
     if(list.length === 0){
@@ -863,15 +577,14 @@
       grid.appendChild(el);
     });
 
-    // Copiar link (corrigido: funciona com URL relativa e absoluta)
-    grid.querySelectorAll("button[data-copy]").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const u = btn.getAttribute("data-copy") || "";
+    grid.querySelectorAll("button[data-copy]").forEach(b => {
+      b.addEventListener("click", async () => {
+        const u = b.getAttribute("data-copy") || "";
         const full = normalizeUrl(u);
         try{
           await navigator.clipboard.writeText(full);
-          btn.textContent = "✅ Link copiado";
-          setTimeout(()=> btn.textContent = "Copiar link", 1400);
+          b.textContent = "✅ Link copiado";
+          setTimeout(()=> b.textContent = "Copiar link", 1400);
         }catch(e){
           prompt("Copie o link:", full);
         }
@@ -879,12 +592,26 @@
     });
   }
 
-  buildCategories();
-  render();
-
-  q.addEventListener("input", render);
-  cat.addEventListener("change", render);
-  sort.addEventListener("change", render);
+  // ✅ Nunca deixa a página morrer em silêncio: se algo der ruim, mostra erro no console
+  try{
+    buildCategories();
+    render();
+    q.addEventListener("input", render);
+    cat.addEventListener("change", render);
+    sort.addEventListener("change", render);
+  }catch(err){
+    console.error("ERRO AO RENDERIZAR ARTIGOS:", err);
+    // fallback visual
+    const g = document.getElementById("grid");
+    if(g){
+      g.innerHTML = `
+        <div class="empty">
+          <h3>Ops! Houve um erro ao carregar os artigos.</h3>
+          <p>Abra o console (F12) para ver o erro. Depois me mande o texto em vermelho que eu corrijo em 1 minuto.</p>
+        </div>
+      `;
+    }
+  }
 </script>
 </body>
 </html>
